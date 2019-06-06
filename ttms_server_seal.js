@@ -13,13 +13,17 @@ const {
 //解析cookie，下发session
 const {
 	send,
-	server,
+	app,
+	router,
 	sessionStart,
 	exit,
 	judge,
 	path
 } = require('./public/http.js'); //解析网络请求
-server.listen(965);
+app.listen(965);
+
+let server = router;
+app.use('/ttmsSeal',server);
 
 server.get('/playNear',async function(req,res){
 	let sqlString =`SELECT distinct play.play_id, play.play_name, play.play_director, play.play_performer,

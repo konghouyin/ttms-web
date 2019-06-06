@@ -5,6 +5,7 @@ const request = require("request"); //发送网路请求
 
 
 const server = express(); //使用express框架
+const router = express.Router();//创建路由
 
 server.use(cookieParser('sadssdasdasdasd'));
 //为cookie添加签名，防篡改-中间件
@@ -240,7 +241,8 @@ function path(add, qs) {
 
 module.exports = {
 	send: send,
-	server: server,
+	app: server,
+	router:router,
 	sessionStart: sessionStart,
 	exit: exit,
 	judge: judge,

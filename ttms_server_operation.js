@@ -13,15 +13,17 @@ const {
 //解析cookie，下发session
 const {
 	send,
-	server,
+	app,
+	router,
 	sessionStart,
 	exit,
 	judge,
 	path
 } = require('./public/http.js'); //解析网络请求
-server.listen(510);
+app.listen(510);
 
-
+let server = router;
+app.use('/ttmsOperation',server);
 
 server.get('/new', async function(req, res) {
 	var obj = ranslateCookie(req);

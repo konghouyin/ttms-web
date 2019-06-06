@@ -7,12 +7,16 @@ const pool = sql.createPool(sqlConfig);
 //创建数据库连接池
 const cookieStep = require('./public/cookie_step.js').cookieStep;
 //加密下发cookie
+
 const {
 	send,
-	server
-} = require('./public/http.js');
-//解析网络请求
-server.listen(517);
+	app,
+	router
+} = require('./public/http.js'); //解析网络请求
+app.listen(517);
+
+let server = router;
+app.use('/ttmsLogin',server);
 
 
 server.post('/reg', async function(req, res) {
