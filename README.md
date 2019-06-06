@@ -870,6 +870,7 @@ url解析基础信息：验证url合法性---->本地798爬虫---->发送
          "msg": "查询成功！",
          "data": [
              {
+                 "seat_id":1,
                  "seat_row": 0,
                  "seat_col": 0,
                  "seat_status": 1
@@ -1060,3 +1061,101 @@ url解析基础信息：验证url合法性---->本地798爬虫---->发送
      ```
 
      
+
+#### 2.查询某一剧目近5天的演出计划
+
+- url：/planList
+
+- 端口：965
+
+- 方法：GET
+
+- 参数：{id:2}//输入剧目id
+
+- 返回
+
+     ```json
+     {
+         "msg": "查询成功！",
+         "data": [
+             {
+                 "plan_id": 12,
+                 "room_id": 33,
+                 "plan_startime": "2019-06-06T12:24:12.000Z",
+                 "plan_money": 25
+             },
+             {
+                 "plan_id": 13,
+                 "room_id": 33,
+                 "plan_startime": "2019-06-09T12:24:12.000Z",
+                 "plan_money": 19.2
+             },
+             {
+                 "plan_id": 14,
+                 "room_id": 33,
+                 "plan_startime": "2019-06-06T12:24:12.000Z",
+                 "plan_money": 25
+             }
+         ],
+         "style": 1
+     }
+     
+     {
+         "msg": "没有查询到此电影！",
+         "style": 0
+     }
+     
+     {
+         "msg": err,
+         "style": -2
+     }
+     //数据库异常
+     ```
+
+     
+
+#### 3.查询某一演出计划的售票情况
+
+- url：/ticketList
+
+- 端口：965
+
+- 方法：GET
+
+- 参数：{id:2}//输入演出计划id
+
+- 返回
+
+     ```json
+     {
+         "msg": "查询成功！",
+         "dataAll": [
+             {
+                 "ticket_id": 590,
+                 "seat_id": 1275
+             },
+             
+         ],
+         "dataSeal": [
+             {
+                 "ticket_id": 634,
+                 "seat_id": 1319
+             }
+         ],
+         "style": 1
+     }
+     
+     {
+         "msg": "没有查询到电影的演出计划！",
+         "style": 0
+     }
+     
+     {
+         "msg": err,
+         "style": -2
+     }
+     //数据库异常
+     ```
+
+     
+

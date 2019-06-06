@@ -101,4 +101,75 @@ server.get('/planList',async function(req,res){
 //查询某一个电影近5天的演出计划
 
 
-
+server.get('/ticketList',async function(req,res){
+	let obj = req.obj;
+	let judgeOptions = {
+		id: {
+			type: "int",
+			length: 32
+		}
+	}
+	let judgeCtrl = judge(judgeOptions, obj);
+	if (judgeCtrl.style == 0) {
+		send(res, {
+			"msg": judgeCtrl.message,
+			"style": -1
+		})
+		return;
+	}
+	//判断参数合法性
+	let sqlString =sql.select(['plan_id'], 'plan', 'plan_id=' + sql.escape(obj.id));
+	try {
+		var selectAns = await sql.sever(pool, sqlString);
+	} catch (err) {
+		send(res, {
+			"msg": err,
+			"style": -2
+		});
+		return;
+	}
+	if(selectAns.length!=1){
+		send(res, {
+			"msg": "没有查询到电影的演出计划！",
+			"style": 0
+		});
+		return;
+	}
+	
+	sqlString = sql.select(['ticket_id', 'seat_id'], 'ticket','plan_id=' + sql.escape(obj.id));
+	//查询所有票
+	try {
+		var selectAnsAll = await sql.sever(pool, sqlString);
+	} catch (err) {
+		send(res, {
+			"msg": err,
+			"style": -2
+		});
+		return;
+	}
+	
+	
+	
+	sqlString =sql.select(['ticket_id', 'seat_id'], 'ticket','plan_id=' + sql.escape(obj.id)+
+	' and (ticket_status=1 or (ticket_status=2 and ticket_time > date_sub(NOW(),interval 10 minute)))');
+	//查询已卖出的票
+	try {
+		var selectAnsSeal = await sql.sever(pool, sqlString);
+	} catch (err) {
+		send(res, {
+			"msg": err,
+			"style": -2
+		});
+		return;
+	}
+	
+	
+	send(res, {
+		"msg": "查询成功！",
+		"dataAll": selectAnsAll,
+		"dataSeal":selectAnsSeal,
+		"style": 1
+	});
+	
+})
+//查询某一个演出计划的演出票

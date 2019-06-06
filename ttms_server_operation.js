@@ -537,7 +537,7 @@ server.get("/roomMain", async function(req, res) {
 		return;
 	}
 
-	let sqlString = sql.select(['seat_row', 'seat_col', 'seat_status'], 'seat', 'seat_status<>-2 and room_id=' + sql.escape(
+	let sqlString = sql.select(['seat_id','seat_row', 'seat_col', 'seat_status'], 'seat', 'seat_status<>-2 and room_id=' + sql.escape(
 		obj.id));
 	try {
 		var selectAns = await sql.sever(pool, sqlString);
