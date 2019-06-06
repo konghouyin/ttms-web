@@ -859,7 +859,7 @@ server.post("/planAdd", async function(req, res) {
 
 })
 
-server.get('/planGet',function(req,res){
+server.get('/planGet',async function(req,res){
 	let obj = req.obj;
 	let judgeOptions = {
 		time :{
@@ -875,6 +875,24 @@ server.get('/planGet',function(req,res){
 		return;
 	}
 	//参数格式正确性
+	
+	sqlStringSelect = sql.select(['*'], 'plan', 'Date(plan_startime) = Date('+sql.escape(obj.time)+')');
+	try {
+		var selectAns = await sql.sever(pool, sqlStringSelect);
+	} catch (err) {
+		send(res, {
+			"msg": err,
+			"style": -2
+		});
+		return;
+	}
+	
+	send(res, {
+		"msg": "查询成功！",
+		"data":selectAns,
+		"style": 1
+	});
+	
 })
 
 
