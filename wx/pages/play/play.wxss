@@ -71,7 +71,7 @@ page {
 	display: inline-block;
 	margin: 10rpx 2.5vw;
 	height: 60rpx;
-	line-height: 60rpx;
+	line-height: 55rpx;
 	background-color: rgba(200, 200, 200, 0.4);
 	color: #fff;
 	border: 1rpx solid #aaa;
@@ -114,6 +114,7 @@ page {
 .play-item view{
     line-height: 80rpx;
     text-align: center;
+    min-width: 80rpx;
 }
 
 .play-item .play-time{
@@ -133,7 +134,7 @@ page {
 
 .play-item button{
     height: 50rpx;
-    line-height: 50rpx;
+    line-height: 46rpx;
     font-size: 26rpx;
     border:3rpx solid rgb(245,183,31);
     color: rgb(245,183,31);
@@ -141,8 +142,15 @@ page {
     outline: none;
     margin: 15rpx 0;
     font-weight: bold;
+    padding:0rpx 23rpx;
 }
 
 button::after {
   border: none;
+}
+
+.noshow{
+	color: #999;
+	text-align: center;
+	margin: 20rpx;
 }

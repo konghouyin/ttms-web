@@ -8,7 +8,7 @@ Page({
 		this.setData({
 			timeNow: num,
 		})
-		//触发筛选
+		screen();//触发筛选
 	},
 	
 	/**
@@ -27,57 +27,8 @@ Page({
 		dayList: [],
 		timeNow: 0,
 		//当前查看的选择时间
-		playList: [{
-			timestart: "20:45",
-			place: "全景声MAX厅",
-			language: "国语",
-			money: 26.9
-		}, {
-			timestart: "20:45",
-			place: "全景声MAX厅",
-			language: "国语",
-			money: 26.9
-		}, {
-			timestart: "20:45",
-			place: "全景声MAX厅",
-			language: "国语",
-			money: 26.9
-		}, {
-			timestart: "20:45",
-			place: "全景声MAX厅",
-			language: "国语",
-			money: 26.9
-		}, {
-			timestart: "20:45",
-			place: "全景声MAX厅",
-			language: "国语",
-			money: 26.9
-		}, {
-			timestart: "20:45",
-			place: "全景声MAX厅",
-			language: "国语",
-			money: 26.9
-		}, {
-			timestart: "20:45",
-			place: "全景声MAX厅",
-			language: "国语",
-			money: 26.9
-		}, {
-			timestart: "20:45",
-			place: "全景声MAX厅",
-			language: "国语",
-			money: 26.9
-		}, {
-			timestart: "20:45",
-			place: "全景声MAX厅",
-			language: "国语",
-			money: 26.9
-		}, {
-			timestart: "20:45",
-			place: "全景声MAX厅",
-			language: "国语",
-			money: 26.9
-		}]
+		playList: [],
+		showList:[]
 	},
 
 	/**
@@ -145,6 +96,17 @@ Page({
 		wx.navigateTo({
 			url: '/pages/main/main?id=' + idNow
 		})
+	},
+	showList(){
+		let arr =  this.playList.filter(function(data){
+			return data.data==pageObj.timeNow;
+		})
+		return [{
+			timestart:"1",
+			language:"1",
+			place:"1",
+			money:"1"
+		}];
 	}
 })
 
@@ -193,14 +155,14 @@ function initDay() {
 	arr[4].message = "";
 
 	for (var i = 0; i < 5; i++) {
-		arr[i].data = now.getUTCDate()+1;
+		arr[i].data = now.getUTCDay()+1;
 		arr[i].day = now.format("MM月dd日");
 		now.setDate(now.getDate() + 1);
 	}
 	arr[0].style = "active";
 	pageObj.setData({
 		dayList: arr,
-		timeNow:new Date().getUTCDate()+1
+		timeNow:new Date().getUTCDay()+1
 	})
 }
 
@@ -240,8 +202,28 @@ function getPlan(id) {
 		},
 		success(res) {
 			let data = res.data.data;
-			console.log(data);
+			pageObj.setData({
+				playList: data,
+			})
+			screen();
 		}
 	})
 }
 //获取演出计划
+
+function screen(){
+	let back = [];
+	let arr = pageObj.__data__.playList.filter(function(child){
+		return child.data == pageObj.__data__.timeNow;
+	})
+	arr.forEach(function(child){
+		back.push({
+			timestart:new Date(child.plan_startime).format("hh:mm"),
+			place:child.room_name,
+			money:child.plan_money
+		})
+	})
+	pageObj.setData({
+		showList: back,
+	})
+}

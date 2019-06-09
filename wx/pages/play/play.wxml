@@ -20,7 +20,8 @@
 	<text wx:for="{{dayList}}" wx:for-item="each" wx:for-index="index" wx:key="{{index}}" data-id="{{each.data}}" class="{{each.data==timeNow?'active':''}}" bindtap='changeDay'>{{each.message}} {{each.day}}</text>
 </scroll-view>
 <view class="play">
-    <view wx:for="{{playList}}" wx:for-item="each" wx:for-index="index" wx:key="{{index}}" class="play-item" wx:if="{{each.data==timeNow}}">
+	<view class="noshow" wx:if="{{showList.length==0}}">暂时没有演出计划</view>
+    <view wx:for="{{showList}}" wx:for-item="each" wx:for-index="index" wx:key="{{index}}" class="play-item">
         <view class='play-time'>{{each.timestart}}</view>
         <view class='play-language'>{{each.language}}</view>
         <view class='play-place'>{{each.place}}</view>
