@@ -1,0 +1,82 @@
+/* pages/search/search.wxss */
+page {
+  background-color: #eee;
+}
+
+.search-template{
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 3rpx solid #ccc;
+}
+
+.find-movie {
+  width: 80vw;
+  height: 60rpx;
+  margin: 20rpx 5vw;
+  border: 3rpx solid #ccc;
+  border-radius: 10rpx;
+  background-color: #fff;
+  padding-left: 60rpx;
+  box-sizing: border-box;
+  font-size: 30rpx;
+  margin-right:20rpx;
+}
+
+.input-placeholder {
+  color: #aaa;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  margin-top: -20rpx;
+  left: 50rpx;
+  background-size: 100%;
+  width: 40rpx;
+  height: 40rpx;
+}
+.cancel{
+    font-size: 34rpx;
+    color:#f40;
+    line-height: 90rpx;
+}
+
+.movie-list {
+    display: flex;
+    flex-direction: row;
+    font-size: 30rpx;
+    border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+    padding: 25rpx 0;
+}
+
+.movie-list .movie-hb {
+    width: 22vw;
+    height: 200rpx;
+    margin: 0 0 0 4vw;
+}
+
+.movie-list view {
+    width: 74vw;
+    margin: 0 0 0 2vw;
+    padding: 3rpx 0;
+}
+
+.movie-list .movie-name {
+    font-size: 40rpx;
+}
+
+.movie-list .movie-type {
+    color: #999;
+}
+
+.movie-list .movie-actor {
+    color: #666;
+    width: 60vw;
+    text-overflow:ellipsis;  
+    white-space: nowrap;
+    overflow: hidden;
+}
+

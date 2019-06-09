@@ -1,0 +1,50 @@
+<!--pages/main/main.wxml-->
+<view class='back-image'></view>
+<view class="wrap">
+	<view class='movie-message'>
+		<image class="movie-hb" src="{{item.pic}}"></image>
+		<view class='message'>
+			<view class="movie-name">{{item.name}}</view>
+			<view class="movie-type">{{item.type}}</view>
+			<view class="movie-time">{{item.country+' / '+item.time}}</view>
+			<view class="movie-actor">演员： {{item.actor}}</view>
+			<view class="movie-style">{{item.style}}</view>
+		</view>
+	</view>
+</view>
+<view class="part">
+	<text class="title">简介</text>
+	<text class="{{synopsised}} index-message" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;{{synopsis}}</text>
+</view>
+<view class="part2">
+	<text class="title">主要演职人员</text>
+	<scroll-view scroll-x class="show-list">
+		<view class="person-each" wx:for="{{person}}" wx:for-item="item">
+			<image class="person-pic" src="{{item.img}}"></image>
+			<view class="person-name">{{item.name}}</view>
+			<view class="person-type">{{item.role}}</view>
+		</view>
+	</scroll-view>
+</view>
+<view class="part2">
+	<text class="title">视频和剧照</text>
+	<scroll-view scroll-x class="show-list">
+		<view class="movie-each" wx:for="{{movie}}" wx:for-item="item">
+			<image class="vidoe-play" src="/image/video_play.png"></image>
+			<image class="person-pic" src="{{item.img}}"></image>
+		</view>
+		<view class="pic-each" wx:for="{{pic}}" wx:for-item="item">
+			<image class="person-pic" src="{{item.img}}"></image>
+		</view>
+	</scroll-view>
+</view>
+<view class="part">
+	<text class="title">评论</text>
+	<view class="comment-each" wx:for="{{comment}}" wx:for-item="item">
+		<view style="overflow: hidden;">
+			<view class="comment-name">{{item.name}}</view>
+			<view class="comment-time">{{item.time[0]+" "+item.time[1]}}</view>
+		</view>
+		<view class="comment-message">{{item.message}}</view>
+	</view>
+</view>

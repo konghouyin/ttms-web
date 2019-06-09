@@ -1,0 +1,17 @@
+<!--pages/search/search.wxml-->
+<view class="search-template">
+    <image class="search-icon" src='/image/search.png'></image>
+    <input class="find-movie" maxlength="30" placeholder="找电影" confirm-type="search" bindinput="searchinput" focus="true"></input>
+    <text class="cancel" bindtouchend='backIndex'>取消</text>
+</view>
+
+<view class="movie-list" wx:for="{{searchMovie}}" wx:for-item="item" data-id="{{item.id}}" bindtap="play">
+    <image class="movie-hb" src="{{item.pic}}"></image>
+    <view class='message'>
+        <view class="movie-name">{{item.name}}</view>
+        <view class="movie-time">播放时长
+            <text style="color:rgb(245,183,31)">{{item.time}}</text> 分钟</view>
+        <view class="movie-actor">{{item.actor}}</view>
+        <view class="movie-type">{{item.type}}</view>
+    </view>
+</view>

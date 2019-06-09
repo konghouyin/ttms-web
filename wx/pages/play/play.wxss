@@ -1,0 +1,148 @@
+/* pages/play/play.wxss */
+page {
+    background-color: #fff;
+}
+
+.back-image {
+	background-image: url("https://img1.doubanio.com/view/photo/m/public/p2555859678.webp");
+	width: 100vw;
+	height: 400rpx;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	filter: blur(30rpx);
+	transform: scale(1.3);
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+	background-color: #000;
+}
+
+.wrap {
+	background-color: rgba(0, 0, 0, 0.5);
+	overflow: hidden;
+	padding: 20rpx 0 10rpx 0;
+}
+
+
+.movie-hb {
+	width: 30vw;
+	height: 300rpx;
+	margin: 0 25rpx;
+}
+
+.movie-message {
+	display: flex;
+	flex-direction: row;
+	color: #fff;
+	padding-bottom: 10rpx;
+	font-size: 30rpx;
+}
+
+.message {
+	width: 60vw;
+}
+
+.message>view {
+	margin: 10rpx 0;
+}
+
+.movie-name {
+	font-size: 40rpx;
+}
+
+.movie-actor {
+	isplay: -webkit-box;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+
+.btn {
+	display: flex;
+	flex-direction: row;
+}
+
+.btns>button {
+	width: 45vw;
+	display: inline-block;
+	margin: 10rpx 2.5vw;
+	height: 60rpx;
+	line-height: 60rpx;
+	background-color: rgba(200, 200, 200, 0.4);
+	color: #fff;
+	border: 1rpx solid #aaa;
+	font-size: 27rpx;
+	border-radius: 6rpx;
+}
+
+.day-choose {
+    height:80rpx;
+	border-bottom: 4rpx solid #ccc;
+	border-top: 4rpx solid #ccc;
+	background-color: #fff;
+    white-space: nowrap;
+	display: flex;
+    padding:0 20rpx;
+}
+
+.day-choose text {
+    height:70rpx;
+    line-height: 80rpx;
+	padding: 10rpx 20rpx;
+    font-size: 34rpx;
+}
+
+
+.day-choose .active{
+    color:#f40;
+    border-bottom:3rpx solid #f40;
+}
+
+.play-item{
+    border-bottom: 3rpx solid #ccc;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    height:80rpx;
+    padding: 10rpx;
+}
+
+.play-item view{
+    line-height: 80rpx;
+    text-align: center;
+}
+
+.play-item .play-time{
+    font-size: 40rpx;
+}
+
+.play-item .play-language,
+.play-item .play-place{
+    font-size: 26rpx;
+    color:#aaa;
+}
+
+
+.play-item .play-money{
+    color:#f40;
+}
+
+.play-item button{
+    height: 50rpx;
+    line-height: 50rpx;
+    font-size: 26rpx;
+    border:3rpx solid rgb(245,183,31);
+    color: rgb(245,183,31);
+    border-radius: 6rpx;
+    outline: none;
+    margin: 15rpx 0;
+    font-weight: bold;
+}
+
+button::after {
+  border: none;
+}

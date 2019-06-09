@@ -1,0 +1,91 @@
+/* pages/index/index.wxss */
+
+page {
+    background-color: #eee;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    color: transparent;
+}
+
+.search-template {
+    position: relative;
+    overflow: hidden;
+}
+
+.find-movie {
+    width: 90vw;
+    height: 60rpx;
+    margin: 20rpx 5vw;
+    border: 3rpx solid #ccc;
+    border-radius: 10rpx;
+    background-color: #fff;
+    padding-left: 60rpx;
+    box-sizing: border-box;
+    font-size: 26rpx;
+}
+
+.input-placeholder {
+    color: #aaa;
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -20rpx;
+    left: 50rpx;
+    background-size: 100%;
+    width: 40rpx;
+    height: 40rpx;
+}
+
+.swiper-wrap {
+    height: 300rpx;
+}
+
+.swiper-item {
+    width: 100vw;
+}
+
+.swiper-item image {
+    width: 100vw;
+    height: 100%;
+}
+
+.movie-list {
+    display: flex;
+    flex-direction: row;
+    font-size: 30rpx;
+    border-top: 2px solid #ccc;
+    padding: 25rpx 0;
+}
+
+.movie-list .movie-hb {
+    width: 22vw;
+    height: 200rpx;
+    margin: 0 0 0 4vw;
+}
+
+.movie-list view {
+    width: 70vw;
+    margin: 0 0 0 2vw;
+    padding: 3rpx 0;
+}
+
+.movie-list .movie-name {
+    font-size: 40rpx;
+}
+
+.movie-list .movie-type {
+    color: #999;
+}
+
+.movie-list .movie-actor {
+    color: #666;
+    width: 60vw;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

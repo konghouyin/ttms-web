@@ -1,0 +1,30 @@
+<!--pages/play/play.wxml-->
+<view class='back-image'></view>
+<view class="wrap">
+	<view class='movie-message'>
+		<image class="movie-hb" src="{{item.pic}}"></image>
+		<view class='message'>
+			<view class="movie-name">{{item.name}}</view>
+			<view class="movie-type">{{item.type}}</view>
+			<view class="movie-time">{{item.country+' / '+item.time}}</view>
+			<view class="movie-actor">演员： {{item.actor}}</view>
+			<view class="movie-style">{{item.style}}</view>
+		</view>
+	</view>
+	<view class="btns">
+		<button>想看</button>
+		<button bindtap="main">了解更多</button>
+	</view>
+</view>
+<scroll-view scroll-x class="day-choose">
+	<text wx:for="{{dayList}}" wx:for-item="each" wx:for-index="index" wx:key="{{index}}" data-id="{{each.data}}" class="{{each.data==timeNow?'active':''}}" bindtap='changeDay'>{{each.message}} {{each.day}}</text>
+</scroll-view>
+<view class="play">
+    <view wx:for="{{playList}}" wx:for-item="each" wx:for-index="index" wx:key="{{index}}" class="play-item" wx:if="{{each.data==timeNow}}">
+        <view class='play-time'>{{each.timestart}}</view>
+        <view class='play-language'>{{each.language}}</view>
+        <view class='play-place'>{{each.place}}</view>
+        <view class='play-money'>￥{{each.money}}</view>
+        <button>购票</button>
+    </view>
+</view>

@@ -1,0 +1,42 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/main/main",
+        "pages/play/play",
+        
+        "pages/search/search"
+    ],
+    "window": {
+        "navigationBarBackgroundColor": "#000",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "星云剧院在线购票",
+        "backgroundColor": "#eeeeee",
+        "backgroundTextStyle": "dark",
+        "enablePullDownRefresh": true
+    },
+    "tabBar": {
+        "list": [
+            {
+                "pagePath": "pages/index/index",
+                "text": "电影",
+                "iconPath": "/image/movie.png",
+                "selectedIconPath": "/image/movie-a.png"
+            },
+            {
+                "pagePath": "pages/index/index",
+                "text": "扫一扫",
+                "iconPath": "/image/canema.png",
+                "selectedIconPath": "/image/canema-a.png"
+            },
+            {
+                "pagePath": "pages/index/index",
+                "text": "我的",
+                "iconPath": "/image/mine.png",
+                "selectedIconPath": "/image/mine-a.png"
+            }
+        ],
+        "color": "#333",
+        "selectedColor": "#f40"
+    },
+    "sitemapLocation": "sitemap.json"
+}
