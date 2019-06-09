@@ -521,6 +521,20 @@ server.get("/roomAll", async function(req, res) {
 
 server.get("/roomMain", async function(req, res) {
 	let obj = req.obj;
+	let judgeOptions = {
+		id: {
+			type: "int",
+			length: 32
+		}
+	}
+	let judgeCtrl = judge(judgeOptions, obj);
+	if (judgeCtrl.style == 0) {
+		send(res, {
+			"msg": judgeCtrl.message,
+			"style": -1
+		})
+		return;
+	}
 	let sqlStringSelect = sql.select(['room_id'], 'room', 'room_status<>-1 and room_id=' + sql.escape(obj.id));
 	try {
 		var selectAns = await sql.sever(pool, sqlStringSelect);
@@ -568,6 +582,20 @@ server.get("/roomMain", async function(req, res) {
 
 server.post("/roomDel", async function(req, res) {
 	let obj = req.obj;
+	let judgeOptions = {
+		id: {
+			type: "int",
+			length: 32
+		}
+	}
+	let judgeCtrl = judge(judgeOptions, obj);
+	if (judgeCtrl.style == 0) {
+		send(res, {
+			"msg": judgeCtrl.message,
+			"style": -1
+		})
+		return;
+	}
 	let sqlStringSelect = sql.select(['room_id'], 'room', 'room_status<>-1 and room_id=' + sql.escape(obj.id));
 	try {
 		var selectAns = await sql.sever(pool, sqlStringSelect);
@@ -770,6 +798,15 @@ server.post("/planAdd", async function(req, res) {
 			});
 			return;
 		}
+		if(new Date(child.startime)<new Date() ){
+			send(res, {
+				"msg": "list[" + index + "]已超过当前时间",
+				"style": -1
+			});
+			return;
+		}
+		
+		
 		roomArr.push(child.room);
 		playArr.push(child.play);
 	}

@@ -17,6 +17,8 @@
 
 - 公共：public
 - 登录注册：login
+- 运营：operation
+- 销售：sale
 
 ### 2.已安装的工具
 
@@ -35,7 +37,7 @@
 ├── README.md
 ├── node_module #安装工具
 ├── public #公共模块
-├── xxx_server.js #服务后台
+├── ttms_server_xxx.js #服务后台
 ├── package.json #项目配置文件
 └── package-lock.json #模块配置文件
 ```
@@ -207,7 +209,36 @@ sql.del("registryinformation","name='樊宗渤'");
 
 **警告：** 此接口不使用where参数会导致删除数据表，请谨慎使用。
 
+-----
 
+8. 数据库事务
+
+     ```js
+     let connect = await sql.handler(pool);
+     //从数据库连接池获取连接
+     try {
+     	await sql.stepsql(connect, sqlStringRoom);
+     	await connect.commit()
+     } catch (err) {
+     	await connect.rollback()
+     	send(res, {
+     		"msg": err,
+     		"style": -2
+     	});
+     	return;
+     } finally {
+     	connect.release()
+     }
+     ```
+
+     考虑到项目中，需要大量的联合插入操作。为保证数据库一致性，使用了数据库的事务操作。通过多层封装，实现数据库的的数据插入。
+
+     - 其中sql.handler：从数据库连接池获取连接，并启动事务，返回数据库连接。
+     - 其中sql.stepsql：查询详情语句处理事务的每一条查询，并通过promise返回具体的查询结果
+     - 通过try捕获stepsql抛出的异常，来判断数据库的每一条操作的正确性。
+     - 通过connect.commit()提交事务
+     - 通过connect.rollback()回滚事务
+     - 通过connect.release()关闭连接
 
 #### 2.项目配置文件
 
@@ -266,8 +297,7 @@ function path(add,qs)；
 
 1. sessionStart安全验证依据为session.style是否为1
 2. 退出登录，将session.style设置为0，同时cookie-style也设置为0
-
-
+3. judge函数可以校验，参数是否提交完整，数据类型是否符合要求（int,float,Array,only）
 
 #### 4.跨站cookie
 
@@ -373,7 +403,7 @@ url解析基础信息：验证url合法性---->本地798爬虫---->发送
 
 
 
-
+3. sale销售
 
 演出票状态：0表示没有卖出，1表示已经卖出，2表示预定中
 
