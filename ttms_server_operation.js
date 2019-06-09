@@ -300,6 +300,27 @@ server.post("/playDel", async function(req, res) {
 		});
 		return;
 	}
+	//唯一性id
+	
+	
+	sqlStringSelect = sql.select(['plan_id'], 'plan', 'play_id=' + sql.escape(obj.id));
+	try {
+		var selectAns = await sql.sever(pool, sqlStringSelect);
+	} catch (err) {
+		send(res, {
+			"msg": err,
+			"style": -2
+		});
+		return;
+	}
+	if (selectAns.length != 0) {
+		send(res, {
+			"msg": "已经安排过plan,无法删除",
+			"style": 0
+		});
+		return;
+	}
+	//删除驳回，plan有数据
 
 	let sqlString = sql.update('play', ['play_status'], ["-1"], 'play_id=' + sql.escape(obj.id));
 	try {
@@ -798,14 +819,34 @@ server.post("/planAdd", async function(req, res) {
 			});
 			return;
 		}
-		if(new Date(child.startime)<new Date() ){
+		if (child.money == undefined) {
 			send(res, {
-				"msg": "list[" + index + "]已超过当前时间",
+				"msg": "list[" + index + "]没有money属性",
 				"style": -1
 			});
 			return;
 		}
-		
+		if (child.language == undefined) {
+			send(res, {
+				"msg": "list[" + index + "]没有language属性",
+				"style": -1
+			});
+			return;
+		}
+		if (child.startime == undefined) {
+			send(res, {
+				"msg": "list[" + index + "]没有startime属性",
+				"style": -1
+			});
+			return;
+		}
+		if(new Date(child.startime)<new Date() ){
+			send(res, {
+				"msg": "list[" + index + "]已早于当前时间",
+				"style": -1
+			});
+			return;
+		}
 		
 		roomArr.push(child.room);
 		playArr.push(child.play);
@@ -862,8 +903,8 @@ server.post("/planAdd", async function(req, res) {
 	try {
 		for (let i = 0; i < obj.plan.length; i++) {
 			let each = obj.plan[i];
-			let sqlString = sql.insert('plan', ['room_id', 'play_id', 'plan_startime', 'plan_money'],
-				[sql.escape(each.room), sql.escape(each.play), sql.escape(each.startime),
+			let sqlString = sql.insert('plan', ['room_id', 'play_id', 'plan_language','plan_startime', 'plan_money'],
+				[sql.escape(each.room), sql.escape(each.play), sql.escape(each.language), sql.escape(each.startime),
 					sql.escape(each.money)
 				]);
 			let planInsert = await sql.stepsql(connect, sqlString);
@@ -913,7 +954,7 @@ server.get('/planGet',async function(req,res){
 	}
 	//参数格式正确性
 	
-	sqlStringSelect = sql.select(['plan.plan_id','plan.room_id','room.room_name','plan.play_id','play.play_name','plan.plan_startime','plan.plan_money'], 'plan,play,room', 'plan.room_id=room.room_id and plan.play_id=play.play_id and Date(plan.plan_startime) = Date('+sql.escape(obj.time)+')');
+	sqlStringSelect = sql.select(['plan.plan_id','plan.room_id','room.room_name','plan.play_id','play.play_name','play.play_length','plan.plan_startime','plan.plan_money'], 'plan,play,room', 'plan.room_id=room.room_id and plan.play_id=play.play_id and Date(plan.plan_startime) = Date('+sql.escape(obj.time)+')');
 	try {
 		var selectAns = await sql.sever(pool, sqlStringSelect);
 	} catch (err) {

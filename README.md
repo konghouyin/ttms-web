@@ -1004,12 +1004,13 @@ url解析基础信息：验证url合法性---->本地798爬虫---->发送
 
 - 参数：对象数组
 
-     | 参数名   | 类型  | 说明                     |
-     | -------- | ----- | ------------------------ |
-     | room     | Int   | 演出计划安排的演出厅id号 |
-     | play     | Int   | 演出计划安排的剧目id号   |
-     | startime | Data  | 剧目开始时间             |
-     | money    | Float | 本场演出的票价           |
+     | 参数名   | 类型   | 说明                     |
+     | -------- | ------ | ------------------------ |
+     | room     | Int    | 演出计划安排的演出厅id号 |
+     | play     | Int    | 演出计划安排的剧目id号   |
+     | language | String | 安排剧目的语言           |
+     | startime | Data   | 剧目开始时间             |
+     | money    | Float  | 本场演出的票价           |
 
 - 返回
 
@@ -1054,12 +1055,14 @@ url解析基础信息：验证url合法性---->本地798爬虫---->发送
          "msg": "查询成功！",
          "data": [
              {
-                 "plan_id": 12,
+                 "plan_id": 3,
                  "room_id": 33,
+                 "room_name": "qw",
                  "play_id": 1,
-                 "plan_startime": "2019-06-06T12:24:12.000Z",
-                 "plan_money": 25
-             }...
+                 "play_name": "xxxx",
+                 "plan_startime": "2019-08-14T12:24:12.000Z",
+                 "plan_money": 19.2
+             },...
          ],
          "style": 1
      }
@@ -1136,23 +1139,13 @@ url解析基础信息：验证url合法性---->本地798爬虫---->发送
          "msg": "查询成功！",
          "data": [
              {
-                 "plan_id": 12,
+                 "plan_id": 2,
                  "room_id": 33,
-                 "plan_startime": "2019-06-06T12:24:12.000Z",
-                 "plan_money": 25
-             },
-             {
-                 "plan_id": 13,
-                 "room_id": 33,
-                 "plan_startime": "2019-06-09T12:24:12.000Z",
+                 "room_name": "qw",
+                 "data": 6,
+                 "plan_startime": "2019-06-14T12:24:12.000Z",
                  "plan_money": 19.2
-             },
-             {
-                 "plan_id": 14,
-                 "room_id": 33,
-                 "plan_startime": "2019-06-06T12:24:12.000Z",
-                 "plan_money": 25
-             }
+             }...
          ],
          "style": 1
      }
