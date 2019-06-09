@@ -84,7 +84,7 @@ server.get('/planList',async function(req,res){
 		return;
 	}
 	
-	sqlString =sql.select(['plan_id', 'room_id', 'plan_startime', 'plan_money'], 'plan',
+	sqlString =sql.select(['plan_id', 'room_id', 'DAYOFWEEK(plan_startime) AS data','plan_startime', 'plan_money'], 'plan',
 	 'play_id=' + sql.escape(obj.id)+' and Date(plan.plan_startime) between Date(NOW()) and Date(date_add(NOW(), interval 5 day))');
 	try {
 		var selectAns = await sql.sever(pool, sqlString);

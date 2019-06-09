@@ -913,7 +913,7 @@ server.get('/planGet',async function(req,res){
 	}
 	//参数格式正确性
 	
-	sqlStringSelect = sql.select(['*'], 'plan', 'Date(plan_startime) = Date('+sql.escape(obj.time)+')');
+	sqlStringSelect = sql.select(['plan.plan_id','plan.room_id','room.room_name','plan.play_id','play.play_name','plan.plan_startime','plan.plan_money'], 'plan,play,room', 'plan.room_id=room.room_id and plan.play_id=play.play_id and Date(plan.plan_startime) = Date('+sql.escape(obj.time)+')');
 	try {
 		var selectAns = await sql.sever(pool, sqlStringSelect);
 	} catch (err) {
