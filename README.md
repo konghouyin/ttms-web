@@ -44,6 +44,14 @@
 
 ## 四、开发记录
 
+### 数据库
+
+#### 1.play_message
+
+涉及到emoji表情的存储，使用utf-8mb4无效后，使用longText结合Node.String->Unicode。进行存储。由于字符串较长，使用longText数据类型。
+
+---
+
 ### 公共模块
 
 #### 1.数据库模块
@@ -1149,7 +1157,8 @@ url解析基础信息：验证url合法性---->本地798爬虫---->发送
                  "room_name": "qw",
                  "data": 6,
                  "plan_startime": "2019-06-14T12:24:12.000Z",
-                 "plan_money": 19.2
+                 "plan_money": 19.2,
+                 "plan_language":"国语"
              }...
          ],
          "style": 1

@@ -111,6 +111,20 @@ module.exports = {
 		} else {
 			return "DELETE FROM  " + table;
 		}
-	}
+	},
 	//删除语句拼接
+	
+	strToHexCharCode:function strToHexCharCode(str) {
+	　　 var res = [];  
+	    for ( var i=0; i<str.length; i++ ) {  
+	    res[i] = ( "00" + str.charCodeAt(i).toString(16) ).slice(-4);  
+	    }  
+	    return "\\u" + res.join("\\u");  
+	},
+	
+	
+	hexCharCodeToStr:function hexCharCodeToStr(str) {
+	　　    str = str.replace(/\\/g, "%");  
+	    return unescape(str);  
+	}
 }

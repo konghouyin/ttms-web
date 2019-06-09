@@ -109,6 +109,22 @@ server.get('/query', async function(req, res) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 server.post('/playAdd', async function(req, res) {
 	let obj = req.obj;
 	let judgeOptions = {
@@ -163,12 +179,7 @@ server.post('/playAdd', async function(req, res) {
 				url: obj.url
 			});
 			if (pathCtrl.style == 1) {
-				let ranges = [
-					'\ud83c[\udf00-\udfff]',
-					'\ud83d[\udc00-\ude4f]',
-					'\ud83d[\ude80-\udeff]'
-				];
-				obj.main = pathCtrl.message.replace(new RegExp(ranges.join('|'), 'g'), '');
+				obj.main = sql.strToHexCharCode(pathCtrl.message);
 			} else {
 				waring = "电影详情页爬取失败，失败原因：" + pathCtrl.message;
 			}
@@ -252,6 +263,7 @@ server.get("/playMain", async function(req, res) {
 		return;
 	}
 	if (selectAns.length == 1) {
+		selectAns[0].play_message=sql.hexCharCodeToStr(selectAns[0].play_message);
 		send(res, {
 			"msg": "查询成功！",
 			"data": selectAns[0],
@@ -417,12 +429,7 @@ server.post("/playEdit", async function(req, res) {
 			url: obj.url
 		});
 		if (pathCtrl.style == 1) {
-			let ranges = [
-				'\ud83c[\udf00-\udfff]',
-				'\ud83d[\udc00-\ude4f]',
-				'\ud83d[\ude80-\udeff]'
-			];
-			obj.main = pathCtrl.message.replace(new RegExp(ranges.join('|'), 'g'), '');
+			obj.main = sql.strToHexCharCode(pathCtrl.message);
 		} else {
 			waring = "电影详情页爬取失败，失败原因：" + pathCtrl.message;
 		}
@@ -973,7 +980,9 @@ server.get('/planGet',async function(req,res){
 	}
 	//参数格式正确性
 	
-	sqlStringSelect = sql.select(['plan.plan_id','plan.room_id','room.room_name','plan.play_id','play.play_name','play.play_length','plan.plan_startime','plan.plan_money'], 'plan,play,room', 'plan.room_id=room.room_id and plan.play_id=play.play_id and Date(plan.plan_startime) = Date('+sql.escape(obj.time)+')');
+	sqlStringSelect = sql.select(['plan.plan_id','plan.room_id','room.room_name','plan.play_id','play.play_name',
+	'play.play_length','plan.plan_language','plan.plan_startime','plan.plan_money'], 'plan,play,room', 
+	'plan.room_id=room.room_id and plan.play_id=play.play_id and Date(plan.plan_startime) = Date('+sql.escape(obj.time)+')');
 	try {
 		var selectAns = await sql.sever(pool, sqlStringSelect);
 	} catch (err) {
