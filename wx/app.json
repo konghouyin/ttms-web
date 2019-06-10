@@ -1,9 +1,10 @@
 {
     "pages": [
+        
         "pages/index/index",
         "pages/main/main",
         "pages/play/play",
-        
+        "pages/video/video",
         "pages/search/search"
     ],
     "window": {

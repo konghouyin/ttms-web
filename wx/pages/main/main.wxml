@@ -30,11 +30,11 @@
 <view class="part2">
 	<text class="title">视频和剧照</text>
 	<scroll-view scroll-x class="show-list">
-		<view class="movie-each" wx:for="{{movie}}" wx:for-item="item">
+		<view class="movie-each" wx:for="{{movie}}" wx:for-item="item" bindtap="videoshow">
 			<image class="vidoe-play" src="/image/video_play.png"></image>
 			<image class="person-pic" src="{{item.img}}"></image>
 		</view>
-		<view class="pic-each" wx:for="{{pic}}" wx:for-item="item" bindtap="picshow">
+		<view class="pic-each" wx:for="{{pic}}" wx:for-item="item" bindtap="picshow" data-link="{{item.img}}">
 			<image class="person-pic" src="{{item.img}}"></image>
 		</view>
 	</scroll-view>
@@ -49,3 +49,4 @@
 		<view class="comment-message">{{item.message}}</view>
 	</view>
 </view>
+<button class="btn-sale" bindtap="buy">立即购票</button>

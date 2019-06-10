@@ -1,6 +1,7 @@
 /* pages/main/main.wxss */
 page {
 	background-color: #eee;
+	padding-bottom: 50rpx;
 }
 
 .back-image {
@@ -196,4 +197,13 @@ page {
 
 .comment-message {
 	font-size: 28rpx;
+}
+
+
+.btn-sale{
+	color: #fff;
+	background-color: #FF2A00;
+	position: fixed;
+	bottom: 0;
+	width:100vw;
 }

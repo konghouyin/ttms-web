@@ -3,6 +3,7 @@ var page;
 
 var pageObj;
 var moreMessage;
+var videoLink;
 Page({
 
 	/**
@@ -26,7 +27,6 @@ Page({
 		var id = options.id;
 
 		getMessage(id);
-		getPlan(id);
 
 	},
 
@@ -86,17 +86,28 @@ Page({
 	person(e) {
 		wx.showModal({
 			title: '相关信息',
-			showCancel:false,
+			showCancel: false,
 			content: e.currentTarget.dataset.message,
 		})
 	},
-	picshow(){
+	picshow(e) {
 		let picList = [];
-		pageObj.__data__.pic.forEach(function(child){
+		pageObj.__data__.pic.forEach(function(child) {
 			picList.push(child.img)
 		})
 		wx.previewImage({
-			urls:picList
+			urls: picList,
+			current: e.currentTarget.dataset.link
+		})
+	},
+	buy() {
+		wx.navigateBack({
+			number: 1
+		})
+	},
+	videoshow() {
+		wx.navigateTo({
+			url: '/pages/video/video?url=' + videoLink
 		})
 	}
 })
@@ -112,6 +123,7 @@ function getMessage(id) {
 			'content-type': 'application/json'
 		},
 		success(res) {
+			
 			let data = res.data.data;
 			var messageMain = {
 				pic: data.play_pic,
@@ -124,7 +136,7 @@ function getMessage(id) {
 			}
 
 			moreMessage = JSON.parse(data.play_message).index;
-
+			videoLink = moreMessage.moreShowMovie;
 			var synopsis = moreMessage.synopsis;
 			var person = moreMessage.person;
 			var movie = moreMessage.showMovie;

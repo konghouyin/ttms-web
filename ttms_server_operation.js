@@ -86,7 +86,7 @@ server.get('/query', async function(req, res) {
 			"style": -1
 		})
 	} else {
-		let pathCtrl = await path("http://localhost:798/index", {
+		let pathCtrl = await path("http://localhost:798/path/index", {
 			url: obj.url
 		});
 		if (pathCtrl.style == 1) {
@@ -160,7 +160,7 @@ server.post('/playAdd', async function(req, res) {
 		let waring = "null";
 		obj.main = "";
 		if (obj.url != "") {
-			let pathCtrl = await path("http://localhost:798/index", {
+			let pathCtrl = await path("http://localhost:798/path/index", {
 				url: obj.url
 			});
 			if (pathCtrl.style == 1) {
@@ -410,7 +410,7 @@ server.post("/playEdit", async function(req, res) {
 	let waring = "null";
 	obj.main = "";
 	if (obj.url != "") {
-		let pathCtrl = await path("http://localhost:798/index", {
+		let pathCtrl = await path("http://localhost:798/path/index", {
 			url: obj.url
 		});
 		if (pathCtrl.style == 1) {

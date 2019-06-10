@@ -1,0 +1,24 @@
+<!--pages/video/video.wxml-->
+<video class="video" src="{{playNow}}"></video>
+<view class="list">
+	<view class="each-list" wx:for="{{playList}}" wx:item="item">
+		<view class="pic">
+			<image src=""></image>
+			<view class="time"></view>
+			<image class="play"></image>
+		</view>
+		<view class="message">
+			<view class="tittle"></view>
+			<view class="data"></view>
+		</view>
+		
+	</view>
+</view>
+
+<button class="btn-sale" bindtap="buy">立即购票</button>
+
+
+
+
+
+
