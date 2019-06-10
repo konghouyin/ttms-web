@@ -15,7 +15,7 @@ Page({
 		movie: "",
 		pic: "",
 		comment: "",
-		synopsised: "message-hidden"
+		synopsised: false
 	},
 
 	/**
@@ -77,6 +77,27 @@ Page({
 	 */
 	onShareAppMessage: function() {
 
+	},
+	showsynop() {
+		pageObj.setData({
+			synopsised: !pageObj.__data__.synopsised
+		})
+	},
+	person(e) {
+		wx.showModal({
+			title: '相关信息',
+			showCancel:false,
+			content: e.currentTarget.dataset.message,
+		})
+	},
+	picshow(){
+		let picList = [];
+		pageObj.__data__.pic.forEach(function(child){
+			picList.push(child.img)
+		})
+		wx.previewImage({
+			urls:picList
+		})
 	}
 })
 
@@ -125,4 +146,3 @@ function getMessage(id) {
 		}
 	})
 }
-

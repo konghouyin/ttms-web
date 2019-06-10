@@ -66,10 +66,11 @@ page {
 	border-top: 3rpx solid #ccc;
 	border-bottom: 3rpx solid #ccc;
 	background-color: #fff;
-	padding: 30rpx 20rpx;
+	padding: 40rpx 20rpx;
+	position: relative;
 }
 
-.part2{
+.part2 {
 	margin-bottom: 20rpx;
 	border-top: 3rpx solid #ccc;
 	border-bottom: 3rpx solid #ccc;
@@ -83,6 +84,28 @@ page {
 	display: -webkit-box;
 	-webkit-line-clamp: 3;
 	-webkit-box-orient: vertical;
+	transition: all 1s;
+}
+
+.message-active {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: bolck !important;
+	-webkit-line-clamp: 1000 !important;
+}
+
+.jt-hidden {
+	position: absolute;
+	bottom: 0;
+	left: 50vw;
+	color: #999;
+	transform: rotate(90deg);
+	width: 40rpx;
+	height: 40rpx;
+}
+
+.jt-active {
+	transform: rotate(-90deg) !important;
 }
 
 .title {
@@ -155,22 +178,22 @@ page {
 }
 
 
-.comment-time{
+.comment-time {
 	float: right;
 	font-size: 26rpx;
-	color:#999;
+	color: #999;
 }
 
-.comment-name{
+.comment-name {
 	float: left;
 }
 
-.comment-each{
-	border-top:2rpx solid #ccc ;
-	border-bottom:2rpx solid #ccc ;
+.comment-each {
+	border-top: 2rpx solid #ccc;
+	border-bottom: 2rpx solid #ccc;
 	padding: 30rpx 18rpx;
 }
 
-.comment-message{
+.comment-message {
 	font-size: 28rpx;
 }

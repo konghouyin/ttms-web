@@ -14,12 +14,13 @@
 </view>
 <view class="part">
 	<text class="title">简介</text>
-	<text class="{{synopsised}} index-message" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;{{synopsis}}</text>
+	<text class="message-hidden {{synopsised?'message-active':''}} index-message" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;{{synopsis}}</text>
+	<image src="/image/jt.png" class="jt-hidden {{synopsised?'jt-active':''}}" bindtap="showsynop">{{'<'}}</image>
 </view>
 <view class="part2">
 	<text class="title">主要演职人员</text>
 	<scroll-view scroll-x class="show-list">
-		<view class="person-each" wx:for="{{person}}" wx:for-item="item">
+		<view class="person-each" wx:for="{{person}}" wx:for-item="item" bindtap="person" data-message="{{item.name+':'+item.role}}">
 			<image class="person-pic" src="{{item.img}}"></image>
 			<view class="person-name">{{item.name}}</view>
 			<view class="person-type">{{item.role}}</view>
@@ -33,7 +34,7 @@
 			<image class="vidoe-play" src="/image/video_play.png"></image>
 			<image class="person-pic" src="{{item.img}}"></image>
 		</view>
-		<view class="pic-each" wx:for="{{pic}}" wx:for-item="item">
+		<view class="pic-each" wx:for="{{pic}}" wx:for-item="item" bindtap="picshow">
 			<image class="person-pic" src="{{item.img}}"></image>
 		</view>
 	</scroll-view>
