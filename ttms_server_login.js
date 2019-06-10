@@ -7,16 +7,18 @@ const pool = sql.createPool(sqlConfig);
 //创建数据库连接池
 const cookieStep = require('./public/cookie_step.js').cookieStep;
 //加密下发cookie
+var request = require("request"); //微信小程序安全登录
 
 const {
 	send,
 	app,
-	router
+	router,
+	judge
 } = require('./public/http.js'); //解析网络请求
 app.listen(517);
 
 let server = router;
-app.use('/ttmsLogin',server);
+app.use('/ttmsLogin', server);
 
 
 server.post('/reg', async function(req, res) {
@@ -28,7 +30,7 @@ server.post('/reg', async function(req, res) {
 		})
 	}
 
-	let sqlString = sql.select(['user_name', 'user_password'], 'user',`user_name=${sql.escape(obj.name)}`);
+	let sqlString = sql.select(['user_name', 'user_password'], 'user', `user_name=${sql.escape(obj.name)}`);
 	try {
 		var selectRepeat = await sql.sever(pool, sqlString);
 	} catch (err) {
@@ -47,6 +49,7 @@ server.post('/reg', async function(req, res) {
 				"msg": err,
 				"style": -2
 			});
+			return;
 		}
 		cookieStep(obj, res);
 		send(res, {
@@ -82,6 +85,7 @@ server.post('/login', async function(req, res) {
 			"msg": err,
 			"style": -2
 		});
+		return;
 	}
 	if (selectAns.length != 1) {
 		send(res, {
@@ -98,7 +102,6 @@ server.post('/login', async function(req, res) {
 	}
 });
 //系统登录
-
 
 
 
@@ -119,11 +122,12 @@ server.get('/step', async function(req, res) {
 				"msg": err,
 				"style": -2
 			});
+			return;
 		}
 		if (selectAns.length == 1) {
 			let obj = {
-				name:selectAns[0].user_name,
-				password:selectAns[0].user_password
+				name: selectAns[0].user_name,
+				password: selectAns[0].user_password
 			}
 			cookieStep(obj, res);
 			send(res, {
@@ -142,144 +146,123 @@ server.get('/step', async function(req, res) {
 //登录保持接口
 
 
+function loginCheck(code) {
+	return new Promise(function(resolve, reject) {
+		try {
+			let options = {
+				method: 'GET',
+				url: 'https://api.weixin.qq.com/sns/jscode2session',
+				qs: {
+					appid: 'wx9ccfffa2a67aac4c',
+					secret: 'd5c6c6508f7d81c8c216e6f61f10192b',
+					js_code: code,
+					grant_type: 'authorization_code'
+				},
+				headers: {
+					'cache-control': 'no-cache',
+					Connection: 'keep-alive',
+					'accept-encoding': 'gzip, deflate',
+					Host: 'api.weixin.qq.com',
+					'Cache-Control': 'no-cache',
+					Accept: '*/*',
+				}
+			};
+			request(options, function(error, response, body) {
+				if (error) {
+					resolve({
+						message: "验证请求失败",
+						style: 0
+					})
+				} else {
+					resolve({
+						message: body,
+						style: 1
+					});
+				}
+			});
+		} catch (e) {
+			resolve({
+				message: "验证请求失败",
+				style: 0
+			})
+		}
+	})
+}
 
 
 
+server.post('/wxlogin', async function(req, res) {
+	let obj = req.obj;
+	let judgeOptions = {
+		code: {
+			length: 32
+		}
+	}
+	let judgeCtrl = judge(judgeOptions, obj);
+	if (judgeCtrl.style == 0) {
+		send(res, {
+			"msg": judgeCtrl.message,
+			"style": -1
+		})
+		return;
+	}
+	let pathCtrl = await loginCheck(obj.code)
+	if (pathCtrl.style == 1) {
+		let back = JSON.parse(pathCtrl.message);
+		if (back.openid) {
+			let sqlString = sql.select(['user_id'], 'user', `user_name=${sql.escape(back.openid)}`);
+			try {
+				var selectAns = await sql.sever(pool, sqlString);
+			} catch (err) {
+				send({
+					"msg": err,
+					"style": -2
+				});
+				return;
+			}
+			if (selectAns.length == 0) {
+				let sqlString = sql.insert('user', ['user_status', 'user_name', 'user_password', 'user_time'],
+					[4, sql.escape(back.openid), sql.escape(back.openid), 'NOW()']);
+				try {
+					var InsertAns = await sql.sever(pool, sqlString);
+				} catch (err) {
+					send({
+						"msg": err,
+						"style": -2
+					});
+					return;
+				}
+				cookieStep({
+					name:back.openid,
+					password:back.openid
+				}, res);
+				send(res, {
+					"msg": "注册成功",
+					"id":InsertAns.insertId,
+					"style": 1
+				})
+			} else {
+				cookieStep({
+					name:back.openid,
+					password:back.openid
+				}, res);
+				send(res, {
+					"msg": "登录成功",
+					"id":selectAns[0].user_id,
+					"style": 1
+				})
+			}
+		} else {
+			send(res, {
+				"msg": "验证失败！",
+				"style": -1
+			})
+		}
 
-
-
-
-// server.post('/reg', function(req, res) {
-// 	var obj = {};
-// 	var message = '';
-// 	req.on('data', function(data) {
-// 		message += data;
-// 	})
-// 	req.on('end', function() {
-// 		obj = JSON.parse(message);
-// 
-// 		var sqlString = sql.select(['user_id'], 'user', "user_name=" + sql.escape(obj.name));
-// 		sql.sever(pool, sqlString, selectEnd); //数据库用户名查重
-// 
-// 		function selectEnd(data) {
-// 			if (data.length == 0) {
-// 				var sqlString = sql.insert('user', ['user_status', 'user_name', 'user_password', 'user_time'], [0, sql.escape(
-// 						obj.name),
-// 					sql.escape(obj.password), 'NOW()'
-// 				]);
-// 				sql.sever(pool, sqlString, end); //数据库存入注册的用户
-// 			} else {
-// 				res.write(JSON.stringify({
-// 					msg: "注册失败--用户名重复",
-// 					style: 0
-// 				}));
-// 				res.end();
-// 			}
-// 		}
-// 	})
-// 
-// 	function end(data) {
-// 		cookieStep(obj, res);
-// 		res.write(JSON.stringify({
-// 			msg: "注册成功",
-// 			url: "需要跳转的url",
-// 			style: 1
-// 		}));
-// 		res.end();
-// 	}
-// })
-// //请求--注册信息
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// server.post('/reg', function(req, res) {
-// 	var obj = {};
-// 	var message = '';
-// 	req.on('data', function(data) {
-// 		message += data;
-// 	})
-// 	req.on('end', function() {
-// 		obj = JSON.parse(message);
-// 
-// 		var sqlString = sql.select(['user_id'], 'user', "user_name=" + sql.escape(obj.name));
-// 		sql.sever(pool, sqlString, selectEnd); //数据库用户名查重
-// 
-// 		function selectEnd(data) {
-// 			if (data.length == 0) {
-// 				var sqlString = sql.insert('user', ['user_status', 'user_name', 'user_password', 'user_time'], [0, sql.escape(
-// 						obj.name),
-// 					sql.escape(obj.password), 'NOW()'
-// 				]);
-// 				sql.sever(pool, sqlString, end); //数据库存入注册的用户
-// 			} else {
-// 				res.write(JSON.stringify({
-// 					msg: "注册失败--用户名重复",
-// 					style: 0
-// 				}));
-// 				res.end();
-// 			}
-// 		}
-// 	})
-// 
-// 	function end(data) {
-// 		cookieStep(obj, res);
-// 		res.write(JSON.stringify({
-// 			msg: "注册成功",
-// 			url: "需要跳转的url",
-// 			style: 1
-// 		}));
-// 		res.end();
-// 	}
-// })
-// //请求--注册信息
-// 
-// server.post('/login', function(req, res) {
-// 	var obj = {};
-// 	var message = '';
-// 	req.on('data', function(data) {
-// 		message += data;
-// 	})
-// 	req.on('end', function() {
-// 		obj = JSON.parse(message);
-// 		var sqlString = sql.select(['user_id'], 'user',
-// 			"user_name=" + sql.escape(obj.name) +
-// 			" and user_password=" + sql.escape(obj.password));
-// 		sql.sever(pool, sqlString, end); //验证用户名和密码
-// 	})
-// 
-// 	function end(data) {
-// 		if (data.length == 1) {
-// 			cookieStep(obj, res);
-// 			res.write(JSON.stringify({
-// 				msg: "登录成功！",
-// 				url: "需要跳转的url",
-// 				style: 1
-// 			}));
-// 			res.end();
-// 
-// 		} else {
-// 			res.write(JSON.stringify({
-// 				msg: "用户名或密码错误！",
-// 				style: 0
-// 			}));
-// 			res.end();
-// 		}
-// 	}
-// })
-// //请求--登录
-//
+	} else {
+		send(res, {
+			"msg": pathCtrl.message,
+			"style": -1
+		})
+	}
+})

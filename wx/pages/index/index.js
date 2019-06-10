@@ -17,6 +17,11 @@ Page({
 	onLoad: function(options) {
 		pageObj = this;
 		refresh();
+        wx.login({
+            success(res){
+                wxlogin(res.code)
+            }
+        })
 	},
 
 	/**
@@ -70,6 +75,7 @@ Page({
 			url: '/pages/search/search?allMovie=' + JSON.stringify(this.data.movieList)
 		})
 	},
+	//搜索功能
 
 	play(event) {
 		var id = event.currentTarget.dataset.id;
@@ -77,11 +83,23 @@ Page({
 			url: '/pages/play/play?id=' + id
 		})
 	}
-
-
-
+	//进入剧目具体演出计划页
 
 })
+
+function wxlogin(code){
+	wx.request({
+		method:"POST",
+		url: 'https://www.konghouy.cn/ttmsLogin/wxlogin', //仅为示例，并非真实的接口地址
+		data: {code:code},
+		header: {
+			'content-type': 'application/json' // 默认值
+		},
+		success(res) {
+			console.log(res);
+		}
+	})
+}
 
 
 function refresh() {

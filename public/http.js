@@ -122,7 +122,7 @@ function judge(judge, obj) {
 			};
 		}
 		
-		if (judge[each].length <= obj[each].length) {
+		if (judge[each].length < obj[each].length) {
 			return {
 				style: 0,
 				message: each + "长度不符合要求"
@@ -238,6 +238,8 @@ function path(add, qs) {
 	})
 }
 //内网爬虫
+
+
 
 module.exports = {
 	send: send,
