@@ -22,7 +22,8 @@ Page({
 			country: "",
 			actor: "",
 			type: "",
-			style: ""
+			style: "",
+			language:""
 		},
 		dayList: [],
 		timeNow: 0,
@@ -107,6 +108,17 @@ Page({
 			place:"1",
 			money:"1"
 		}];
+	},
+	sale(e){
+		console.log(e);
+		if(e.currentTarget.dataset.sale==false){
+			return ;
+		}else{
+			// wx.navigateTo({
+			// 	url: '/pages/main/main?id=' + idNow
+			// })
+		}
+		
 	}
 })
 
@@ -129,7 +141,7 @@ function getMessage(id) {
 				country: data.play_country,
 				actor: data.play_performer,
 				type: data.play_type,
-				style: data.play_status
+				style: data.play_status,
 			}
 			pageObj.setData({
 				item: messageMain,
@@ -220,7 +232,9 @@ function screen(){
 		back.push({
 			timestart:new Date(child.plan_startime).format("hh:mm"),
 			place:child.room_name,
-			money:child.plan_money
+			money:child.plan_money,
+			language:child.plan_language,
+			sale:new Date(child.plan_startime)<new Date()?false:true
 		})
 	})
 	pageObj.setData({

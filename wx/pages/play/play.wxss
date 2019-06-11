@@ -125,7 +125,9 @@ page {
 .play-item .play-place{
     font-size: 26rpx;
     color:#aaa;
+	text-align: center;
 }
+
 
 
 .play-item .play-money{
@@ -137,7 +139,7 @@ page {
     line-height: 46rpx;
     font-size: 26rpx;
     border:3rpx solid rgb(245,183,31);
-    color: rgb(245,183,31);
+   color: rgb(245,183,31);
     border-radius: 6rpx;
     outline: none;
     margin: 15rpx 0;
@@ -153,4 +155,9 @@ button::after {
 	color: #999;
 	text-align: center;
 	margin: 20rpx;
+}
+
+.stop{
+	 border:3rpx solid #999 !important;
+	color: #999 !important;
 }

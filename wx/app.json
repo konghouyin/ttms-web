@@ -1,6 +1,6 @@
 {
     "pages": [
-        
+        "pages/choose/choose",
         "pages/index/index",
         "pages/main/main",
         "pages/play/play",

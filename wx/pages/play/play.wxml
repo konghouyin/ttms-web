@@ -26,6 +26,6 @@
         <view class='play-language'>{{each.language}}</view>
         <view class='play-place'>{{each.place}}</view>
         <view class='play-money'>￥{{each.money}}</view>
-        <button>购票</button>
+        <button class="{{each.sale ?'':'stop'}}" data-sale="{{each.sale}}" bindtap="sale">{{each.sale ?"购票":"停售"}}</button>
     </view>
 </view>

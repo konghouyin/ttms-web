@@ -206,4 +206,5 @@ page {
 	position: fixed;
 	bottom: 0;
 	width:100vw;
+	border-radius: 0;
 }

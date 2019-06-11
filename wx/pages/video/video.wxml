@@ -1,15 +1,19 @@
 <!--pages/video/video.wxml-->
-<video class="video" src="{{playNow}}"></video>
+<video class="video" autoplay src="{{playNow}}"></video>
 <view class="list">
-	<view class="each-list" wx:for="{{playList}}" wx:item="item">
+	<view class="listLong">
+		<text class="title">播放列表</text>
+		<text class="number">（{{playList.length}}）</text>
+	</view>
+	<view class="each-list" wx:for="{{playList}}" wx:item="item" wx:for-index="index" data-num="{{index}}" data-link="{{item.link}}" bindtap="change">
 		<view class="pic">
-			<image src=""></image>
-			<view class="time"></view>
-			<image class="play"></image>
+			<image class="img" src="{{item.pic}}"></image>
+			<view class="time">{{index==playNumber ? '播放中':item.time}}</view>
+			<image wx:if="{{index!=playNumber}}" class="play" src="/image/video_play.png"></image>
 		</view>
 		<view class="message">
-			<view class="tittle"></view>
-			<view class="data"></view>
+			<view class="title {{index==playNumber?'active-title':''}}">{{item.title}}</view>
+			<view class="date">{{item.date}}</view>
 		</view>
 		
 	</view>

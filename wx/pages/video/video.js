@@ -1,18 +1,26 @@
 // pages/video/video.js
+let pageObj;
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-		
+		playList:[],
+		playNow:"",
+		playNumber:0
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-		console.log(options);
+		wx.setNavigationBarTitle({
+			title: options.name+"预告片",
+		})
+		pageObj = this;
+		getMoreVideo(options.url);
+		
     },
 
     /**
@@ -62,52 +70,64 @@ Page({
      */
     onShareAppMessage: function () {
 
-    }
+    },
+	buy() {
+		wx.navigateBack({
+			delta: 2
+		})
+	},
+	change(e){
+		console.log(e);
+		if(e.currentTarget.dataset.num==pageObj.__data__.playNumber){
+			return ;
+		}else{
+			getMovie(e.currentTarget.dataset.link);
+			pageObj.setData({
+				playNumber:e.currentTarget.dataset.num
+			})
+		}
+	}
 })
 
-function getMoreVideo(){
+function getMovie(path){
 	wx.request({
-		url: 'https://www.konghouy.cn/path/showMovieAll',
-		data: {
-			id: id
-		},
+		url: 'https://www.konghouy.cn/path/showMovie?url='+path,
 		header: {
 			'content-type': 'application/json'
 		},
 		success(res) {
-			
-			let data = res.data.data;
-			var messageMain = {
-				pic: data.play_pic,
-				name: data.play_name,
-				time: data.play_length,
-				country: data.play_country,
-				actor: data.play_performer,
-				type: data.play_type,
-				style: data.play_status
-			}
-	
-			moreMessage = JSON.parse(data.play_message).index;
-			videoLink = moreMessage.moreShowMovie;
-			var synopsis = moreMessage.synopsis;
-			var person = moreMessage.person;
-			var movie = moreMessage.showMovie;
-			var pic = moreMessage.pic;
-			var comment = moreMessage.shortCommentary;
-	
+			console.log(res);
 			pageObj.setData({
-				item: messageMain,
-				synopsis: synopsis,
-				person: person,
-				movie: movie,
-				pic: pic,
-				comment: comment
-			})
-	
-			wx.setNavigationBarTitle({
-				title: data.play_name,
+				playNow:res.data.showMovie.movie
 			})
 		}
 	})
-	
+}
+
+function getMoreVideo(path){
+	wx.request({
+		url: 'https://www.konghouy.cn/path/showMovieAll?url='+path,
+		header: {
+			'content-type': 'application/json'
+		},
+		success(res) {
+			console.log(res);
+			getMovie(res.data.showMovieAll[0].link);
+			let arr=[];
+			res.data.showMovieAll.forEach(function(child){
+				arr.push({
+					link:child.link,
+					pic:child.img,
+					time:child.long,
+					title:child.title,
+					date:child.time
+				})
+			})
+			
+			pageObj.setData({
+				playList:arr
+			})
+			
+		}
+	})
 }

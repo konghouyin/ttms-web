@@ -1,6 +1,6 @@
 // pages/main/main.js
 var page;
-
+var Moviename;
 var pageObj;
 var moreMessage;
 var videoLink;
@@ -102,12 +102,12 @@ Page({
 	},
 	buy() {
 		wx.navigateBack({
-			number: 1
+			delta: 1
 		})
 	},
 	videoshow() {
 		wx.navigateTo({
-			url: '/pages/video/video?url=' + videoLink
+			url: `/pages/video/video?url=${videoLink}&name=${Moviename}`,
 		})
 	}
 })
@@ -123,7 +123,6 @@ function getMessage(id) {
 			'content-type': 'application/json'
 		},
 		success(res) {
-			
 			let data = res.data.data;
 			var messageMain = {
 				pic: data.play_pic,
@@ -151,7 +150,7 @@ function getMessage(id) {
 				pic: pic,
 				comment: comment
 			})
-
+			Moviename=data.play_name;
 			wx.setNavigationBarTitle({
 				title: data.play_name,
 			})
