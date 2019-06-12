@@ -233,22 +233,22 @@ server.post('/wxlogin', async function(req, res) {
 					return;
 				}
 				cookieStep({
-					name:back.openid,
-					password:back.openid
+					name: back.openid,
+					password: back.openid
 				}, res);
 				send(res, {
 					"msg": "注册成功",
-					"id":InsertAns.insertId,
+					"id": InsertAns.insertId,
 					"style": 1
 				})
 			} else {
 				cookieStep({
-					name:back.openid,
-					password:back.openid
+					name: back.openid,
+					password: back.openid
 				}, res);
 				send(res, {
 					"msg": "登录成功",
-					"id":selectAns[0].user_id,
+					"id": selectAns[0].user_id,
 					"style": 1
 				})
 			}
@@ -266,3 +266,116 @@ server.post('/wxlogin', async function(req, res) {
 		})
 	}
 })
+
+
+
+
+server.get('/userAll', async function(req, res) {
+	let sqlString = sql.select(["user_id", "user_status", "user_name", "user_tel", "user_time"], 'user');
+	try {
+		var selectRepeat = await sql.sever(pool, sqlString);
+	} catch (err) {
+		send({
+			"msg": err,
+			"style": -2
+		});
+	}
+
+	send(res, {
+		"msg": "查询成功",
+		"data": selectRepeat,
+		"style": 0
+	})
+
+});
+//查询所有用户
+
+
+server.post('/userEdit', async function(req,res) {
+	let obj = req.obj;
+	let judgeOptions = {
+		id: {
+			type: "int",
+			length: 11
+		},
+		status: {
+			type: "only",
+			main: ['0', '1', '2', '3', '4'],
+			//0表示没有权，1表示运营，2表示销售，3表示财务，4表示个人
+			length: 64
+		},
+		name: {
+			length: 32
+		},
+		password: {
+			length: 32
+		},
+		tel: {
+			length: 128
+		},
+		passwordchange: {
+			type: "only",
+			main: ['0', '1'],
+			//0表示不修改，1表示修改
+		}
+	}
+	let judgeCtrl = judge(judgeOptions, obj);
+	if (judgeCtrl.style == 0) {
+		send(res, {
+			"msg": judgeCtrl.message,
+			"style": -1
+		})
+		return;
+	}
+	let sqlStringSelect = sql.select(['user_id'], 'user', 'user_id=' + sql.escape(obj.id));
+	try {
+		var selectAns = await sql.sever(pool, sqlStringSelect);
+	} catch (err) {
+		send(res, {
+			"msg": err,
+			"style": -2
+		});
+		return;
+	}
+	if (selectAns.length != 1) {
+		send(res, {
+			"msg": "没有查询到要修改的id",
+			"style": 0
+		});
+		return;
+	}
+
+	if (obj.passwordchange == 0) {
+		let sqlString = sql.update('user', ['user_name', 'user_status', 'user_tel'],
+			[sql.escape(obj.name), sql.escape(obj.status), sql.escape(obj.tel)],
+			'user_id=' + sql.escape(obj.id));
+		try {
+			var selectAns = await sql.sever(pool, sqlString);
+		} catch (err) {
+			send(res, {
+				"msg": err,
+				"style": -2
+			});
+			return;
+		}
+	} else {
+
+		let sqlString = sql.update('user', ['user_name', 'user_password', 'user_status', 'user_tel'],
+			[sql.escape(obj.name), sql.escape(obj.password), sql.escape(obj.status), sql.escape(obj.tel)],
+			'user_id=' + sql.escape(obj.id));
+		try {
+			var selectAns = await sql.sever(pool, sqlString);
+		} catch (err) {
+			send(res, {
+				"msg": err,
+				"style": -2
+			});
+			return;
+		}
+	}
+	send(res, {
+		"msg": "编辑成功！",
+		"style": 1
+	});
+})
+//修改个人信息

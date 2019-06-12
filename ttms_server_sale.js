@@ -270,6 +270,10 @@ server.post('/sale',async function(req,res){
 server.post('/order',async function(req,res){
 	let obj = req.obj;
 	let judgeOptions = {
+		id:{
+			type="int",
+			length:32
+		},
 		ticket: {
 			type: "Array",
 			length: 5000
@@ -330,6 +334,16 @@ server.post('/order',async function(req,res){
 			let sqlString =  sql.update('ticket', ['ticket_status','ticket_time'],['2','NOW()'],'ticket_id='+sql.escape(ticketArr[i]));
 			await sql.stepsql(connect, sqlString);			
 		}
+		
+		
+		let sqlStringSelect = sql.select(['plan_money'], 'ticket,plan', 'ticket.plan_id=plan.plan_id ticket_id='+sql.escape(ticketArr[0]));
+		let money = await sql.stepsql(connect, sqlString);
+		
+		
+		sqlString =  sql.insert('orderticket', ['user_id','orderTicket_money','orderTicket_history','orderTicket_time','orderTicket_status'],
+		[sql.escape(obj.id),money*ticketArr.length,sql.escape(JSON.stringify(ticketArr)),'NOW()','0']);
+		await sql.stepsql(connect, sqlString);
+		
 		await connect.commit()
 	} catch (err) {
 		await connect.rollback()
