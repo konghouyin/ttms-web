@@ -1,7 +1,8 @@
 {
 	"pages": [
-        "pages/pay/pay",
+       
 		"pages/index/index",
+        "pages/pay/pay",
 		"pages/main/main",
 		"pages/play/play",
 		"pages/video/video",

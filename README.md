@@ -1419,7 +1419,7 @@ orderTicket status ->0生成订单/1支付成功/-1取消订单
 
 #### 7.根据ticket_id查询票的详细信息
 
-- url：/ticket
+- url：/ticketMessage
 
 - 方法：GET
 
@@ -1428,7 +1428,32 @@ orderTicket status ->0生成订单/1支付成功/-1取消订单
 - 返回
 
      ```json
+     {
+         "msg": "查询成功！",
+         "data": [
+             {
+                 "room_name": "qwqw",
+                 "seat_row": 6,
+                 "seat_col": 4,
+                 "play_name": "xxxx",
+                 "plan_startime": "2019-06-09T12:24:12.000Z",
+                 "plan_language": "国语",
+                 "plan_money": 19.2
+             }
+         ],
+         "style": 1
+     }
      
+     {
+         "msg": "没有查询到该id对应的电影！",
+         "style": 0
+     }
+     
+     {
+         "msg": err,
+         "style": -2
+     }
+     //数据库异常
      ```
 
      
@@ -1456,7 +1481,7 @@ orderTicket status ->0生成订单/1支付成功/-1取消订单
                  "user_time": "2019-06-13T07:11:22.000Z"
              }
          ],
-         "style": 0
+         "style": 1
      }
      
      {
@@ -1470,7 +1495,7 @@ orderTicket status ->0生成订单/1支付成功/-1取消订单
 
 #### 2.根据id查看某一时间段销售记录
 
-- url：/salerAll
+- url：/financebyid
 
 - 方法：GET
 
@@ -1496,7 +1521,7 @@ orderTicket status ->0生成订单/1支付成功/-1取消订单
                  "sale_time": "2019-06-12T11:25:20.000Z"
              }
          ],
-         "style": 0
+         "style": 1
      }
      
      {

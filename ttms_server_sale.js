@@ -362,6 +362,27 @@ server.post('/order',async function(req,res){
 })
 //订票
 
+server.post('/saleOrder',function(req,res){
+	let obj = req.obj;
+	let judgeOptions = {
+		id:{
+			type:"int",
+			length:32
+		}
+	}
+	let judgeCtrl = judge(judgeOptions, obj);
+	if (judgeCtrl.style == 0) {
+		send(res, {
+			"msg": judgeCtrl.message,
+			"style": -1
+		})
+		return;
+	}
+	
+	
+	
+})
+//完成销售单
 
 
 server.get('/ticketMessage',async function(req,res){
