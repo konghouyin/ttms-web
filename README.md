@@ -1458,6 +1458,59 @@ orderTicket status ->0生成订单/1支付成功/-1取消订单
      //数据库异常
      ```
 
+
+
+#### 8.查询订单详情
+
+- url：/selectOrder
+
+- 方法：GET
+
+- 参数：{id:3}
+
+- 返回
+
+     ```json
+     {
+         "msg": "查询成功！",
+         "order": [
+             {
+                 "orderticket_money": 10,
+                 "orderticket_history": "[51,58]",
+                 "orderticket_time": "2019-06-12T14:59:35.000Z",
+                 "orderTicket_status": 0
+             }
+         ],
+         "play": [
+             {
+                 "room_name": "1号厅",
+                 "play_name": "哥斯拉2：怪兽之王",
+                 "play_pic": "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2554370800.jpg",
+                 "plan_startime": "2019-06-13T12:30:00.000Z",
+                 "plan_language": "英语",
+                 "plan_money": 5
+             }
+         ],
+         "ticket": [
+             {
+                 "seat_row": 2,
+                 "seat_col": 6
+             },
+             {
+                 "seat_row": 3,
+                 "seat_col": 6
+             }
+         ],
+         "style": 1
+     }
+     
+     {
+         "msg": err,
+         "style": -2
+     }
+     //数据库异常
+     ```
+
      
 
 ### 财务部分

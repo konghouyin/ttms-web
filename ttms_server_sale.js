@@ -23,10 +23,11 @@ const {
 app.listen(965);
 
 let server = router;
-app.use('/ttmsSale',server);
+app.use('/ttmsSale', server);
 
-server.get('/playNear',async function(req,res){
-	let sqlString =`SELECT distinct play.play_id, play.play_name, play.play_director, play.play_performer,
+server.get('/playNear', async function(req, res) {
+	let sqlString =
+		`SELECT distinct play.play_id, play.play_name, play.play_director, play.play_performer,
 	 play.play_type, play.play_length,play.play_country, play.play_language, play.play_status, play.play_pic,
 	  play.play_link, play.play_path FROM play,plan WHERE Date(plan.plan_startime) between Date(NOW()) 
 	  and Date(date_add(NOW(), interval 5 day)) and plan.play_id=play.play_id `;
@@ -49,7 +50,7 @@ server.get('/playNear',async function(req,res){
 
 
 
-server.get('/planList',async function(req,res){
+server.get('/planList', async function(req, res) {
 	let obj = req.obj;
 	let judgeOptions = {
 		id: {
@@ -66,7 +67,7 @@ server.get('/planList',async function(req,res){
 		return;
 	}
 	//判断参数合法性
-	let sqlString =sql.select(['play_id'], 'play', 'play_id=' + sql.escape(obj.id));
+	let sqlString = sql.select(['play_id'], 'play', 'play_id=' + sql.escape(obj.id));
 	try {
 		var selectAns = await sql.sever(pool, sqlString);
 	} catch (err) {
@@ -76,18 +77,21 @@ server.get('/planList',async function(req,res){
 		});
 		return;
 	}
-	if(selectAns.length!=1){
+	if (selectAns.length != 1) {
 		send(res, {
 			"msg": "没有查询到此电影！",
 			"style": 0
 		});
 		return;
 	}
-	
-	sqlString =sql.select(['plan.plan_id', 'plan.room_id', 'room.room_name','DAYOFWEEK(plan.plan_startime) AS data','plan.plan_startime', 'plan.plan_money','plan.plan_language'], 'plan,room',
-	 'plan.room_id=room.room_id and plan.play_id=' + sql.escape(obj.id)+' and Date(plan.plan_startime) between Date(NOW()) and Date(date_add(NOW(), interval 5 day))');
+
+	sqlString = sql.select(['plan.plan_id', 'plan.room_id', 'room.room_name', 'DAYOFWEEK(plan.plan_startime) AS data',
+			'plan.plan_startime', 'plan.plan_money', 'plan.plan_language'
+		], 'plan,room',
+		'plan.room_id=room.room_id and plan.play_id=' + sql.escape(obj.id) +
+		' and Date(plan.plan_startime) between Date(NOW()) and Date(date_add(NOW(), interval 5 day))');
 	try {
-		var selectAns = await sql.sever(pool, sqlString+' ORDER BY plan.plan_startime');
+		var selectAns = await sql.sever(pool, sqlString + ' ORDER BY plan.plan_startime');
 	} catch (err) {
 		send(res, {
 			"msg": err,
@@ -100,12 +104,12 @@ server.get('/planList',async function(req,res){
 		"data": selectAns,
 		"style": 1
 	});
-	
+
 })
 //查询某一个电影近5天的演出计划
 
 
-server.get('/ticketList',async function(req,res){
+server.get('/ticketList', async function(req, res) {
 	let obj = req.obj;
 	let judgeOptions = {
 		id: {
@@ -122,7 +126,7 @@ server.get('/ticketList',async function(req,res){
 		return;
 	}
 	//判断参数合法性
-	let sqlString =sql.select(['plan_id'], 'plan', 'plan_id=' + sql.escape(obj.id));
+	let sqlString = sql.select(['plan_id'], 'plan', 'plan_id=' + sql.escape(obj.id));
 	try {
 		var selectAns = await sql.sever(pool, sqlString);
 	} catch (err) {
@@ -132,15 +136,15 @@ server.get('/ticketList',async function(req,res){
 		});
 		return;
 	}
-	if(selectAns.length!=1){
+	if (selectAns.length != 1) {
 		send(res, {
 			"msg": "没有查询到电影的演出计划！",
 			"style": 0
 		});
 		return;
 	}
-	
-	sqlString = sql.select(['ticket_id', 'seat_id'], 'ticket','plan_id=' + sql.escape(obj.id));
+
+	sqlString = sql.select(['ticket_id', 'seat_id'], 'ticket', 'plan_id=' + sql.escape(obj.id));
 	//查询所有票
 	try {
 		var selectAnsAll = await sql.sever(pool, sqlString);
@@ -151,10 +155,10 @@ server.get('/ticketList',async function(req,res){
 		});
 		return;
 	}
-	
-	
-	sqlString =sql.select(['ticket_id', 'seat_id'], 'ticket','plan_id=' + sql.escape(obj.id)+
-	' and (ticket_status=1 or (ticket_status=2 and ticket_time > date_sub(NOW(),interval 10 minute)))');
+
+
+	sqlString = sql.select(['ticket_id', 'seat_id'], 'ticket', 'plan_id=' + sql.escape(obj.id) +
+		' and (ticket_status=1 or (ticket_status=2 and ticket_time > date_sub(NOW(),interval 10 minute)))');
 	//查询已卖出的票
 	try {
 		var selectAnsSale = await sql.sever(pool, sqlString);
@@ -165,19 +169,19 @@ server.get('/ticketList',async function(req,res){
 		});
 		return;
 	}
-	
+
 	send(res, {
 		"msg": "查询成功！",
 		"dataAll": selectAnsAll,
-		"dataSale":selectAnsSale,
+		"dataSale": selectAnsSale,
 		"style": 1
 	});
-	
+
 })
 //查询某一个演出计划的演出票
 
 
-server.post('/sale',async function(req,res){
+server.post('/sale', async function(req, res) {
 	let obj = req.obj;
 	let judgeOptions = {
 		ticket: {
@@ -200,7 +204,7 @@ server.post('/sale',async function(req,res){
 		let int = Number.parseInt(child);
 		if (isNaN(int)) {
 			send(res, {
-				"msg": "数组第"+index+"元素不是Int类型",
+				"msg": "数组第" + index + "元素不是Int类型",
 				"style": -1
 			})
 			return;
@@ -209,9 +213,10 @@ server.post('/sale',async function(req,res){
 	}
 	ticketStr = 'ticket_id=' + ticketArr.join(' or ticket_id=');
 	//参数为整数校验
-	
-	let sqlStringSelect = sql.select(['count(*)'], 'ticket,plan', 
-	'ticket.plan_id=plan.plan_id and plan.plan_startime > NOW() and (ticket_status=0 or (ticket_status=2 and ticket_time < date_sub(NOW(),interval 10 minute))) and (' + ticketStr + ')');
+
+	let sqlStringSelect = sql.select(['count(*)'], 'ticket,plan',
+		'ticket.plan_id=plan.plan_id and plan.plan_startime > NOW() and (ticket_status=0 or (ticket_status=2 and ticket_time < date_sub(NOW(),interval 10 minute))) and (' +
+		ticketStr + ')');
 	try {
 		var selectAns = await sql.sever(pool, sqlStringSelect);
 	} catch (err) {
@@ -232,18 +237,20 @@ server.post('/sale',async function(req,res){
 	//校验问题：1.同一张票多次购买
 	//2.购买已经售出的票
 	//3.购买当前时间之前的票
-	
-	
+
+
 	let connect = await sql.handler(pool);
 	try {
-		for(let i=0;i<ticketArr.length;i++){
-			let sqlString =  sql.update('ticket', ['ticket_status'],['1'],'ticket_id='+sql.escape(ticketArr[i]));
+		for (let i = 0; i < ticketArr.length; i++) {
+			let sqlString = sql.update('ticket', ['ticket_status'], ['1'], 'ticket_id=' + sql.escape(ticketArr[i]));
 			await sql.stepsql(connect, sqlString);
-			
-			sqlString =  sql.select( ['plan_money'],'ticket,plan','plan.plan_id=ticket.plan_id and ticket.ticket_id='+sql.escape(ticketArr[i]));
+
+			sqlString = sql.select(['plan_money'], 'ticket,plan', 'plan.plan_id=ticket.plan_id and ticket.ticket_id=' + sql.escape(
+				ticketArr[i]));
 			var num = await sql.stepsql(connect, sqlString);
-			
-			sqlString =  sql.insert('sale', ['user_id','ticket_id','sale_money','sale_status','sale_time'],['1',sql.escape(ticketArr[i]),num[0].plan_money,'1','NOW()']);
+
+			sqlString = sql.insert('sale', ['user_id', 'ticket_id', 'sale_money', 'sale_status', 'sale_time'], ['1', sql.escape(
+				ticketArr[i]), num[0].plan_money, '1', 'NOW()']);
 			await sql.stepsql(connect, sqlString);
 		}
 		await connect.commit()
@@ -257,7 +264,7 @@ server.post('/sale',async function(req,res){
 	} finally {
 		connect.release()
 	}
-	
+
 	send(res, {
 		"msg": "购票成功！",
 		"style": 1
@@ -267,12 +274,12 @@ server.post('/sale',async function(req,res){
 
 
 
-server.post('/order',async function(req,res){
+server.post('/order', async function(req, res) {
 	let obj = req.obj;
 	let judgeOptions = {
-		id:{
-			type:"int",
-			length:32
+		id: {
+			type: "int",
+			length: 32
 		},
 		ticket: {
 			type: "Array",
@@ -294,7 +301,7 @@ server.post('/order',async function(req,res){
 		let int = Number.parseInt(child);
 		if (isNaN(int)) {
 			send(res, {
-				"msg": "数组第"+index+"元素不是Int类型",
+				"msg": "数组第" + index + "元素不是Int类型",
 				"style": -1
 			})
 			return;
@@ -303,9 +310,10 @@ server.post('/order',async function(req,res){
 	}
 	ticketStr = 'ticket_id=' + ticketArr.join(' or ticket_id=');
 	//参数为整数校验
-	
-	let sqlStringSelect = sql.select(['count(*)'], 'ticket,plan', 
-	'ticket.plan_id=plan.plan_id and plan.plan_startime > NOW() and (ticket_status=0 or (ticket_status=2 and ticket_time < date_sub(NOW(),interval 10 minute))) and (' + ticketStr + ')');
+
+	let sqlStringSelect = sql.select(['count(*)'], 'ticket,plan',
+		'ticket.plan_id=plan.plan_id and plan.plan_startime > NOW() and (ticket_status=0 or (ticket_status=2 and ticket_time < date_sub(NOW(),interval 10 minute))) and (' +
+		ticketStr + ')');
 	try {
 		var selectAns = await sql.sever(pool, sqlStringSelect);
 	} catch (err) {
@@ -326,23 +334,28 @@ server.post('/order',async function(req,res){
 	//校验问题：1.同一张票多次购买
 	//2.购买已经售出的票
 	//3.购买当前时间之前的票
-	
-	
+
+
 	let connect = await sql.handler(pool);
 	try {
-		for(let i=0;i<ticketArr.length;i++){
-			let sqlString =  sql.update('ticket', ['ticket_status','ticket_time'],['2','NOW()'],'ticket_id='+sql.escape(ticketArr[i]));
-			await sql.stepsql(connect, sqlString);			
+		for (let i = 0; i < ticketArr.length; i++) {
+			let sqlString = sql.update('ticket', ['ticket_status', 'ticket_time'], ['2', 'NOW()'], 'ticket_id=' + sql.escape(
+				ticketArr[i]));
+			await sql.stepsql(connect, sqlString);
 		}
-		
-		
-		let sqlStringSelect = sql.select(['plan_money'], 'ticket,plan', 'ticket.plan_id=plan.plan_id and ticket_id='+sql.escape(ticketArr[0]));
+
+
+		let sqlStringSelect = sql.select(['plan_money'], 'ticket,plan', 'ticket.plan_id=plan.plan_id and ticket_id=' + sql
+			.escape(ticketArr[0]));
 		let money = await sql.stepsql(connect, sqlStringSelect);
-		
-		let sqlString =  sql.insert('orderticket', ['user_id','orderticket_money','orderticket_history','orderticket_time','orderticket_status'],
-		[sql.escape(obj.id),Number.parseFloat(money[0].plan_money)*ticketArr.length,sql.escape(JSON.stringify(ticketArr)),'NOW()','0']);
-		await sql.stepsql(connect, sqlString);
-		
+
+		let sqlString = sql.insert('orderticket', ['user_id', 'orderticket_money', 'orderticket_history',
+				'orderticket_time', 'orderticket_status'
+			],
+			[sql.escape(obj.id), Number.parseFloat(money[0].plan_money) * ticketArr.length, sql.escape(JSON.stringify(
+				ticketArr)), 'NOW()', '0']);
+		var orderId = await sql.stepsql(connect, sqlString);
+
 		await connect.commit()
 	} catch (err) {
 		await connect.rollback()
@@ -354,20 +367,21 @@ server.post('/order',async function(req,res){
 	} finally {
 		connect.release()
 	}
-	
+
 	send(res, {
 		"msg": "订票成功！",
+		"id": orderId.insertId,
 		"style": 1
 	});
 })
 //订票
 
-server.post('/saleOrder',function(req,res){
+server.get('/selectOrder', async function(req, res) {
 	let obj = req.obj;
 	let judgeOptions = {
-		id:{
-			type:"int",
-			length:32
+		id: {
+			type: "int",
+			length: 32
 		}
 	}
 	let judgeCtrl = judge(judgeOptions, obj);
@@ -378,19 +392,100 @@ server.post('/saleOrder',function(req,res){
 		})
 		return;
 	}
-	
-	
-	
+
+
+	let arr = []; //购票数组
+	let sqlString = sql.select(['orderticket_money', 'orderticket_history', 'orderticket_time', 'orderTicket_status'],
+		'orderticket', 'orderticket_id=' + sql.escape(obj.id));
+	try {
+		selectBase = await sql.sever(pool, 'SELECT distinct ' + sqlString.split('SELECT')[1]);
+	} catch (err) {
+		send(res, {
+			"msg": err,
+			"style": -2
+		});
+		return;
+	}
+	let num = JSON.parse(selectBase[0].orderticket_history);
+	//查询订单基础信息
+
+
+	sqlString = sql.select(['room.room_name', 'play.play_name', 'play.play_pic', 'plan.plan_startime',
+			'plan.plan_language', 'plan.plan_money'
+		],
+		'play,plan,room,ticket,seat',
+		'ticket.plan_id=plan.plan_id and ticket.seat_id=seat.seat_id and seat.room_id=room.room_id and ticket.ticket_id=' +
+		sql.escape(num[0]));
+	try {
+		selectPlay = await sql.sever(pool, 'SELECT distinct ' + sqlString.split('SELECT')[1]);
+	} catch (err) {
+		send(res, {
+			"msg": err,
+			"style": -2
+		});
+		return;
+	}
+	//查询剧目信息
+
+
+	ticketStr = 'ticket_id=' + num.join(' or ticket_id=');
+	sqlString = sql.select(['seat.seat_row', 'seat.seat_col'],
+		'seat,ticket', 'ticket.seat_id=seat.seat_id  and (' + ticketStr + ')');
+	try {
+		selectTicket = await sql.sever(pool, sqlString);
+	} catch (err) {
+		send(res, {
+			"msg": err,
+			"style": -2
+		});
+		return;
+	}
+	//查询影票信息
+
+
+	send(res, {
+		"msg": "查询成功！",
+		"order": selectBase,
+		"play": selectPlay,
+		"ticket": selectTicket,
+		"style": 1
+	});
+
+})
+//查询订单
+
+
+
+server.post('/saleOrder', async function(req, res) {
+	let obj = req.obj;
+	let judgeOptions = {
+		id: {
+			type: "int",
+			length: 32
+		}
+	}
+	let judgeCtrl = judge(judgeOptions, obj);
+	if (judgeCtrl.style == 0) {
+		send(res, {
+			"msg": judgeCtrl.message,
+			"style": -1
+		})
+		return;
+	}
+
+
+
+
 })
 //完成销售单
 
 
-server.get('/ticketMessage',async function(req,res){
+server.get('/ticketMessage', async function(req, res) {
 	let obj = req.obj;
 	let judgeOptions = {
-		id:{
-			type:"int",
-			length:32
+		id: {
+			type: "int",
+			length: 32
 		}
 	}
 	let judgeCtrl = judge(judgeOptions, obj);
@@ -401,7 +496,7 @@ server.get('/ticketMessage',async function(req,res){
 		})
 		return;
 	}
-	
+
 	let sqlString = sql.select(['ticket_id'], 'ticket', 'ticket_id=' + sql.escape(obj.id));
 	try {
 		var selectAns = await sql.sever(pool, sqlString);
@@ -417,13 +512,17 @@ server.get('/ticketMessage',async function(req,res){
 			"msg": "没有查询到该id对应的电影！",
 			"style": 0
 		});
-		return ;
-	} 
-	
-	sqlString = sql.select(['room.room_name','seat.seat_row','seat.seat_col','play.play_name','plan.plan_startime','plan.plan_language','plan.plan_money'], 
-	'play,plan,room,seat,ticket', 'ticket.plan_id=plan.plan_id and ticket.seat_id=seat.seat_id and seat.room_id=room.room_id and ticket.ticket_id=' + sql.escape(obj.id));
+		return;
+	}
+
+	sqlString = sql.select(['room.room_name', 'seat.seat_row', 'seat.seat_col', 'play.play_name', 'play.play_pic',
+			'plan.plan_startime', 'plan.plan_language', 'plan.plan_money'
+		],
+		'play,plan,room,seat,ticket',
+		'ticket.plan_id=plan.plan_id and ticket.seat_id=seat.seat_id and seat.room_id=room.room_id and ticket.ticket_id=' +
+		sql.escape(obj.id));
 	try {
-		selectAns = await sql.sever(pool, 'SELECT distinct '+sqlString.split('SELECT')[1]);
+		selectAns = await sql.sever(pool, 'SELECT distinct ' + sqlString.split('SELECT')[1]);
 	} catch (err) {
 		send(res, {
 			"msg": err,
@@ -433,9 +532,9 @@ server.get('/ticketMessage',async function(req,res){
 	}
 	send(res, {
 		"msg": "查询成功！",
-		"data":selectAns,
+		"data": selectAns,
 		"style": 1
 	});
-	
+
 })
 //根据ticket_id查询票的详细信息
