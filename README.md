@@ -565,6 +565,85 @@ url解析基础信息：验证url合法性---->本地798爬虫---->发送
          "msg": "验证请求失败！",
          "style": 0
      }
+     
+     {
+         "msg": err,
+         "style": -2
+     }
+     //数据库异常
+     ```
+
+
+
+
+#### 5.查询所有用户
+
+- url：/userAll
+
+- 方法：GET
+
+- 参数：无
+
+- 返回
+
+     ```json
+     {
+         "msg": "查询成功",
+         "data": [
+             {
+                 "user_id": 2,
+                 "user_status": 4,
+                 "user_name": "olLXm5fpVjN6SBjpNziTmRSpT9Vs",
+                 "user_tel": null,
+                 "user_time": "2019-06-10T07:34:41.000Z"
+             }
+         ],
+         "style": 0
+     }
+     
+     {
+         "msg": err,
+         "style": -2
+     }
+     //数据库异常
+     ```
+
+
+
+#### 6.修改个人信息
+
+- url：/userEdit
+
+- 方法：POST
+
+- 参数：
+
+     | 参数名    | 类型      | 说明                 |
+     | --------- | --------- | -------------------- |
+     | id    | String    | 修改人员id |
+     | status | 0/1/2/3/4 | 0表示没有权，1表示运营，2表示销售，3表示财务，4表示个人 |
+     | name      | String | 修改用户名 |
+     | password    | String(MD5) | 修改密码       |
+     | tel    | String | 修改电话 |
+     | passwordchange | 0/1 | 是否修改密码 0表示不修改，1表示修改 |
+
+- 返回
+
+     ```json
+     {
+         "msg": "编辑成功！",
+         "style": 1
+     }
+     
+     {
+         "msg": "status参数缺失",
+         "style": -1
+     }
+     
+     {
+         "msg": "没有查询到要修改的id",
+         "style": 0
+     }
      ```
 
      
