@@ -626,7 +626,6 @@ orderTicket status ->0生成订单/1支付成功/-1取消订单
      | --------- | --------- | -------------------- |
      | id    | String    | 修改人员id |
      | status | 0/1/2/3/4 | 0表示没有权，1表示运营，2表示销售，3表示财务，4表示个人 |
-     | name      | String | 修改用户名 |
      | password    | String(MD5) | 修改密码       |
      | tel    | String | 修改电话 |
      | passwordchange | 0/1 | 是否修改密码 0表示不修改，1表示修改 |
