@@ -748,6 +748,25 @@ server.post("/roomEdit", async function(req, res) {
 		});
 		return;
 	}
+	
+	sqlStringSelect = sql.select(['plan_id'], 'plan', 'room_id=' + sql.escape(obj.id));
+	try {
+		var selectAns = await sql.sever(pool, sqlStringSelect);
+	} catch (err) {
+		send(res, {
+			"msg": err,
+			"style": -2
+		});
+		return;
+	}
+	if (selectAns.length != 0) {
+		send(res, {
+			"msg": "已经安排过plan,无法删除",
+			"style": 0
+		});
+		return;
+	}
+	//删除驳回，plan有数据
 
 
 	let connect = await sql.handler(pool);
