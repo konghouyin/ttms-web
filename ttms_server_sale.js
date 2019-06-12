@@ -243,7 +243,7 @@ server.post('/sale',async function(req,res){
 			sqlString =  sql.select( ['plan_money'],'ticket,plan','plan.plan_id=ticket.plan_id and ticket.ticket_id='+sql.escape(ticketArr[i]));
 			var num = await sql.stepsql(connect, sqlString);
 			
-			sqlString =  sql.insert('sale', ['user_id','ticket_id','sale_money','sale_status'],['1',sql.escape(ticketArr[i]),num[0].plan_money,'1']);
+			sqlString =  sql.insert('sale', ['user_id','ticket_id','sale_money','sale_status','sale_time'],['1',sql.escape(ticketArr[i]),num[0].plan_money,'1','NOW()']);
 			await sql.stepsql(connect, sqlString);
 		}
 		await connect.commit()
@@ -362,4 +362,59 @@ server.post('/order',async function(req,res){
 })
 //订票
 
-//订票还需要生成订单!!!
+
+
+server.get('/ticketMessage',async function(req,res){
+	let obj = req.obj;
+	let judgeOptions = {
+		id:{
+			type:"int",
+			length:32
+		}
+	}
+	let judgeCtrl = judge(judgeOptions, obj);
+	if (judgeCtrl.style == 0) {
+		send(res, {
+			"msg": judgeCtrl.message,
+			"style": -1
+		})
+		return;
+	}
+	
+	let sqlString = sql.select(['ticket_id'], 'ticket', 'ticket_id=' + sql.escape(obj.id));
+	try {
+		var selectAns = await sql.sever(pool, sqlString);
+	} catch (err) {
+		send(res, {
+			"msg": err,
+			"style": -2
+		});
+		return;
+	}
+	if (selectAns.length != 1) {
+		send(res, {
+			"msg": "没有查询到该id对应的电影！",
+			"style": 0
+		});
+		return ;
+	} 
+	
+	sqlString = sql.select(['room.room_name','seat.seat_row','seat.seat_col','play.play_name','plan.plan_startime','plan.plan_language','plan.plan_money'], 
+	'play,plan,room,seat,ticket', 'ticket.plan_id=plan.plan_id and ticket.seat_id=seat.seat_id and seat.room_id=room.room_id and ticket.ticket_id=' + sql.escape(obj.id));
+	try {
+		selectAns = await sql.sever(pool, 'SELECT distinct '+sqlString.split('SELECT')[1]);
+	} catch (err) {
+		send(res, {
+			"msg": err,
+			"style": -2
+		});
+		return;
+	}
+	send(res, {
+		"msg": "查询成功！",
+		"data":selectAns,
+		"style": 1
+	});
+	
+})
+//根据ticket_id查询票的详细信息

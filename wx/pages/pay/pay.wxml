@@ -1,2 +1,5 @@
 <!--pages/pay/pay.wxml-->
-<text>pages/pay/pay.wxml</text>
+<view class="top">
+	<image class="head-pic"></image>
+	<view class="name"></view>
+</view>

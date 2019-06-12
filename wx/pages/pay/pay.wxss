@@ -1,1 +1,17 @@
 /* pages/pay/pay.wxss */
+
+.top{
+	background-color: #FF2A00;
+	display: flex;
+	flex-direction: row;
+}
+
+.head-pic{
+	width:80rpx;
+	height:80rpx;
+}
+
+.top .name{
+	font-size: 40rpx;
+	color: #fff;
+}

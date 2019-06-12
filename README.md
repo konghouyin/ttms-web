@@ -438,6 +438,7 @@ orderTicket status ->0生成订单/1支付成功/-1取消订单
      - 登录注册：/ttmsLogin---->内网转发517
      - 运营管理：/ttmsOperation---->内网转发510
      - 销售：/ttmsSale---->内网转发965
+     - 财务：/ttmsFinance----->内网转发612
 
 后台应用由forever进行管理，如果出现后台崩溃等异常退出，后台将会自动重启，保证服务正常运行。
 
@@ -1367,6 +1368,12 @@ orderTicket status ->0生成订单/1支付成功/-1取消订单
          "msg": "演出票校验错误！",
          "style": 0
      }
+     
+     {
+         "msg": err,
+         "style": -2
+     }
+     //数据库异常
      ```
 
 #### 5.订票
@@ -1375,7 +1382,48 @@ orderTicket status ->0生成订单/1支付成功/-1取消订单
 
 - 方法：POST
 
-- 参数：{ticket:[],id:“int”}//想预定的电影票
+- 参数：{ticket:[],id:3}//想预定的电影票
+
+- 返回
+
+     ```json
+     {
+         "msg": "购票成功！",
+         "style": 1
+     }
+     
+     {
+         "msg": "ticket参数缺失",
+         "style": -1
+     }
+     
+     {
+         "msg": "数组第0元素不是Int类型",
+         "style": -1
+     }
+     
+     {
+         "msg": "演出票校验错误！",
+         "style": 0
+     }
+     
+     {
+         "msg": err,
+         "style": -2
+     }
+     //数据库异常
+     ```
+
+
+#### 6.退票
+
+#### 7.根据ticket_id查询票的详细信息
+
+- url：/ticket
+
+- 方法：GET
+
+- 参数：{id:3}
 
 - 返回
 
@@ -1385,8 +1433,113 @@ orderTicket status ->0生成订单/1支付成功/-1取消订单
 
      
 
+### 财务部分
+
+#### 1.查询所有销售员信息
+
+- url：/salerAll
+
+- 方法：GET
+
+- 参数：无
+
+- 返回
+
+     ```json
+     {
+         "msg": "查询成功",
+         "data": [
+             {
+                 "user_id": 3,
+                 "user_name": "sh",
+                 "user_tel": 1534,
+                 "user_time": "2019-06-13T07:11:22.000Z"
+             }
+         ],
+         "style": 0
+     }
+     
+     {
+         "msg": err,
+         "style": -2
+     }
+     //数据库异常
+     ```
+
+     
+
+#### 2.根据id查看某一时间段销售记录
+
+- url：/salerAll
+
+- 方法：GET
+
+- 参数：
+
+     | 参数  | 类型   | 说明     |
+     | :---- | ------ | -------- |
+     | id    | Int    | 用户id   |
+     | start | String | 起始时间 |
+     | end   | String | 结束时间 |
+
+- 返回
+
+     ```json
+     {
+         "msg": "查询成功",
+         "data": [
+             {
+                 "sale_id": 1,
+                 "ticket_id": 23,
+                 "sale_money": 12.66,
+                 "sale_status": 1,
+                 "sale_time": "2019-06-12T11:25:20.000Z"
+             }
+         ],
+         "style": 0
+     }
+     
+     {
+         "msg": err,
+         "style": -2
+     }
+     //数据库异常
+     ```
 
 
 
+#### 3.查看某一时间段个人用户的销售记录
 
-####6.退票
+- url：/financebyuser
+- 方法：GET
+- 参数：
+     | 参数  | 类型   | 说明     |
+     | :---- | ------ | -------- |
+     | start | String | 起始时间 |
+     | end   | String | 结束时间 |
+
+- 返回
+
+     ```json
+     {
+         "msg": "查询成功",
+         "data": [
+             {
+                 "sale_id": 1,
+                 "ticket_id": 23,
+                 "sale_money": 12.66,
+                 "sale_status": 1,
+                 "sale_time": "2019-06-12T11:25:20.000Z"
+             }
+         ],
+         "style": 0
+     }
+     
+     {
+         "msg": err,
+         "style": -2
+     }
+     //数据库异常
+     ```
+
+     
