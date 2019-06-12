@@ -1,6 +1,6 @@
 {
 	"pages": [
-
+        "pages/pay/pay",
 		"pages/index/index",
 		"pages/main/main",
 		"pages/play/play",

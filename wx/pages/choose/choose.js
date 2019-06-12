@@ -14,14 +14,13 @@ Page({
 		line: [],
 		item: {},
 		chooseList: []
-
 	},
 
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function(options) {
-		money=options.money;
+		money = options.money;
 		pageObj = this;
 		getTicket(options.id, options.room);
 		pageObj.setData({
@@ -31,8 +30,8 @@ Page({
 				place: options.place,
 				time: options.time,
 			},
-			money:options.money,
-			moneyAll:0
+			money: options.money,
+			moneyAll: 0
 		})
 	},
 
@@ -91,7 +90,7 @@ Page({
 		let data = e.currentTarget.dataset.message;
 		if (data.seat_status == 0) {
 			arr[data.seat_row - 1][data.seat_col - 1].seat_status = 1;
-			chooseTicket.set(data.ticket_id,data);
+			chooseTicket.set(data.ticket_id, data);
 		} else if (data.seat_status == 1) {
 			arr[data.seat_row - 1][data.seat_col - 1].seat_status = 0;
 			chooseTicket.delete(data.ticket_id);
@@ -100,21 +99,68 @@ Page({
 		}
 		pageObj.setData({
 			line: arr,
-			chooseList:[...chooseTicket],
-			moneyAll:([...chooseTicket].length*money).toFixed(2)
+			chooseList: [...chooseTicket],
+			moneyAll: ([...chooseTicket].length * money).toFixed(2)
 		})
 
 	},
-	remove(e){
+	remove(e) {
 		let data = e.currentTarget.dataset.message[1];
 		arr[data.seat_row - 1][data.seat_col - 1].seat_status = 0;
 		chooseTicket.delete(data.ticket_id);
 		pageObj.setData({
 			line: arr,
-			chooseList:[...chooseTicket]
+			chooseList: [...chooseTicket],
+			moneyAll: ([...chooseTicket].length * money).toFixed(2)
 		})
+	},
+	order() {
+		if (chooseTicket.lenth == 0) {
+			return;
+		} else {
+			wx.showLoading({
+				title: "正在购票"
+			})
+			let arr = [];
+			for (let child of chooseTicket.values()) {
+				arr.push(child.ticket_id);
+			}
+			orderTicket(arr)
+		}
 	}
 })
+
+function orderTicket(arr) {
+	try {
+		var value = wx.getStorageSync('userId')
+	} catch (e) {
+		console.log(e)
+	}
+
+	wx.request({
+		url: 'https://www.konghouy.cn/ttmsSale/order',
+		method: "post",
+		data: {
+			id: value,
+			ticket: arr
+		},
+		header: {
+			'content-type': 'application/json'
+		},
+		success(res) {
+			console.log(res);
+			wx.hideLoading();
+			if (res.data.style != 1) {
+				wx.showToast({
+					title: '预定失败',
+					icon: 'none',
+					duration:2000
+				})
+			}
+
+		}
+	})
+}
 
 function getSeat(id) {
 	wx.request({

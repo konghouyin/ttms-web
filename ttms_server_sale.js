@@ -271,7 +271,7 @@ server.post('/order',async function(req,res){
 	let obj = req.obj;
 	let judgeOptions = {
 		id:{
-			type="int",
+			type:"int",
 			length:32
 		},
 		ticket: {
@@ -336,12 +336,11 @@ server.post('/order',async function(req,res){
 		}
 		
 		
-		let sqlStringSelect = sql.select(['plan_money'], 'ticket,plan', 'ticket.plan_id=plan.plan_id ticket_id='+sql.escape(ticketArr[0]));
-		let money = await sql.stepsql(connect, sqlString);
+		let sqlStringSelect = sql.select(['plan_money'], 'ticket,plan', 'ticket.plan_id=plan.plan_id and ticket_id='+sql.escape(ticketArr[0]));
+		let money = await sql.stepsql(connect, sqlStringSelect);
 		
-		
-		sqlString =  sql.insert('orderticket', ['user_id','orderTicket_money','orderTicket_history','orderTicket_time','orderTicket_status'],
-		[sql.escape(obj.id),money*ticketArr.length,sql.escape(JSON.stringify(ticketArr)),'NOW()','0']);
+		let sqlString =  sql.insert('orderticket', ['user_id','orderticket_money','orderticket_history','orderticket_time','orderticket_status'],
+		[sql.escape(obj.id),Number.parseFloat(money[0].plan_money)*ticketArr.length,sql.escape(JSON.stringify(ticketArr)),'NOW()','0']);
 		await sql.stepsql(connect, sqlString);
 		
 		await connect.commit()

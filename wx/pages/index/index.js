@@ -17,36 +17,32 @@ Page({
 	onLoad: function(options) {
 		pageObj = this;
 		refresh();
-        wx.login({
-            success(res){
-                wxlogin(res.code)
-            }
-        })
+		wx.login({
+			success(res) {
+				wxlogin(res.code)
+			}
+		})
 	},
 
 	/**
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
-	onReady: function() {
-	},
+	onReady: function() {},
 
 	/**
 	 * 生命周期函数--监听页面显示
 	 */
-	onShow: function() {
-	},
+	onShow: function() {},
 
 	/**
 	 * 生命周期函数--监听页面隐藏
 	 */
-	onHide: function() {
-	},
+	onHide: function() {},
 
 	/**
 	 * 生命周期函数--监听页面卸载
 	 */
-	onUnload: function() {
-	},
+	onUnload: function() {},
 
 	/**
 	 * 页面相关事件处理函数--监听用户下拉动作
@@ -68,8 +64,8 @@ Page({
 	onShareAppMessage: function() {
 
 	},
-	
-	
+
+
 	searchbtn() {
 		wx.navigateTo({
 			url: '/pages/search/search?allMovie=' + JSON.stringify(this.data.movieList)
@@ -87,16 +83,22 @@ Page({
 
 })
 
-function wxlogin(code){
+function wxlogin(code) {
 	wx.request({
-		method:"POST",
+		method: "POST",
 		url: 'https://www.konghouy.cn/ttmsLogin/wxlogin', //仅为示例，并非真实的接口地址
-		data: {code:code},
+		data: {
+			code: code
+		},
 		header: {
 			'content-type': 'application/json' // 默认值
 		},
 		success(res) {
-			console.log(res);
+			console.log(res.data.id);
+			wx.setStorage({
+				key: "userId",
+				data:res.data.id
+			})
 		}
 	})
 }
