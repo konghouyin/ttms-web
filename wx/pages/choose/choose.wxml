@@ -16,15 +16,20 @@
 				<view wx:for="{{line[0]}}">{{index+1}}</view>
 			</view>
 			<view class="each-line" wx:for="{{line}}" wx:for-item="each">
-				<image wx:for="{{each}}" src="{{item.seat_status==-1?'':(item.seat_status==0?'/image/seat-empty.png':(item.seat_status==1?'/image/seat-choose.png':(item.seat_status==-2?'/image/seat-sale.png':'')))}}"></image>
+				<image wx:for="{{each}}" bindtap="choose" data-message="{{item}}" src="{{item.seat_status==-1?'':(item.seat_status==0?'/image/seat-empty.png':(item.seat_status==1?'/image/seat-choose.png':(item.seat_status==-2?'/image/seat-sale.png':'')))}}"></image>
 			</view>
 		</view>
 	</view>
 </scroll-view>
 
 <view class="btn">
-	<scroll-view class="ticketChoose">
-
+	<view class="text">已选择的座位</view>
+	<scroll-view scroll-x class="ticketChoose">
+		<view class="ticket-each" wx:for="{{chooseList}}" data-message="{{item}}" bindtap='remove'>
+			<view class="seat">{{item[1].seat_row}}排{{item[1].seat_col}}坐</view>
+			<view class="money">￥{{money}}</view>
+		</view>
 	</scroll-view>
-	<button class="sure"></button>
+	<button class="{{chooseList.length==0?'sure-out':'sure'}}">{{chooseList.length==0?'请先选座':('￥'+moneyAll+'确认选座')}}</button>
 </view>
+ 

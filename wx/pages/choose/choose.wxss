@@ -1,22 +1,22 @@
 /* pages/choose/choose.wxss */
-page{
+page {
 	color: #eee;
 }
 
-.baseMessage{
+.baseMessage {
 	padding: 20rpx;
 	border-bottom: 2rpx solid #ccc;
 	margin-bottom: 20rpx;
 }
 
-.baseMessage .name{
-	color:#333;
+.baseMessage .name {
+	color: #333;
 }
 
 
-.baseMessage .time{
+.baseMessage .time {
 	font-size: 30rpx;
-	color:#999;
+	color: #999;
 }
 
 
@@ -52,24 +52,25 @@ page{
 	margin: 5rpx;
 }
 
-.cow{
+.cow {
 	position: absolute;
 	background-color: #777777;
 	color: #fff;
 	padding: 5rpx;
 	border-radius: 10rpx;
 	font-size: 26rpx;
-	left:10rpx;
+	left: 10rpx;
 	text-align: center;
 	z-index: 2;
-	top:42rpx;
+	top: 42rpx;
 }
-.cow>view{
-	height:60rpx;
+
+.cow>view {
+	height: 60rpx;
 	line-height: 60rpx;
 }
 
-.col{
+.col {
 	position: absolute;
 	display: flex;
 	flex-direction: row;
@@ -78,16 +79,17 @@ page{
 	padding: 5rpx;
 	border-radius: 10rpx;
 	font-size: 26rpx;
-	top:-5rpx;
-	left:45rpx;
+	top: -5rpx;
+	left: 45rpx;
 	text-align: center;
 }
+
 .col-out>view,
-.col>view{
-	width:60rpx;
+.col>view {
+	width: 60rpx;
 }
 
-.col-out{
+.col-out {
 	position: absolute;
 	display: flex;
 	flex-direction: row;
@@ -96,8 +98,54 @@ page{
 	padding: 5rpx;
 	border-radius: 10rpx;
 	font-size: 26rpx;
-	top:-5rpx;
-	left:45rpx;
+	top: -5rpx;
+	left: 45rpx;
 	text-align: center;
 }
 
+.btn {
+	width: 100vw;
+	box-sizing: border-box;
+	position: fixed;
+	bottom: 0;
+	padding: 15rpx;
+	padding: 15rpx 30rpx;
+}
+
+.btn .text {
+	color: #333;
+	font-size: 30rpx;
+	margin: 12rpx 0;
+
+}
+
+.sure-out {
+	background-color: #fed699;
+	color: #fff;
+}
+
+.sure {
+	background-color: #fe9901;
+	color: #fff;
+}
+
+
+.ticketChoose {
+	white-space: nowrap;
+	display: flex;
+}
+
+.ticket-each {
+	color: #666;
+	font-size: 28rpx;
+	display: inline-block;
+	border: 2rpx solid #ccc;
+	padding: 5rpx 35rpx;
+	margin: 0 6rpx 10rpx 6rpx;
+
+}
+
+.ticket-each .money {
+	color: #FF2A00;
+	font-size: 20rpx;
+}
