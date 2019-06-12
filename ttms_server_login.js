@@ -308,7 +308,7 @@ server.post('/userEdit', async function(req,res) {
 			length: 32
 		},
 		tel: {
-			length: 128
+			length: 12
 		},
 		passwordchange: {
 			type: "only",
@@ -344,7 +344,7 @@ server.post('/userEdit', async function(req,res) {
 
 	if (obj.passwordchange == 0) {
 		let sqlString = sql.update('user', [ 'user_status', 'user_tel'],
-			[sql.escape(obj.status), sql.escape(obj.tel)],
+			[sql.escape(obj.status), obj.tel==""?null:sql.escape(obj.tel)],
 			'user_id=' + sql.escape(obj.id));
 		try {
 			var selectAns = await sql.sever(pool, sqlString);
@@ -358,7 +358,7 @@ server.post('/userEdit', async function(req,res) {
 	} else {
 
 		let sqlString = sql.update('user', ['user_password', 'user_status', 'user_tel'],
-			[ sql.escape(obj.password), sql.escape(obj.status), sql.escape(obj.tel)],
+			[ sql.escape(obj.password), sql.escape(obj.status), obj.tel==""?null:sql.escape(obj.tel)],
 			'user_id=' + sql.escape(obj.id));
 		try {
 			var selectAns = await sql.sever(pool, sqlString);
