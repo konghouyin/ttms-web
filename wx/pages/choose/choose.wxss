@@ -1,1 +1,103 @@
 /* pages/choose/choose.wxss */
+page{
+	color: #eee;
+}
+
+.baseMessage{
+	padding: 20rpx;
+	border-bottom: 2rpx solid #ccc;
+	margin-bottom: 20rpx;
+}
+
+.baseMessage .name{
+	color:#333;
+}
+
+
+.baseMessage .time{
+	font-size: 30rpx;
+	color:#999;
+}
+
+
+
+.sroll {
+	height: 640rpx;
+	min-width: 100vw;
+}
+
+.box {
+	min-width: 100vw;
+	display: flex;
+	justify-content: center;
+	position: relative;
+}
+
+
+.wrap {
+	display: inline-block;
+	flex-direction: column;
+	position: relative;
+	padding: 50rpx;
+}
+
+.each-line {
+	display: flex;
+	flex-wrap: nowrap;
+}
+
+.each-line>image {
+	height: 50rpx;
+	width: 50rpx;
+	margin: 5rpx;
+}
+
+.cow{
+	position: absolute;
+	background-color: #777777;
+	color: #fff;
+	padding: 5rpx;
+	border-radius: 10rpx;
+	font-size: 26rpx;
+	left:10rpx;
+	text-align: center;
+	z-index: 2;
+	top:42rpx;
+}
+.cow>view{
+	height:60rpx;
+	line-height: 60rpx;
+}
+
+.col{
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+	background-color: #777777;
+	color: #fff;
+	padding: 5rpx;
+	border-radius: 10rpx;
+	font-size: 26rpx;
+	top:-5rpx;
+	left:45rpx;
+	text-align: center;
+}
+.col-out>view,
+.col>view{
+	width:60rpx;
+}
+
+.col-out{
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+	background-color: #777777;
+	color: #fff;
+	padding: 5rpx;
+	border-radius: 10rpx;
+	font-size: 26rpx;
+	top:-5rpx;
+	left:45rpx;
+	text-align: center;
+}
+

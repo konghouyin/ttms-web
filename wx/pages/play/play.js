@@ -98,25 +98,15 @@ Page({
 			url: '/pages/main/main?id=' + idNow
 		})
 	},
-	showList(){
-		let arr =  this.playList.filter(function(data){
-			return data.data==pageObj.timeNow;
-		})
-		return [{
-			timestart:"1",
-			language:"1",
-			place:"1",
-			money:"1"
-		}];
-	},
 	sale(e){
 		console.log(e);
 		if(e.currentTarget.dataset.sale==false){
 			return ;
 		}else{
-			// wx.navigateTo({
-			// 	url: '/pages/main/main?id=' + idNow
-			// })
+			let obj = e.currentTarget.dataset.message;
+			wx.navigateTo({
+				url: `/pages/choose/choose?name=${pageObj.__data__.item.name}&time=${obj.timestart}&place=${obj.place}&language=${obj.language}&id=${obj.id}&room=${obj.room}&money=${obj.money}`
+			})
 		}
 		
 	}
@@ -230,6 +220,8 @@ function screen(){
 	})
 	arr.forEach(function(child){
 		back.push({
+			room:child.room_id,
+			id:child.plan_id,
 			timestart:new Date(child.plan_startime).format("hh:mm"),
 			place:child.room_name,
 			money:child.plan_money,
