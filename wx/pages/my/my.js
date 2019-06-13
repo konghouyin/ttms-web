@@ -74,5 +74,10 @@ Page({
 			icon: 'none',
 			duration:2000
 		})
+	},
+	orderList(e){		
+		wx.navigateTo({
+			url:'/pages/orderList/orderList?id='+e.currentTarget.dataset.id
+		})
 	}
 })

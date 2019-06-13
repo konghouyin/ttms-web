@@ -34,5 +34,5 @@
 
 <view wx:if="{{ticketstatus=='0'}}" class="btn">
 	<button wx:if="{{status}}" class="pay" bindtap="payNow">立即支付</button>
-	<button class="cancal">取消订单</button>
+	<button class="cancal"  bindtap="cancel">取消订单</button>
 </view>

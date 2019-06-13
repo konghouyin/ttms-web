@@ -6,19 +6,19 @@
 </view>
 <view class="wrap">
 	<view class="card">
-		<view class="part">
+		<view class="part" data-id="1" bindtap="orderList">
 			<image src="/image/order_ok.png"></image>
 			<text>成功订单</text>
 		</view>
-		<view class="part">
+		<view class="part" data-id="2" bindtap="orderList">
 			<image src="/image/order_cancel.png"></image>
 			<text>取消订单</text>
 		</view>
-		<view class="part">
+		<view class="part" data-id="3" bindtap="orderList">
 			<image src="/image/order_no.png"></image>
 			<text>待支付订单</text>
 		</view>
-		<view class="part">
+		<view class="part" data-id="4" bindtap="orderList">
 			<image src="/image/order_all.png"></image>
 			<text>全部订单</text>
 		</view>

@@ -92,6 +92,40 @@ Page({
 				paySend(ticketid);
 			}
 		})
+	},
+	cancel() {
+		wx.request({
+			url: 'https://www.konghouy.cn/ttmsSale/cancelOrder',
+			method: "post",
+			data: {
+				id: ticketid
+			},
+			header: {
+				'content-type': 'application/json'
+			},
+			success(res) {
+				if (res.data.style == 1) {
+					wx.showModal({
+						title: "退订成功",
+						content: "您已完成退订！",
+						showCancel: false,
+						success(res) {
+							if (res.confirm) {
+								wx.switchTab({
+									url: "/pages/index/index"
+								})
+							}
+						}
+					})
+				} else {
+					wx.showModal({
+						title: "退订失败",
+						content: "退订过程出现问题，请重新退订！",
+						showCancel: false,
+					})
+				}
+			}
+		})
 	}
 })
 
@@ -105,7 +139,7 @@ function paySend(id) {
 
 	wx.request({
 		url: 'https://www.konghouy.cn/ttmsSale/saleOrder',
-		method:"post",
+		method: "post",
 		data: {
 			userId: userId,
 			id: id

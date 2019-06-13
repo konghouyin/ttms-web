@@ -1,0 +1,17 @@
+<!--pages/orderList/orderList.wxml-->
+<view class="top">我的订单</view>
+
+<view class="wrap">
+	<view class="movie-list">
+		<image class="movie-hb" src="{{item.pic}}"></image>
+		<view class='message'>
+			<view class="movie-name">{{item.name}}</view>
+			<view class="movie-time">时间: {{item.time}} </view>
+			<view class="movie-actor">语言:{{item.language}}</view>
+			<view class="movie-type">演出厅:{{item.place}}</view>
+		</view>
+	</view>
+	<view class='ticketList'>
+		<text wx:for="{{item.ticket}}" class="ticket-each">{{item.seat_row}}排{{item.seat_col}}座</text>
+	</view>
+</view>
