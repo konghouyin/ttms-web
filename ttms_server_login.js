@@ -52,9 +52,9 @@ server.post('/reg', async function(req, res) {
 			return;
 		}
 		cookieStep(obj, res);
+		
 		send(res, {
 			"msg": "注册成功",
-			"url": "需要跳转的url",
 			"style": 1
 		})
 	} else {
@@ -94,9 +94,22 @@ server.post('/login', async function(req, res) {
 		})
 	} else {
 		cookieStep(obj, res);
+		let url = "";
+		if(selectAns[0].user_status==0){
+			url="https://..."
+			//没有权限
+		}else if(selectAns[0].user_status==1){
+			url="https://www.konghouy.cn/ttms/yunying/operation.html";
+			//运营
+		}else if(selectAns[0].user_status==2){
+			url="https://www.konghouy.cn/ttms/sale/html/conductor.html";
+			//销售
+		}else if(selectAns[0].user_status==3){
+			//财务
+		}
 		send(res, {
 			"msg": "登录成功！",
-			"url": "需要跳转的url",
+			"url": url,
 			"style": 1
 		})
 	}

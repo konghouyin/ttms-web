@@ -26,10 +26,11 @@ let server = router;
 app.use('/ttmsOperation',server);
 
 server.get('/new', async function(req, res) {
-	var obj = ranslateCookie(req);
+	
+	var obj = translateCookie(req);
 	if (obj.style == 1) {
 		let sqlString = sql.select(['user_name', 'user_password', 'user_status'], 'user',
-			`user_name=${sql.escape(obj.name)} AND user_password=${sql.escape(obj.password)}`);
+			`user_name=${sql.escape(obj.name)} AND user_password=${sql.escape(obj.pass)}`);
 		try {
 			var selectAns = await sql.sever(pool, sqlString);
 		} catch (err) {
@@ -39,6 +40,7 @@ server.get('/new', async function(req, res) {
 			});
 			return;
 		}
+		
 		if (selectAns.length == 1) {
 			sessionStep(req); //合法登录下发session
 			send(res, {
@@ -105,10 +107,6 @@ server.get('/query', async function(req, res) {
 	}
 })
 //通过豆瓣url解析主要信息
-
-
-
-
 
 server.post('/playAdd', async function(req, res) {
 	let obj = req.obj;
