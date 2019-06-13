@@ -461,10 +461,8 @@ server.get('/selectOrder', async function(req, res) {
 
 
 	sqlString = sql.select(['room.room_name', 'play.play_name', 'play.play_pic', 'plan.plan_startime',
-			'plan.plan_language', 'plan.plan_money'
-		],
-		'play,plan,room,ticket,seat',
-		'ticket.plan_id=plan.plan_id and ticket.seat_id=seat.seat_id and seat.room_id=room.room_id and ticket.ticket_id=' +
+			'plan.plan_language', 'plan.plan_money'	],'play,plan,room,ticket,seat',
+		'ticket.plan_id=plan.plan_id and ticket.seat_id=seat.seat_id and plan.play_id=play.play_id and plan.room_id=room.room_id and ticket.ticket_id=' +
 		sql.escape(num[0]));
 	try {
 		selectPlay = await sql.sever(pool, 'SELECT distinct ' + sqlString.split('SELECT')[1]);
@@ -544,7 +542,7 @@ server.get('/selectAllOrder', async function(req, res) {
 		//查询订单基础信息
 		sqlString = sql.select(['room.room_name', 'play.play_name', 'play.play_pic', 'plan.plan_startime',
 				'plan.plan_language', 'plan.plan_money'],'play,plan,room,ticket,seat',
-			'ticket.plan_id=plan.plan_id and ticket.seat_id=seat.seat_id and seat.room_id=room.room_id and ticket.ticket_id=' +
+			'ticket.plan_id=plan.plan_id and ticket.seat_id=seat.seat_id and plan.play_id=play.play_id and plan.room_id=room.room_id and ticket.ticket_id=' +
 			sql.escape(num[0]));
 		try {
 			selectPlay = await sql.sever(pool, 'SELECT distinct ' + sqlString.split('SELECT')[1]);

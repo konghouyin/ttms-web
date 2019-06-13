@@ -1,17 +1,22 @@
 <!--pages/orderList/orderList.wxml-->
 <view class="top">我的订单</view>
 
-<view class="wrap">
+<view class="wrap" wx:for="{{orderList}}" data-id="item.orderticket_id" bindtap="ordermain">
+	<view class="status">
+		<text style="float: left;">订单状态:</text>
+		<text style="float: right; color: #666;">{{item.orderticket_status==1?'已完成':item.orderticket_status==-1?'已取消':'未支付'}}</text>
+	</view>
 	<view class="movie-list">
-		<image class="movie-hb" src="{{item.pic}}"></image>
+		<image class="movie-hb" src="{{item.play.play_pic}}"></image>
 		<view class='message'>
-			<view class="movie-name">{{item.name}}</view>
-			<view class="movie-time">时间: {{item.time}} </view>
-			<view class="movie-actor">语言:{{item.language}}</view>
-			<view class="movie-type">演出厅:{{item.place}}</view>
+			<view class="movie-name">{{item.play.play_name}}</view>
+			<view class="movie-time">{{item.orderticket_time}} </view>
+			<view class="movie-actor">语言:{{item.play.plan_language}}</view>
+			<view class="movie-type">演出厅:{{item.play.room_name}}</view>
 		</view>
 	</view>
 	<view class='ticketList'>
 		<text wx:for="{{item.ticket}}" class="ticket-each">{{item.seat_row}}排{{item.seat_col}}座</text>
 	</view>
 </view>
+<!-- 全部 -->

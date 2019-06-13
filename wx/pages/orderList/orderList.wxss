@@ -1,5 +1,23 @@
 /* pages/orderList/orderList.wxss */
 
+.top{
+	background-color: #FF2A00;
+	text-align: center;
+	color: #fff;
+	padding: 30rpx;
+}
+
+.status{
+	border-bottom: 3rpx solid #ccc;
+	font-size: 30rpx;
+	color: #999;
+	padding: 10px 80rpx;
+	overflow: hidden;
+}
+.status>text{
+	display: inline-block;
+}
+
 .movie-list {
 	display: flex;
 	flex-direction: row;
