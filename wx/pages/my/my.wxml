@@ -1,2 +1,50 @@
 <!--pages/my/my.wxml-->
-<text>pages/my/my.wxml</text>
+<view class="top">
+	<view class="name">
+		<open-data type="userNickName"></open-data>
+	</view>
+</view>
+<view class="wrap">
+	<view class="card">
+		<view class="part">
+			<image src="/image/order_ok.png"></image>
+			<text>成功订单</text>
+		</view>
+		<view class="part">
+			<image src="/image/order_cancel.png"></image>
+			<text>取消订单</text>
+		</view>
+		<view class="part">
+			<image src="/image/order_no.png"></image>
+			<text>待支付订单</text>
+		</view>
+		<view class="part">
+			<image src="/image/order_all.png"></image>
+			<text>全部订单</text>
+		</view>
+		<view class="head-pic">
+			<open-data type="userAvatarUrl"></open-data>
+		</view>
+	</view>
+</view>
+
+<view class="each-part" bindtap="none">
+	<image class="icon" src="/image/like.png"></image>
+	<view>我的想看</view>
+	<image class="right" src="/image/jt.png"></image>
+</view>
+<view class="each-part" bindtap="none">
+	<image class="icon" src="/image/question.png"></image>
+	<view>常见问题</view>
+	<image class="right" src="/image/jt.png"></image>
+</view>
+<view class="each-part" bindtap="phone">
+	<image class="icon" src="/image/call.png"></image>
+	<view>联系我们</view>
+	<image class="right" src="/image/jt.png"></image>
+</view>
+<view class="each-part" bindtap="none">
+	<image class="icon" src="/image/set.png"></image>
+	<view>设置</view>
+	<image class="right" src="/image/jt.png"></image>
+</view>

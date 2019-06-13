@@ -89,7 +89,6 @@ Page({
 			challenge: ticketid.toString(),
 			authContent: '验证指纹完成支付',
 			success(res) {
-				console.log(123);
 				paySend(ticketid);
 			}
 		})

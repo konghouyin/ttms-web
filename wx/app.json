@@ -1,9 +1,9 @@
 {
 	"pages": [
-		
+		"pages/my/my",
 		"pages/index/index",
        "pages/pay/pay",
-        "pages/my/my",
+        
 		"pages/main/main",
 		"pages/play/play",
 		"pages/video/video",
@@ -32,7 +32,7 @@
 				"selectedIconPath": "/image/canema-a.png"
 			},
 			{
-				"pagePath": "pages/index/index",
+				"pagePath": "pages/my/my",
 				"text": "我的",
 				"iconPath": "/image/mine.png",
 				"selectedIconPath": "/image/mine-a.png"

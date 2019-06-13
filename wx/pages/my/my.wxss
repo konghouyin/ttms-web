@@ -1,1 +1,78 @@
 /* pages/my/my.wxss */
+.top{
+	background-color: #FF2A00;
+	height:320rpx;
+	margin-bottom:180rpx ;
+}
+.top .name{
+	color: #fff;
+	font-size: 40rpx;
+	text-align: center;
+	padding-top:70rpx;
+}
+
+.wrap{
+	top:190rpx;
+	position: absolute;
+	width: 100vw;
+}
+
+.card{
+	box-sizing: border-box;
+	background-color: #fff;
+	margin: 25rpx;
+	border: 3rpx solid #ccc;
+	box-shadow:#aaa  5rpx 5rpx 30rpx 3rpx;
+	border-radius: 15rpx;
+	display: flex;
+	padding: 60rpx 25rpx 25rpx 25rpx;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.part{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.part>image{
+	width:80rpx;
+	height:80rpx;
+}
+.part>text{
+	padding-top: 15rpx;
+	font-size: 26rpx;
+}
+
+.head-pic{
+	position: absolute;
+	width: 130rpx;
+	height:130rpx;
+	border-radius: 100rpx;
+	overflow: hidden;
+	top:-50rpx;
+}
+
+.each-part{
+	position: relative;
+	display:flex;
+	flex-direction: row;
+	margin: 50rpx 0;
+	padding: 0 40rpx;
+}
+.right,
+.icon{
+	width:50rpx;
+	height: 50rpx;
+	margin-right: 50rpx;
+}
+
+.right{
+	position: absolute;
+	right:20rpx;
+}
+
+
