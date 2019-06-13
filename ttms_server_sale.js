@@ -395,7 +395,7 @@ server.get('/selectOrder', async function(req, res) {
 
 
 	let arr = []; //购票数组
-	let sqlString = sql.select(['orderticket_money', 'orderticket_history', 'orderticket_time', 'orderTicket_status'],
+	let sqlString = sql.select(['orderticket_money', 'orderticket_history', 'orderticket_time', 'orderticket_status'],
 		'orderticket', 'orderticket_id=' + sql.escape(obj.id));
 	try {
 		selectBase = await sql.sever(pool, 'SELECT distinct ' + sqlString.split('SELECT')[1]);
@@ -462,6 +462,10 @@ server.post('/saleOrder', async function(req, res) {
 		id: {
 			type: "int",
 			length: 32
+		},
+		userId: {
+			type: "int",
+			length: 32
 		}
 	}
 	let judgeCtrl = judge(judgeOptions, obj);
@@ -472,8 +476,72 @@ server.post('/saleOrder', async function(req, res) {
 		})
 		return;
 	}
+	
+	
+	let sqlString = sql.select(['orderticket_id'],'orderticket', 
+	'orderticket_status=0 and NOW()<date_add(orderticket_time, interval 10 minute) and orderticket_id=' + sql.escape(obj.id));
+	try {
+		var selectAns = await sql.sever(pool, sqlString);
+	} catch (err) {
+		send(res, {
+			"msg": err,
+			"style": -2
+		});
+		return;
+	}
+	if (selectAns.length != 1) {
+		send(res, {
+			"msg": "不满足付款规则",
+			"style": 0
+		});
+		return;
+	}
+	//删除驳回
+	
+	
+	console.log(123);
+	let connect = await sql.handler(pool);
+	try {
+		let sqlString = sql.update('orderticket', ['orderticket_status'], ['1'], 'orderticket_id=' + sql.escape(obj.id));
+		await sql.stepsql(connect, sqlString);
+		//更新订单信息
+		
+		sqlString = sql.select(['orderticket_history'],'orderticket', 'orderticket_id=' + sql.escape(obj.id));
+		let selectAns = await sql.stepsql(connect, sqlString);
+		//查询订单
+		
+		let arr = JSON.parse(selectAns[0].orderticket_history);//ticketId集合
+		
+		sqlString = sql.select(['plan.plan_money'],'ticket,plan', 'ticket.plan_id=plan.plan_id and ticket_id=' + sql.escape(arr[0]));
+		selectAns = await sql.stepsql(connect, sqlString);
+		//查询票价
+		let money = selectAns[0].plan_money;
+		
+		
+		
+		for(let i=0;i<arr.length;i++){
+			sqlString = sql.insert('sale', ['user_id', 'ticket_id', 'sale_money', 'sale_status', 'sale_time'],
+			 [ sql.escape(obj.userId), sql.escape(arr[i]), sql.escape(money), '1', 'NOW()']);
+			await sql.stepsql(connect, sqlString);
+		}
+		//生成销售单
+		
+		await connect.commit()
+	} catch (err) {
+		await connect.rollback()
+		send(res, {
+			"msg": err,
+			"style": -2
+		});
+		return;
+	} finally {
+		connect.release()
+	}
 
-
+	send(res, {
+		"msg": "购票成功！",
+		"style": 1
+	});
 
 
 })
