@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>登陆</title>
+		<link rel="stylesheet" href="log.css" />
+		<script src="public_Ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script src="public_md5.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body style="height: 600px;">
+		<div class="main-bg">
+			<h1>星云剧院</h1>	
+			<div class="box">
+				<div class="box1">
+					<div class="button-box1" onclick="myFunction1()" style="display: block;" id="ID1">
+						<img src="login1.png" class="login"></img><div class="button-login">登陆</div>
+					</div>
+					<div class="button-box2" onclick="myFunction1()" style="display: none;" id="ID2">
+						<img src="login2.png" class="login"></img><div class="button-register">登陆</div>
+					</div>											
+					<div class="button-box2"onclick="myFunction2()" style="display: block;" id="ID3">
+						<img src="register2.png" class="login"></img><div class="button-register">注册</div>
+					</div>
+					<div class="button-box1" onclick="myFunction2()" style="display: none;" id="ID4">
+						<img src="register1.png" class="login"></img><div class="button-login">注册</div>
+					</div>	
+				</div>
+				<div class="box2">
+					<article id="login" style="display: block;">					
+							<h3 class="legend">用户名登陆</h3>
+							<div class="input">								
+								<input id="login_user" type="text" class="input-log" placeholder="用户名" maxlength="
+								32" name="username" onblur="check(this.id,0)" onfocus="check1(this.id)"  autocomplete="off"/>
+								<div class="from_box">用户名不能为空</div>
+							</div>
+							<div class="input">
+								<input id="login_password" type="password" class="input-log" placeholder="密码" maxlength="
+								32" name="password" onblur="check(this.id,5)" onfocus="check1(this.id)" autocomplete="off"/>
+								<div class="from_box">密码长度不能小于6位</div>
+							</div>
+							<button type="submit" onclick="send1()" class="submit">登陆</button></form>
+					</article>
+					<article id="register" style="display: none;margin-top: 20px;">
+							<div class="input">
+								<input id="register_user" type="text" class="input-log" placeholder="用户名" maxlength="
+								32" name="name"  onblur="check(this.id,0)" onfocus="check1(this.id)" autocomplete="off"/>
+								<div class="from_box">用户名不能为空</div>
+							</div>
+							<div class="input">
+								<input id="register_password1" type="password" class="input-log" placeholder="密码" maxlength="
+								32" name="password"  onblur="check(this.id,5)" onfocus="check1(this.id)" autocomplete="off"/>
+								<div class="from_box">密码长度不能小于6位</div>
+							</div>
+							<div class="input">
+								<input id="register_password2" type="password" class="input-log" placeholder="重复密码" maxlength="
+								32" name="password" onblur="check(this.id,5)" onfocus="check1(this.id)" autocomplete="off"/>
+								<div class="from_box">密码长度不能小于6位</div>
+							</div>
+							<button type="submit" onclick="send2()" class="submit" ">注册完成</button>
+					</article>
+				</div>
+			</div>
+		</div>
+		<div>
+			
+		</div>
+		<script>
+			function myFunction1(){
+				document.getElementById('ID1').style.display="block";
+				document.getElementById('ID2').style.display="none";
+				document.getElementById('ID3').style.display="block";
+				document.getElementById('ID4').style.display="none";
+				document.getElementById('login').style.display="block";
+				document.getElementById('register').style.display="none";
+			}
+			function myFunction2(){
+				document.getElementById('ID1').style.display="none";
+				document.getElementById('ID2').style.display="block";
+				document.getElementById('ID3').style.display="none";
+				document.getElementById('ID4').style.display="block";
+				document.getElementById('login').style.display="none";
+				document.getElementById('register').style.display="block";
+			}
+		</script>
+		<script src="public_send.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

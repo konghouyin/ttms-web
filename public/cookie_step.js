@@ -30,6 +30,7 @@ function cookieStep(obj,res){
 }
 
 function translateCookie(req){
+	let obj={};
 	let ss = req.signedCookies.pbl;
 	let decipher = crypto.createDecipher('aes192', secret);
 	try {

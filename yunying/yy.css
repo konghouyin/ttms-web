@@ -1,0 +1,428 @@
+body,
+html {
+	margin: 0px;
+	height: 100%;
+	min-width: 745px;
+}
+
+*{
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+
+body,
+div,
+h1,
+img {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	cursor: default
+}
+
+.box {
+	background: rgb(1, 145, 81);
+	width: 10%;
+	height: 100%;
+	z-index: 0;
+	float: left;
+	min-width: 150px;
+}
+
+.tb {
+	width: 40%;
+	margin-top: 25px;
+	margin-left: 30%;
+	margin-bottom: 8px;
+	border-radius: 200px;
+	background: rgb(255, 255, 255);
+}
+
+.f1 {
+	text-align: center;
+	color: rgb(255, 255, 255);
+	font-weight: 500;
+	padding-bottom: 2px;
+}
+
+.f2 {
+	text-align: center;
+	color: rgb(2, 203, 144);
+	font-size: 90%;
+	padding-bottom: 15px;
+}
+
+.f3 {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 8px;
+	padding-right: 8px;
+	width: 50px;
+	text-align: center;
+	margin: 0 auto;
+	color: rgb(255, 255, 255);
+	border: 2px solid rgb(5, 149, 99);
+	border-radius: 10px;
+	margin-bottom: 20px;
+	font-size: 80%;
+	cursor: pointer
+}
+
+.f4 {
+	padding: 10px;
+	border: 1px solid rgb(4, 162, 92);
+	color: rgb(255, 255, 255);
+	padding-left: 20px;
+	font-size: 16px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+}
+
+.f5 {
+	padding: 10px;
+	border: 1px solid rgb(4, 162, 92);
+	color: rgb(255, 255, 255);
+	padding-left: 20px;
+	font-size: 13.6px;
+	border-top: none;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+}
+
+.f6 {
+	padding-top: 5px;
+	float: left;
+	margin-top: 4%;
+	margin-left: 12%;
+	margin-right: 0.5%;
+	font-weight: 400;
+	font-size: 100%;
+}
+
+.f7 {
+	float: left;
+	margin-top: 4%;
+	margin-right: 2%;
+	height: 30px;
+}
+
+.f8 {
+	background: rgb(5, 174, 99);
+	color: rgb(255, 255, 255);
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+	margin-top: 4%;
+	width: 6%;
+	padding-top: 5px;
+	padding-bottom: 5px;	
+}
+
+.f9 {
+	margin-top: 4%;
+	margin-right: 2%;
+	float: right;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 3px;
+}
+
+.f10 {
+	background: rgb(5, 174, 99);
+	color: rgb(255, 255, 255);
+	border: none;
+	border-radius: 3px;
+	margin-top: 4%;
+	margin-right: 10%;
+	float: right;
+	width: 6%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	cursor: pointer
+}
+.f11 {
+	padding-top: 5px;
+	float: left;
+	margin-top: 5px;
+	margin-left: 17px;
+	margin-right: 0.5%;
+	font-weight: 400;
+	font-size: 100%;
+}
+
+
+.box-1 {
+	width: 90%;
+	height: 100%;
+	float: left;
+	background: rgb(245, 243, 243);
+	max-width: calc(100% - 150px);
+}
+
+.bg {
+	padding: 10px;
+}
+
+table {
+	border: none;
+	width: 100%;
+	padding: 0;
+	border-collapse: collapse;
+
+}
+
+tr {
+	height: 50px;
+}
+
+tr.kt {
+	background: rgb(255, 255, 255);
+}
+
+th {
+	color: rgb(2, 203, 144);
+	font-size: 80%;
+	font-weight: 400;
+}
+
+td {
+	font-size: 80%;
+	text-align: center;
+	border-bottom: 2px solid rgb(219, 219, 219);
+}
+.add{
+	padding: 0 auto;
+	margin: 0 auto;
+	height: 50px;
+	width: 80%;
+	text-align: center;
+	border-bottom: 2px solid rgb(219, 219, 219);
+	border-left: 2px solid rgb(219, 219, 219);
+	border-right: 2px solid rgb(219, 219, 219);
+	cursor: pointer;
+}
+.add:hover{
+	background: rgb(235,240,240);
+}
+.tj{
+	padding: 0 auto;
+	margin: 0 auto;
+	padding-top: 4px;
+	width: 42px;
+	cursor: pointer;
+}
+.bd{
+	position: absolute;
+	background: rgb(245,243,243);
+	width: 500px;
+	height: 300px;
+	margin-left: 300px;
+	margin-top: 160px;
+	padding: 10px;
+	border: 2px solid rgb(219, 219, 219);
+	display: none;
+}
+.bd-font{
+	padding-top:5px;
+	float: left;
+	font-size: 80%;
+	margin-bottom: 5px;
+}
+.bd-input{
+	float: left;
+	width: 407px;
+	padding: 5px;
+	margin-bottom: 10px;
+	border: 0 solid black;
+	border-radius: 10px;
+	outline: none;
+}
+.bd-input1{
+	float: left;
+    margin-left: 5px;
+	padding: 5px;
+	border: 0 solid black;
+	border-radius: 10px;
+	outline: none;
+}
+.bd-button{
+	background: rgb(5, 174, 99);
+	color: rgb(255, 255, 255);
+	border: none;
+	border-radius: 3px;
+	margin-top: 7px;
+	width: 80px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	cursor: pointer;
+	margin-left: 50px;
+}
+a{
+	font-style: none;
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+a:hover{
+	color: rgb(5, 174, 99);
+}
+.seat{
+	width: 660px;
+	margin: 10px auto 5px;
+}
+.box-yc{
+	margin: auto;
+	border: 2px solid rgb(219, 219, 219);
+	width: 90%;
+	height: 72%;
+	text-align: center;
+}
+.box-cx{
+	width: 90%;
+	height: 7%;
+}
+.box-jm{
+	margin-top: 30px;
+	border: 2px solid rgb(219, 219, 219);
+	width: 90%;
+	height: 78%;
+	overflow:auto;
+}
+.box-jh{
+	padding: 15px;
+	margin: 30px auto;
+	border: 2px solid rgb(219, 219, 219);
+	width: 87%;
+	height: calc(13% - 25px);
+}
+.box-yc1{
+	box-sizing: border-box;
+	border-bottom: 2px solid rgb(219, 219, 219);
+	height: 10%;
+	color: rgb(4, 162, 92);
+	font-size: 150%;
+	font-weight: 700;
+	font-family:Simsun;
+	letter-spacing:2px;
+}
+.box-yc2{
+	box-sizing: border-box;
+	border-right: 2px solid rgb(219, 219, 219);
+	height: 100%;
+	width: 21%;
+	float: left;
+	line-height: 49px;
+	cursor: pointer;
+}
+.box-jm1{
+	box-sizing: border-box;
+	border-bottom: 2px solid rgb(219, 219, 219);
+	height: 10%;
+	width: 100%;
+	cursor: pointer;
+	text-align: center;
+	line-height: 50px;
+	overflow:auto;
+}
+.plan-font{
+	margin-left: 10px;	
+	float: left;
+}
+.plan-in{
+	width: 18%;
+	height: 25px;
+	background: rgb(255,255,255);
+	float: left;
+	border-radius: 8px;
+	padding-left: 10px;
+	outline: none;
+}
+.plan-button{
+	background: rgb(5, 174, 99);
+	color: rgb(255, 255, 255);
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+	margin-left: 7.4%;
+	width: 10%;
+	height: 80%;
+}
+.box-plan{
+	width: 100%;
+	height: 90%;
+	overflow:auto;
+}
+.box-plan-name{
+	box-sizing: border-box;
+	border-bottom: 2px solid rgb(219, 219, 219);
+	border-right: 2px solid rgb(219, 219, 219);
+	height: 47.38px;
+	width: 16%;
+	float: left;
+	line-height: 49px;
+}
+.box-plan-in{
+	box-sizing: border-box;
+	border-bottom: 2px solid rgb(219, 219, 219);
+	height: 47.38px;
+	width: 84%;
+	float: left;
+	position: relative;
+}
+.box-plan-out{
+	box-sizing: border-box;
+	border-bottom: 2px solid rgb(219, 219, 219);
+	height: 47.38px;
+	width: 84%;
+	float: left;
+	line-height: 49px;
+	font-family:Simsun;
+	font-size: 250%;
+	font-weight: 600;
+	letter-spacing:50px;
+	color: rgb(199, 199, 199);
+}
+.box-plan-in-long{
+	margin-top: 3px;
+	position: absolute;
+	height: 39.38px;
+	width: 20px;
+	background: rgb(5, 174, 99);
+	cursor: pointer;
+}
+.day-search{
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 3px;
+	outline: none;
+}
+.day-button{
+	background: rgb(5, 174, 99);
+	color: rgb(255, 255, 255);
+	border: none;
+	border-radius: 3px;
+	text-align: center;
+	width: 30%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	cursor: pointer
+}
+.sure{
+	position: absolute;
+	left:30%;
+	top:200px;
+	width: 40%;
+	height: 150px;
+	background: rgb(245,243,243);
+	z-index: 1;
+	border: 2px solid rgb(219, 219, 219);
+	text-align: center;
+	display:none;
+}

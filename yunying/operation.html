@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>星云影院</title>
+		<link rel="stylesheet" href="yy.css" />
+		<script src="public_Ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script src="public_new.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="box">
+			<img src="user.png" class="tb" />
+			<div class="f1">manager</div>
+			<div class="f2">(运营经理)</div>
+			<div class="f3" onclick="zhuxiao()">注销</div>
+			<div class="f4" id="box-f1" onclick="box(box1,box2,box3,boxf1,boxf2,boxf3);">剧目管理<img src="jiantou.png" style="width: 18px; margin-left: 30%; display: block;"></div>
+			<div class="f5" id="box-f2" onclick="box(box2,box1,box3,boxf2,boxf1,boxf3); getRoom();">场地管理<img src="jiantou.png"
+				 style="width: 18px; margin-left: 30%; display: none;"></div>
+			<div class="f5" id="box-f3" onclick="box(box3,box1,box2,boxf3,boxf1,boxf2); planDay(); plan_add_decision();">安排演出<img
+				 src="jiantou.png" style="width: 18px; margin-left: 30%; display: none;"></div>
+		</div>
+		<div class="box-1" id="box1" style="position: relative;">
+			<div class="bd" id="bd">
+				<div class="bd-font">URL(可选)：</div>
+				<input id="URL" class="bd-input" style="width: 350px;" />
+				<button id="jiexi" class="bd-button" style="margin-left: 10px; width: 50px; float: left; margin-top: 0; margin-bottom: 10px;">解析</button>
+				<div class="bd-font">电影名称：</div>
+				<input id="name" class="bd-input1" autocomplete="off" />
+				<div class="bd-font" style="margin-left: 10px;">电影类型：</div>
+				<input id="type" class="bd-input1" style="margin-bottom: 10px;" />
+				<div class="bd-font">导演名称：</div>
+				<input id="direcyor" class="bd-input1" />
+				<div class="bd-font" style="margin-left: 35px;">片长：</div>
+				<input id="length" class="bd-input1" style="margin-bottom: 10px;" />
+				<div class="bd-font" style="margin-left: 22px;">语言：</div>
+				<input id="language" class="bd-input1" />
+				<div class="bd-font" style="margin-left: 35px;">国家：</div>
+				<input id="country" class="bd-input1" style="margin-bottom: 10px;" />
+				<div class="bd-font">演出人员：</div>
+				<input id="actors" class="bd-input" />
+				<div class="bd-font">海报链接：</div>
+				<input id="img1" class="bd-input" />
+				<div class="bd-font">推广链接：</div>
+				<input id="link" class="bd-input" />
+				<h4 class="f11">状态：</h4>
+				<select id="zt" class="f7" style="margin-top: 5px;">
+					<option value="all">全部</option>
+					<option value="已上映">已上映</option>
+					<option value="已下线">已下线</option>
+					<option value="即将上映">即将上映</option>
+				</select>
+				<button class="bd-button" style="margin-left: 110px;" id="ok">提交</button>
+				<button class="bd-button" id="back">返回</button>
+			</div>
+			<div style="overflow: hidden;">
+				<h4 class="f6">状态：</h4>
+				<select id="status1" class="f7">
+					<option value="all">全部</option>
+					<option value="已上映">已上映</option>
+					<option value="已下线">已下线</option>
+					<option value="即将上映">即将上映</option>
+				</select>
+				<button class="f8" onclick="play_find()">查询</button>
+				<button class="f10" onclick="play_search()">搜索</button>
+				<input id="oSearch" class="f9" type="text" placeholder="请输入电影名称" maxlength="32" name="search" autocomplete="off" />
+			</div>
+			<div id="sauto" style="height: 451.62px; overflow: auto; width: 80%; margin: auto;">
+				<table id="table1">
+					<tbody id="t1">
+						<tr class="kt">
+							<th>影片id</th>
+							<th>名称</th>
+							<th>导演</th>
+							<th>类型</th>
+							<th>片长</th>
+							<th>语言</th>
+							<th>状态</th>
+							<th>编辑</th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="add" id="add">
+				<img src="tj.png" class="tj" />
+			</div>
+		</div>
+		<div id="box2" class="box-1" style="display: none; position: relative;">
+			<div class="bd" id="bd1" style="width: 700px; height: 500px;margin-left: 270px;
+    margin-top: 120px;">
+				<div class="bd-font" style="margin-left: 60px;">影厅名称：</div>
+				<input id="roomname" class="bd-input1" autocomplete="off" />
+				<div class="bd-font" style="margin-left: 20px;">行数</div>
+				<input id="row" class="bd-input1" style="width: 40px; text-align: center;" value="20" onkeyup="this.value=this.value.replace(/\D/g,'')"
+				 onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+				<div class="bd-font" style="margin-left: 20px;">列数</div>
+				<input id="col" class="bd-input1" style="width: 40px; text-align: center;" value="30" onkeyup="this.value=this.value.replace(/\D/g,'')"
+				 onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+				<button onclick="oseat()" class="bd-button" style="margin-top: 0;">生成座位</button>
+				<div class="seat" id="seat">
+
+				</div>
+				<h4 class="f11" style="margin-left: 60px;">状态：</h4>
+				<select id="zt1" class="f7" style="margin-top: 5px;">
+					<option value="all">全部</option>
+					<option value=1>启用</option>
+					<option value=0>停用</option>
+				</select>
+				<input id="checkSeat1" name="method" type="radio" checked="checked" style="margin-left: 20px;" />启用/停用
+				<input id="checkSeat2" name="method" type="radio" style="margin-left: 20px;" />删除/恢复
+				<button class="bd-button" style="margin-left: 50px;" onclick="submission()">提交</button>
+				<button class="bd-button" id="back1">返回</button>
+			</div>
+			<div style="overflow: hidden;">
+				<h4 class="f6">状态：</h4>
+				<select id="status2" class="f7">
+					<option value="all">全部</option>
+					<option value=1>启用</option>
+					<option value=0>停用</option>
+				</select>
+				<button class="f8" onclick="room_find();">查询</button>
+				<button class="f10" onclick="room_search();">搜索</button>
+				<input id="oSearch1" class="f9" type="text" placeholder="请输入影厅名称" maxlength="32" name="search" autocomplete="off" />
+			</div>
+			<div id="sauto1" style="height: 451.62px; overflow: auto; width: 80%; margin: auto;">
+				<table id="table2">
+					<tbody id="t2">
+						<tr class="kt">
+							<th>影厅id</th>
+							<th>名称</th>
+							<th>行数</th>
+							<th>列数</th>
+							<th>状态</th>
+							<th>编辑</th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="add" id="add1">
+				<img src="tj.png" class="tj" />
+			</div>
+		</div>
+		<div id="box3" class="box-1" style="display: none; overflow: hidden;">
+			<div style="float: right; height: 100%;width: 20%;padding-top:30px;">
+				<div class="box-cx" style="display: flex; align-items:center; justify-content:space-between;">
+					<input id="oSearch2" class="day-search" type="date" placeholder="请输入日期" maxlength="32" autocomplete="off" />
+					<button class="day-button" onclick="plan_search()">搜索</button>
+				</div>
+				<div class="box-jm" id="box-jm">
+				</div>
+			</div>
+			<div style="height: 100%; width: 80%; padding-top: 30px; position: relative;">
+				<div id="plan-sure" class="sure">
+					<div style="width: 100%; padding-top:40px;padding-bottom: 40px;">提交后不可修改，是否确定提交?</div>
+					<div style="width: 100%; display: flex;justify-content:space-around">
+						<button onclick="plan_submission3()" class="plan-button" style="width: 20%; height: 30px;">确定</button>
+						<button onclick="plan_submission2()" class="plan-button" style="width: 20%; height: 30px;">返回</button>
+					</div>
+				</div>
+				<div class="box-yc">
+					<div class="box-yc1">
+						<div class="box-yc2" style="width: 16%;"></div>
+						<div onclick="planBox(-1)" id="day--1" class="box-yc2">昨天</div>
+						<div onclick="planBox(0)" id="day-0" class="box-yc2" style="background: rgb(4, 162, 92);color: rgb(255,255,255);">今天</div>
+						<div onclick="planBox(1)" id="day-1" class="box-yc2">明天</div>
+						<div onclick="planBox(2)" id="day-2" class="box-yc2" style="border: none;">后天</div>
+					</div>
+					<div class="box-plan" id="plan-m">
+					</div>
+				</div>
+				<div class="box-jh">
+					<div style="display: flex; height: 50%;">
+						<div class="plan-font">电影名称：</div>
+						<div id="p-name" class="plan-in"></div>
+						<div class="plan-font">电影时长：</div>
+						<div id="p-long" class="plan-in" style="width:9%"></div>
+						<div class="plan-font">演出厅：</div>
+						<select id="plan-room" class="f7" style="margin-top: 0; height: 25px;">
+							<option value="all">全部</option>
+						</select>
+						<div class="plan-font">售价：</div>
+						<input id="price" type="number" class="plan-in" style="height: 60%; width: 5%;" />
+						<div class="plan-font">语言：</div>
+						<select id="plan-language" class="f7" style="margin-top: 0; height: 25px;">
+							<option value="all">全部</option>
+						</select>
+					</div>
+					<div style="display: flex; height: 50%; padding-top: 10px;">
+						<div class="plan-font">开始时间：</div>
+						<input id="plan-Start-Time" type="time" class="plan-in" style="height: 60%; width: 8%;" onblur="planTime()" />
+						<div class="plan-font">预计结束时间：</div>
+						<div id="plan-End-Time" class="plan-in" style="width: 9%;"></div>
+						<button id="add-del" class="plan-button">删除</button>
+						<button class="plan-button" onclick="plan_add()">添加</button>
+						<button class="plan-button" onclick="plan_submission1()">提交</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="yy.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>
