@@ -522,11 +522,9 @@ server.get('/selectAllOrder', async function(req, res) {
 
 	let arr = []; //保存所有信息
 	let sqlString = sql.select(['orderticket_id', 'orderticket_money', 'orderticket_history', 'orderticket_time',
-			'orderticket_status'
-		],
-		'orderticket', 'user_id=' + sql.escape(obj.id));
+			'orderticket_status'],'orderticket', 'user_id=' + sql.escape(obj.id));
 	try {
-		selectBase = await sql.sever(pool, 'SELECT distinct ' + sqlString.split('SELECT')[1]);
+		selectBase = await sql.sever(pool, 'SELECT distinct ' + sqlString.split('SELECT')[1]+" ORDER BY orderticket_id DESC");
 	} catch (err) {
 		send(res, {
 			"msg": err,
