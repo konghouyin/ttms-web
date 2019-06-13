@@ -1,17 +1,159 @@
 /* pages/pay/pay.wxss */
+page {
+	height: 100%;
+	background-color: #eee;
+}
 
-.top{
+.top {
 	background-color: #FF2A00;
+	overflow: hidden;
+}
+
+.top .title {
+	margin: 30rpx;
 	display: flex;
 	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 }
 
-.head-pic{
-	width:80rpx;
-	height:80rpx;
+.top>.title>image {
+	width: 80rpx;
+	height: 80rpx;
+	margin: 0 20rpx;
 }
 
-.top .name{
-	font-size: 40rpx;
+.top .title>text {
+	font-size: 50rpx;
 	color: #fff;
+}
+
+.top .message {
+	text-align: center;
+	color: #fff;
+	margin-bottom: 20rpx;
+}
+
+.top .message-out {
+	text-align: center;
+	color: #ccc;
+	margin-bottom: 20rpx;
+	text-decoration: line-through;
+}
+
+.btn {
+	background-color: #fff;
+	border-top: 3rpx solid #ccc;
+	width: 100vw;
+	box-sizing: border-box;
+	position: fixed;
+	bottom: 0;
+	padding: 20rpx;
+}
+
+.btn>button {
+	float: right;
+	height: 80rpx;
+	line-height: 80rpx;
+	font-size: 30rpx;
+	border-radius: 50rpx;
+	margin: 0 20rpx;
+}
+
+.btn .pay {
+	background-color: #FF2A00;
+	color: #fff;
+}
+
+.btn .cancal {
+	border: 3rpx solid #ccc;
+}
+
+
+
+.movie-list {
+	display: flex;
+	flex-direction: row;
+	font-size: 30rpx;
+	padding: 25rpx 0;
+}
+
+.movie-list .movie-hb {
+	width: 23vw;
+	height: 200rpx;
+	margin: 0 0 0 4vw;
+}
+
+.movie-list view {
+	width: 60vw;
+	margin: 0 0 0 2vw;
+	padding: 3rpx 0;
+}
+
+.movie-list .movie-name {
+	font-size: 40rpx;
+}
+
+.movie-list .movie-type {
+	color: #999;
+}
+
+.movie-list .movie-actor {
+	color: #999;
+	width: 60vw;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.main,
+.wrap {
+	margin: 25rpx 25rpx;
+	box-shadow: #ccc 10rpx 10rpx 30rpx 10rpx;
+	border-radius: 15rpx;
+	background-color: #fff;
+}
+
+.ticketList {
+	border-top: 4rpx solid #ccc;
+	padding: 15rpx 10rpx;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+
+.ticketList .ticket-each {
+	margin: 10rpx 15rpx;
+	padding: 10rpx 24rpx;
+	border: 2rpx solid #CCCCCC;
+	color: #00A0E9;
+	font-size: 28rpx;
+}
+
+.main {
+	padding-top: 20rpx;
+	font-size: 30rpx;
+	color: #999;
+}
+
+.main>view {
+	margin: 10rpx 40rpx;
+}
+
+.listen {
+	text-align: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	border-top: 3rpx solid #ccc;
+	margin: 10rpx 0 !important;
+	padding: 15rpx 0;
+}
+
+.listen>image {
+	width: 50rpx;
+	height: 50rpx;
+	margin: 0 20rpx;
 }

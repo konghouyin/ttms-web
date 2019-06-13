@@ -23,7 +23,7 @@
 </scroll-view>
 
 <view class="btn">
-	<view class="text">已选择的座位 - {{chooseList.length}}</view>
+	<view class="text">已选择的座位 （ {{chooseList.length}}）</view>
 	<scroll-view scroll-x class="ticketChoose">
 		<view class="ticket-each" wx:for="{{chooseList}}" data-message="{{item}}" bindtap='remove'>
 			<view class="seat">{{item[1].seat_row}}排{{item[1].seat_col}}坐</view>

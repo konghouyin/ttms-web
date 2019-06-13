@@ -1,5 +1,38 @@
 <!--pages/pay/pay.wxml-->
 <view class="top">
-	<image class="head-pic"></image>
-	<view class="name"></view>
+	<view class="title">
+		<image src="{{ticketstatus==0?(status?'/image/wait.png':'/image/cancel.png'):(ticketstatus==1?'/image/ok.png':'/image/cancel.png')}}"></image>
+		<text>{{ticketstatus==0?(status?'等待支付':'已过期'):(ticketstatus==1?'完成':'已取消')}}</text>
+	</view>
+	<view wx:if="{{ticketstatus==0}}" class="{{status?'message':'message-out'}}">需付款: ￥{{money}}   剩余: {{lasttime}}</view>
+	<view wx:if="{{ticketstatus!=0}}"class="message">需付款: ￥{{money}} </view>
+</view>
+
+<view class="wrap">
+	<view class="movie-list">
+		<image class="movie-hb" src="{{item.pic}}"></image>
+		<view class='message'>
+			<view class="movie-name">{{item.name}}</view>
+			<view class="movie-time">时间: {{item.time}} </view>
+			<view class="movie-actor">语言:{{item.language}}</view>
+			<view class="movie-type">演出厅:{{item.place}}</view>
+		</view>
+	</view>
+	<view class='ticketList'>
+		<text wx:for="{{ticket}}" class="ticket-each">{{item.seat_row}}排{{item.seat_col}}座</text>
+	</view>
+</view>
+<view class="main">
+	<view>订单编号：<text style="color:#333;padding-left:20rpx">{{orderid}}</text></view>
+	<view>下单时间：<text style="color:#333;padding-left:20rpx">{{ordertime}}</text></view>
+	<view>购买数量：<text style="color:#333;padding-left:20rpx">{{ticket.length}}</text></view>
+	<view>单品价格：<text style="color:#333;padding-left:20rpx">{{moneyonce}}</text></view>
+	<view>实际需付：<text style="color:#333;padding-left:20rpx">{{money}}</text></view>
+	<view style="margin-bottom: 20rpx;">支付方式：<text style="color:#333;padding-left:20rpx">在线支付</text></view>
+	<view class="listen" bindtap="phone"><image src="/image/listen.png"></image>联系客服</view>
+</view>
+
+<view wx:if="{{ticketstatus=='0'}}" class="btn">
+	<button wx:if="{{status}}" class="pay" bindtap="payNow">立即支付</button>
+	<button class="cancal">取消订单</button>
 </view>

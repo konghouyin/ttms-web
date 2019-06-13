@@ -119,7 +119,7 @@ Page({
 			return;
 		} else {
 			wx.showLoading({
-				title: "正在购票"
+				title: "正在生成订单"
 			})
 			let arr = [];
 			for (let child of chooseTicket.values()) {
@@ -156,8 +156,11 @@ function orderTicket(arr) {
 					icon: 'none',
 					duration:2000
 				})
+			}else{
+				wx.navigateTo({
+					url:'/pages/pay/pay?id='+res.data.id
+				})
 			}
-
 		}
 	})
 }
