@@ -1,6 +1,7 @@
 // pages/pay/pay.js
 let pageObj;
 let ticketid;
+let timer;
 Page({
 
 	/**
@@ -88,6 +89,7 @@ Page({
 			challenge: ticketid.toString(),
 			authContent: '验证指纹完成支付',
 			success(res) {
+				console.log(123);
 				paySend(ticketid);
 			}
 		})
@@ -95,16 +97,25 @@ Page({
 })
 
 function paySend(id) {
+	try {
+		var userId = wx.getStorageSync('userId')
+	} catch (e) {
+		console.log(e);
+	}
+
+
 	wx.request({
-		url: 'https://www.konghouy.cn/ttmsSale/selectOrder',
+		url: 'https://www.konghouy.cn/ttmsSale/saleOrder',
+		method:"post",
 		data: {
+			userId: userId,
 			id: id
 		},
 		header: {
 			'content-type': 'application/json'
 		},
 		success(res) {
-			if(res.data.style==1){
+			if (res.data.style == 1) {
 				wx.showModal({
 					title: "支付成功",
 					content: "您已完成支付，祝您观影愉快！",
@@ -118,7 +129,7 @@ function paySend(id) {
 						}
 					}
 				})
-			}else{
+			} else {
 				wx.showModal({
 					title: "支付失败",
 					content: "支付过程出现问题，请重新支付！",
@@ -127,14 +138,6 @@ function paySend(id) {
 			}
 		}
 	})
-
-
-
-
-
-
-
-	
 }
 //购买影票
 
@@ -152,7 +155,10 @@ function selectOrder(id) {
 			let order = res.data.order[0];
 			let play = res.data.play[0];
 			let ticket = res.data.ticket;
-			setInterval(function() {
+			try {
+				clearInterval(timer);
+			} catch (e) {}
+			timer = setInterval(function() {
 				pageObj.setData({
 					lasttime: methodTime(order.orderticket_time),
 					status: methodTime(order.orderticket_time) == '00:00' ? false : true

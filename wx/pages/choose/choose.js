@@ -164,6 +164,7 @@ function orderTicket(arr) {
 		}
 	})
 }
+//发送预定信息
 
 function getSeat(id) {
 	wx.request({

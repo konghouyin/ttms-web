@@ -498,8 +498,7 @@ server.post('/saleOrder', async function(req, res) {
 	}
 	//删除驳回
 	
-	
-	console.log(123);
+
 	let connect = await sql.handler(pool);
 	try {
 		let sqlString = sql.update('orderticket', ['orderticket_status'], ['1'], 'orderticket_id=' + sql.escape(obj.id));
@@ -520,6 +519,9 @@ server.post('/saleOrder', async function(req, res) {
 		
 		
 		for(let i=0;i<arr.length;i++){
+			let sqlString = sql.update('ticket', ['ticket_status'], ['1'], 'ticket_id=' + sql.escape(arr[i]));
+			await sql.stepsql(connect, sqlString);
+			
 			sqlString = sql.insert('sale', ['user_id', 'ticket_id', 'sale_money', 'sale_status', 'sale_time'],
 			 [ sql.escape(obj.userId), sql.escape(arr[i]), sql.escape(money), '1', 'NOW()']);
 			await sql.stepsql(connect, sqlString);
