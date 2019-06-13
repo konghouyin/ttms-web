@@ -122,19 +122,20 @@ page {
 	flex-wrap: wrap;
 }
 
-
 .ticketList .ticket-each {
 	margin: 10rpx 15rpx;
-	padding: 10rpx 24rpx;
+	padding: 10rpx;
 	border: 2rpx solid #CCCCCC;
 	color: #00A0E9;
 	font-size: 28rpx;
+	width:120rpx;
+	text-align:center;
 }
-
 .main {
 	padding-top: 20rpx;
 	font-size: 30rpx;
 	color: #999;
+	margin-bottom: 140rpx;
 }
 
 .main>view {
