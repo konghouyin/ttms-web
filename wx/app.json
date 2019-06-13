@@ -1,8 +1,9 @@
 {
 	"pages": [
-        "pages/orderList/orderList",
-		"pages/my/my",
+
 		"pages/index/index",
+		"pages/orderList/orderList",
+		"pages/my/my",
 		"pages/pay/pay",
 		"pages/main/main",
 		"pages/play/play",

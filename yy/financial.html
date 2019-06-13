@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>星云剧院票务管理系统</title>
+		<link rel="stylesheet" type="text/css" href="financial.css" />
+		<script src="public_Ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script src="public_new.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="sidebar">
+			<img src="admin.jpg" width="80%" class="picture1" />
+			<ul class="name" id="tar">
+				<li class="f" style="color: white;">admin</li>
+				<li class="f4" style="cursor: pointer;">注销</li>
+				<li class="f3" style="color:white; text-align: center;">(系统管理员)</li>
+			</ul>
+		</div>
+		<div class="subject">
+			<div class="header">
+				<h1 style="text-align: center;">星云剧院</h1>
+				<div class="surch">
+					起始时间：<input id="start1" type="date" style="margin-right: 8%;" />
+					终止时间：<input id="end1" type="date" style="margin-right: 8%;" />
+					人员：	 <select id="select1" style="margin-right: 8%; width: 10%;">
+								<option value="all">全部</option>
+								<option value="0">个体用户</option>
+							 </select>
+					<input type="submit" value="查询" onclick="qwe();" style="width: 66px; height: 30px; 
+					background-color: rgb(5,175,98); border: 0; border-radius: 5px; color: rgb(255,255,255);" />
+				</div>
+			</div>
+			<div class="content">
+				<div class="month">
+					<table style="width: 80%; margin: auto;">
+						<tr id="th1">
+							<th>序号</th>
+							<th>日期</th>
+							<th>金额</th>
+							<th>票id</th>
+							<th>售票状态</th>
+						</tr>
+					</table>
+				</div>
+				<div class="day">
+					<table class="hehe">
+						<tbody class="tbody">
+							
+						</tbody>
+					</table>
+				</div>
+				<div class="buttom">
+					<span class="name1">总计售票数：0</span>
+					<span>总计金额：0</span>
+				</div>
+			</div>
+		</div>
+		<script src="financial.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

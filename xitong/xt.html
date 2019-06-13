@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>星云影院</title>
+		<link rel="stylesheet" href="xt.css" />
+		<script src="public_Ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script src="public_md5.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="box">
+			<img src="user.png" class="tb" />
+			<div class="f1">Administrators</div>
+			<div class="f2">(系统管理员)</div>
+			<div class="f3" onclick="zhuxiao()">注销</div>
+			<div class="f4" id="box-f1">人员管理<img src="jiantou.png" style="width: 18px; margin-left: 30%; display: block;"></div>
+		</div>
+		<div class="box-1" id="box1" style="position: relative;">
+			<div style="overflow: hidden;">
+				<h4 class="f6">职位：</h4>
+				<select id="status1" class="f7">
+					<option value="all">全部</option>
+					<option value="0">待定</option>
+					<option value="1">运营</option>
+					<option value="2">销售</option>
+					<option value="3">财务</option>
+					<option value="4">个人</option>
+				</select>
+				<button class="f8" onclick="user_find()">查询</button>
+				<button class="f10" onclick="user_search()">搜索</button>
+				<input id="oSearch" class="f9" type="text" placeholder="请输入用户名" maxlength="32" name="search" autocomplete="off" />
+			</div>
+			<div id="sauto" style="height: 451.62px; overflow: auto; width: 80%; margin: auto;">
+				<table id="table1">
+					<tbody id="t1">
+						<tr class="kt">
+							<th>用户id</th>
+							<th>用户名</th>
+							<th>密码</th>
+							<th>手机号</th>
+							<th>职位</th>
+							<th>编辑</th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<script src="xt.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

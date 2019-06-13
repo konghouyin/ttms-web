@@ -26,6 +26,55 @@ let server = router;
 app.use('/ttmsFinance',server);
 
 
+server.get('/new', async function(req, res) {
+	
+	var obj = translateCookie(req);
+	if (obj.style == 1) {
+		let sqlString = sql.select(['user_name', 'user_password', 'user_status'], 'user',
+			`user_name=${sql.escape(obj.name)} AND user_password=${sql.escape(obj.pass)}`);
+		try {
+			var selectAns = await sql.sever(pool, sqlString);
+		} catch (err) {
+			send(res, {
+				"msg": err,
+				"style": -2
+			});
+			return;
+		}
+		
+		if (selectAns.length == 1) {
+			sessionStep(req); //合法登录下发session
+			send(res, {
+				"msg": "session已下发，登录状态安全",
+				"name": obj.name,
+				"style": 1
+			})
+		} else {
+			send(res, {
+				"msg": "数据库查询异常",
+				"style": -10
+			})
+		}
+	} else if (obj.style == -1) {
+		send(res, {
+			msg: "cookie解析错误",
+			style: 0
+		})
+	} else if (obj.style == -2) {
+		send(res, {
+			msg: "cookie解析超时",
+			style: -1
+		})
+	} else {
+		send(res, {
+			msg: "cookie解析style异常",
+			style: -10
+		})
+	}
+})
+//跳转登录验证
+
+
 server.get('/salerAll', async function(req, res) {
 	let sqlString = sql.select(["user_id","user_name", "user_tel", "user_time"], 'user','user_status=2');
 	try {

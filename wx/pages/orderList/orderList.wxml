@@ -1,7 +1,7 @@
 <!--pages/orderList/orderList.wxml-->
 <view class="top">我的订单</view>
 
-<view class="wrap" wx:for="{{orderList}}" data-id="item.orderticket_id" bindtap="ordermain">
+<view class="wrap" wx:for="{{orderList}}" data-id="{{item.orderticket_id}}" bindtap="ordermain">
 	<view class="status">
 		<text style="float: left;">订单状态:</text>
 		<text style="float: right; color: #666;">{{item.orderticket_status==1?'已完成':item.orderticket_status==-1?'已取消':'未支付'}}</text>

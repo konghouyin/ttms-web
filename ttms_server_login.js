@@ -96,7 +96,7 @@ server.post('/login', async function(req, res) {
 		cookieStep(obj, res);
 		let url = "";
 		if(selectAns[0].user_status==0){
-			url="https://..."
+			url="https://www.konghouy.cn/ttms/404/404.html"
 			//没有权限
 		}else if(selectAns[0].user_status==1){
 			url="https://www.konghouy.cn/ttms/yunying/operation.html";
@@ -105,6 +105,7 @@ server.post('/login', async function(req, res) {
 			url="https://www.konghouy.cn/ttms/sale/html/conductor.html";
 			//销售
 		}else if(selectAns[0].user_status==3){
+			url="https://www.konghouy.cn/ttms/yy/financial.html";
 			//财务
 		}
 		send(res, {

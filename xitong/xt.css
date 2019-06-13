@@ -1,0 +1,194 @@
+body,
+html {
+	margin: 0px;
+	height: 100%;
+	min-width: 745px;
+}
+
+*{
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+
+body,
+div,
+h1,
+img {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	cursor: default
+}
+
+.box {
+	background: rgb(1, 145, 81);
+	width: 10%;
+	height: 100%;
+	z-index: 0;
+	float: left;
+	min-width: 150px;
+}
+
+.tb {
+	width: 40%;
+	margin-top: 25px;
+	margin-left: 30%;
+	margin-bottom: 8px;
+	border-radius: 200px;
+	background: rgb(255, 255, 255);
+}
+
+.f1 {
+	text-align: center;
+	color: rgb(255, 255, 255);
+	font-weight: 500;
+	padding-bottom: 2px;
+}
+
+.f2 {
+	text-align: center;
+	color: rgb(2, 203, 144);
+	font-size: 90%;
+	padding-bottom: 15px;
+}
+
+.f3 {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 8px;
+	padding-right: 8px;
+	width: 50px;
+	text-align: center;
+	margin: 0 auto;
+	color: rgb(255, 255, 255);
+	border: 2px solid rgb(5, 149, 99);
+	border-radius: 10px;
+	margin-bottom: 20px;
+	font-size: 80%;
+	cursor: pointer
+}
+
+.f4 {
+	padding: 10px;
+	border: 1px solid rgb(4, 162, 92);
+	color: rgb(255, 255, 255);
+	padding-left: 20px;
+	font-size: 16px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+}
+
+.box-1 {
+	width: 90%;
+	height: 100%;
+	float: left;
+	background: rgb(245, 243, 243);
+	max-width: calc(100% - 150px);
+}
+
+.f6 {
+	padding-top: 5px;
+	float: left;
+	margin-top: 4%;
+	margin-left: 12%;
+	margin-right: 0.5%;
+	font-weight: 400;
+	font-size: 100%;
+}
+
+.f7 {
+	float: left;
+	margin-top: 4%;
+	margin-right: 2%;
+	height: 30px;
+}
+
+.f8 {
+	background: rgb(5, 174, 99);
+	color: rgb(255, 255, 255);
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+	margin-top: 4%;
+	width: 6%;
+	padding-top: 5px;
+	padding-bottom: 5px;	
+}
+
+.f9 {
+	margin-top: 4%;
+	margin-right: 2%;
+	float: right;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 3px;
+}
+.f10 {
+	background: rgb(5, 174, 99);
+	color: rgb(255, 255, 255);
+	border: none;
+	border-radius: 3px;
+	margin-top: 4%;
+	margin-right: 10%;
+	float: right;
+	width: 6%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	cursor: pointer;
+}
+table {
+	border: none;
+	width: 100%;
+	padding: 0;
+	border-collapse: collapse;
+
+}
+
+tr {
+	height: 50px;
+}
+
+tr.kt {
+	background: rgb(255, 255, 255);
+}
+
+th {
+	color: rgb(2, 203, 144);
+	font-size: 80%;
+	font-weight: 400;
+}
+
+td {
+	font-size: 80%;
+	text-align: center;
+	border-bottom: 2px solid rgb(219, 219, 219);
+}
+
+td input{
+	outline: none;
+	border: none;
+	width: 89px;
+	background: rgb(245, 243, 243);
+	text-align: center;
+}
+
+td select{
+	background: rgb(245, 243, 243);
+	outline: none;
+	border: none;
+}
+td button{
+	background: rgb(245, 243, 243);
+	outline: none;
+	border: none;
+	border-radius: 3px;
+	padding: 5px;
+	width: 60px;
+	text-align: center;
+}

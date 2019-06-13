@@ -1,0 +1,98 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+.sidebar{
+	float: left;
+	width: 10%;
+	height: 755px;
+	background-color:rgb(1,145,81);
+}
+.sidebar .picture1{
+	padding-left: 10%;
+}
+.name .f{
+	list-style: none;
+	text-align: center;
+}
+.name .f3{
+	list-style: none;
+}
+.name .f4{
+	border: 1px solid rgb(20,173,103);
+	width: 40%;
+	height: 25px;
+	line-height: 25px;
+	border-radius: 10px;
+	text-align: center;
+	margin: 8% auto;
+	list-style: none;
+}
+.subject{
+	float: left;
+	width: 90%;
+	height: 755px;
+}
+.header{
+	float: left;
+	width: 100%;
+	height: 100px;
+	background-color:rgb(245,243,243);
+	
+}
+.surch{
+	width: 80%;
+	margin: auto;
+	padding-left: 12%;
+	padding-top: 1.5%;
+}
+.content{
+	float: left;
+	background-color:rgb(245,243,243);
+	width: 100%;
+	height: 655px;
+}
+.month{
+	height: 50px;
+	width: 100%;
+}
+.day{
+	overflow-y: auto;
+	width:100%;
+	height:540px ;
+}
+.buttom{
+	width: 100%;
+	height: 65px;
+	
+}
+span{
+	display: inline-block;
+	padding-top: 23px;
+	padding-left: 100px;
+}
+.name1{
+	padding-left: 33%;
+}
+.subject .content .hehe{
+	width: 80%;
+	margin: auto;
+}
+table{
+	 border-collapse:collapse;
+}
+#th1{
+	background-color: rgb(255,255,255);
+}
+tr{
+	border-bottom: 2px solid rgb(219,218,218);
+	height: 50px;
+}
+tr td{
+	text-align: center;
+}
+
+
+
+
+
