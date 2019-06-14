@@ -1,22 +1,97 @@
 <!--pages/orderList/orderList.wxml-->
 <view class="top">我的订单</view>
+<view class="show-choose">
+	<text data-id="{{1}}" class="{{show==1?'active':''}} showmodule" bindtap='changeshow'>成功</text>
+	<text data-id="{{2}}" class="{{show==2?'active':''}} showmodule" bindtap='changeshow'>取消</text>
+	<text data-id="{{3}}" class="{{show==3?'active':''}} showmodule" bindtap='changeshow'>待支付</text>
+	<text data-id="{{4}}" class="{{show==4?'active':''}} showmodule" bindtap='changeshow'>全部</text>
+</view>
 
-<view class="wrap" wx:for="{{orderList}}" data-id="{{item.orderticket_id}}" bindtap="ordermain">
-	<view class="status">
-		<text style="float: left;">订单状态:</text>
-		<text style="float: right; color: #666;">{{item.orderticket_status==1?'已完成':item.orderticket_status==-1?'已取消':'未支付'}}</text>
-	</view>
-	<view class="movie-list">
-		<image class="movie-hb" src="{{item.play.play_pic}}"></image>
-		<view class='message'>
-			<view class="movie-name">{{item.play.play_name}}</view>
-			<view class="movie-time">{{item.orderticket_time}} </view>
-			<view class="movie-actor">语言:{{item.play.plan_language}}</view>
-			<view class="movie-type">演出厅:{{item.play.room_name}}</view>
+<view wx:if="{{show==4}}">
+	<view class="wrap" wx:for="{{orderList}}" data-id="{{item.orderticket_id}}" bindtap="ordermain">
+		<view class="status">
+			<text style="float: left;">订单状态:</text>
+			<text style="float: right; color: #666;">{{item.orderticket_status==1?'已完成':item.orderticket_status==-1?'已取消':'未支付'}}</text>
 		</view>
-	</view>
-	<view class='ticketList'>
-		<text wx:for="{{item.ticket}}" class="ticket-each">{{item.seat_row}}排{{item.seat_col}}座</text>
+		<view class="movie-list">
+			<image class="movie-hb" src="{{item.play.play_pic}}"></image>
+			<view class='message'>
+				<view class="movie-name">{{item.play.play_name}}</view>
+				<view class="movie-time">{{item.orderticket_time}} </view>
+				<view class="movie-actor">语言:{{item.play.plan_language}}</view>
+				<view class="movie-type">演出厅:{{item.play.room_name}}</view>
+			</view>
+		</view>
+		<view class='ticketList'>
+			<text wx:for="{{item.ticket}}" class="ticket-each">{{item.seat_row}}排{{item.seat_col}}座</text>
+		</view>
 	</view>
 </view>
 <!-- 全部 -->
+
+
+<view wx:if="{{show==3}}">
+	<view class="wrap" wx:for="{{orderList}}" wx:if="{{item.orderticket_status==0}}" data-id="{{item.orderticket_id}}" bindtap="ordermain">
+		<view class="status">
+			<text style="float: left;">订单状态:</text>
+			<text style="float: right; color: #666;">{{item.orderticket_status==1?'已完成':item.orderticket_status==-1?'已取消':'未支付'}}</text>
+		</view>
+		<view class="movie-list">
+			<image class="movie-hb" src="{{item.play.play_pic}}"></image>
+			<view class='message'>
+				<view class="movie-name">{{item.play.play_name}}</view>
+				<view class="movie-time">{{item.orderticket_time}} </view>
+				<view class="movie-actor">语言:{{item.play.plan_language}}</view>
+				<view class="movie-type">演出厅:{{item.play.room_name}}</view>
+			</view>
+		</view>
+		<view class='ticketList'>
+			<text wx:for="{{item.ticket}}" class="ticket-each">{{item.seat_row}}排{{item.seat_col}}座</text>
+		</view>
+	</view>
+</view>
+<!-- 待支付 -->
+
+<view wx:if="{{show==2}}">
+	<view class="wrap" wx:for="{{orderList}}" wx:if="{{item.orderticket_status==-1}}" data-id="{{item.orderticket_id}}" bindtap="ordermain">
+		<view class="status">
+			<text style="float: left;">订单状态:</text>
+			<text style="float: right; color: #666;">{{item.orderticket_status==1?'已完成':item.orderticket_status==-1?'已取消':'未支付'}}</text>
+		</view>
+		<view class="movie-list">
+			<image class="movie-hb" src="{{item.play.play_pic}}"></image>
+			<view class='message'>
+				<view class="movie-name">{{item.play.play_name}}</view>
+				<view class="movie-time">{{item.orderticket_time}} </view>
+				<view class="movie-actor">语言:{{item.play.plan_language}}</view>
+				<view class="movie-type">演出厅:{{item.play.room_name}}</view>
+			</view>
+		</view>
+		<view class='ticketList'>
+			<text wx:for="{{item.ticket}}" class="ticket-each">{{item.seat_row}}排{{item.seat_col}}座</text>
+		</view>
+	</view>
+</view>
+<!-- 取消 -->
+
+<view wx:if="{{show==1}}">
+	<view class="wrap" wx:for="{{orderList}}" wx:if="{{item.orderticket_status==1}}" data-id="{{item.orderticket_id}}" bindtap="ordermain">
+		<view class="status">
+			<text style="float: left;">订单状态:</text>
+			<text style="float: right; color: #666;">{{item.orderticket_status==1?'已完成':item.orderticket_status==-1?'已取消':'未支付'}}</text>
+		</view>
+		<view class="movie-list">
+			<image class="movie-hb" src="{{item.play.play_pic}}"></image>
+			<view class='message'>
+				<view class="movie-name">{{item.play.play_name}}</view>
+				<view class="movie-time">{{item.orderticket_time}} </view>
+				<view class="movie-actor">语言:{{item.play.plan_language}}</view>
+				<view class="movie-type">演出厅:{{item.play.room_name}}</view>
+			</view>
+		</view>
+		<view class='ticketList'>
+			<text wx:for="{{item.ticket}}" class="ticket-each">{{item.seat_row}}排{{item.seat_col}}座</text>
+		</view>
+	</view>
+</view>
+<!-- 成功 -->

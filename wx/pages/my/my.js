@@ -77,7 +77,7 @@ Page({
 	},
 	orderList(e){		
 		wx.navigateTo({
-			url:'/pages/orderList/orderList?id='+e.currentTarget.dataset.id
+			url:'/pages/orderList/orderList?style='+e.currentTarget.dataset.id
 		})
 	}
 })

@@ -19,7 +19,6 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function(options) {
-		console.log(options);
 		pageObj = this;
 		ticketid = options.id;
 		selectOrder(options.id);
@@ -36,7 +35,7 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function() {
-
+		selectOrder(ticketid);
 	},
 
 	/**
@@ -112,8 +111,8 @@ Page({
 						showCancel: false,
 						success(res) {
 							if (res.confirm) {
-								wx.switchTab({
-									url: "/pages/index/index"
+								wx.navigateBack({
+									delta: 1
 								})
 							}
 						}

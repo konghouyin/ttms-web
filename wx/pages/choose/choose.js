@@ -4,7 +4,8 @@ let money; //计划的票价
 let arrAll = new Map(); //票
 let arrSale = new Map(); //已经卖出的票
 let arr = [];
-let chooseTicket;
+let chooseTicket= new Map();
+let option;
 Page({
 
 	/**
@@ -20,19 +21,9 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function(options) {
+		option = options;
 		money = options.money;
 		pageObj = this;
-		getTicket(options.id, options.room);
-		pageObj.setData({
-			item: {
-				name: options.name,
-				language: options.language,
-				place: options.place,
-				time: options.time,
-			},
-			money: options.money,
-			moneyAll: 0
-		})
 	},
 
 	/**
@@ -49,7 +40,18 @@ Page({
 		arrAll = new Map(); //票
 		arrSale = new Map(); //已经卖出的票
 		arr = [];
-		chooseTicket = new Map();
+		chooseTicket= new Map();
+		getTicket(option.id, option.room);
+		pageObj.setData({
+			item: {
+				name: option.name,
+				language: option.language,
+				place: option.place,
+				time: option.time,
+			},
+			money: option.money,
+			moneyAll: 0
+		})
 	},
 
 	/**

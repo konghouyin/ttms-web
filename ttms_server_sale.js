@@ -208,7 +208,7 @@ server.get('/ticketList', async function(req, res) {
 
 
 	sqlString = sql.select(['ticket_id', 'seat_id'], 'ticket', 'plan_id=' + sql.escape(obj.id) +
-		' and (ticket_status=1 or (ticket_status=2 and ticket_time > date_sub(NOW(),interval 10 minute)))');
+		' and (ticket_status=1 or (ticket_status=2 and ticket_time > date_sub(NOW(),interval 10 minute) or ticket_status=3))');
 	//查询已卖出的票
 	try {
 		var selectAnsSale = await sql.sever(pool, sqlString);
@@ -425,6 +425,7 @@ server.post('/order', async function(req, res) {
 	});
 })
 //订票
+
 
 server.get('/selectOrder', async function(req, res) {
 	let obj = req.obj;
@@ -645,7 +646,7 @@ server.post('/saleOrder', async function(req, res) {
 
 
 		for (let i = 0; i < arr.length; i++) {
-			let sqlString = sql.update('ticket', ['ticket_status'], ['1'], 'ticket_id=' + sql.escape(arr[i]));
+			let sqlString = sql.update('ticket', ['ticket_status'], ['3'], 'ticket_id=' + sql.escape(arr[i]));
 			await sql.stepsql(connect, sqlString);
 
 			sqlString = sql.insert('sale', ['user_id', 'ticket_id', 'sale_money', 'sale_status', 'sale_time'],

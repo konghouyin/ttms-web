@@ -6,7 +6,8 @@ Page({
      * 页面的初始数据
      */
     data: {
-		orderList:""
+		orderList:"",
+		show:4
     },
 
     /**
@@ -14,6 +15,9 @@ Page({
      */
     onLoad: function (options) {
 		pageObj=this;
+		pageObj.setData({
+			show:options.style
+		})
 		getMessage();
     },
 
@@ -28,7 +32,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+		getMessage();
     },
 
     /**
@@ -68,6 +72,11 @@ Page({
 	ordermain(e){
 		wx.navigateTo({
 			url:'/pages/pay/pay?id='+e.currentTarget.dataset.id
+		})
+	},
+	changeshow(e){
+		pageObj.setData({
+			show:e.currentTarget.dataset.id
 		})
 	}
 })

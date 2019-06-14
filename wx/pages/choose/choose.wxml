@@ -6,17 +6,17 @@
 <scroll-view class="sroll" scroll-x scroll-y>
 	<view class="{{line[0].length<=11 ? 'box':'box-out'}}">
 		<view class="cow">
-			<view wx:for="{{line}}">{{index+1}}</view>
+			<view wx:key="{{index}}" wx:for="{{line}}">{{index+1}}</view>
 		</view>
 		<view class="col-out" wx:if="{{line[0].length>11}}">
-			<view wx:for="{{line[0]}}">{{index+1}}</view>
+			<view wx:key="{{index}}" wx:for="{{line[0]}}">{{index+1}}</view>
 		</view>
 		<view class="wrap">
 			<view class="col" wx:if="{{line[0].length<=11}}">
-				<view wx:for="{{line[0]}}">{{index+1}}</view>
+				<view wx:key="{{index}}" wx:for="{{line[0]}}">{{index+1}}</view>
 			</view>
-			<view class="each-line" wx:for="{{line}}" wx:for-item="each">
-				<image wx:for="{{each}}" bindtap="choose" data-message="{{item}}" src="{{item.seat_status==-1?'':(item.seat_status==0?'/image/seat-empty.png':(item.seat_status==1?'/image/seat-choose.png':(item.seat_status==-2?'/image/seat-sale.png':'')))}}"></image>
+			<view class="each-line" wx:key="{{index}}" wx:for="{{line}}" wx:for-item="each">
+				<image wx:key="{{index}}" wx:for="{{each}}" bindtap="choose" data-message="{{item}}" src="{{item.seat_status==-1?'':(item.seat_status==0?'/image/seat-empty.png':(item.seat_status==1?'/image/seat-choose.png':(item.seat_status==-2?'/image/seat-sale.png':'')))}}"></image>
 			</view>
 		</view>
 	</view>
