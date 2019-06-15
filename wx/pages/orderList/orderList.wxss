@@ -1,40 +1,41 @@
 /* pages/orderList/orderList.wxss */
-page{
+page {
 	background-color: #eee;
 }
 
-.top{
+.top {
 	background-color: #FF2A00;
 	text-align: center;
 	color: #fff;
 	padding: 30rpx;
 }
 
-.show-choose{
+.show-choose {
 	background-color: #fff;
 	display: flex;
 	justify-content: center;
 }
 
-.showmodule{
+.showmodule {
 	padding: 10rpx 20rpx;
 	margin: 10rpx 20rpx 20rpx 20rpx;
 	color: #777;
 }
 
-.active{
-	color:#f40;
+.active {
+	color: #f40;
 	border-bottom: 3rpx solid #f40;
 }
 
-.status{
+.status {
 	border-bottom: 3rpx solid #ccc;
 	font-size: 30rpx;
 	color: #999;
 	padding: 10px 80rpx;
 	overflow: hidden;
 }
-.status>text{
+
+.status>text {
 	display: inline-block;
 }
 
@@ -96,6 +97,15 @@ page{
 	border: 2rpx solid #CCCCCC;
 	color: #00A0E9;
 	font-size: 28rpx;
-	width:120rpx;
-	text-align:center;
+	width: 120rpx;
+	text-align: center;
+}
+
+.empty {
+	top: 40%;
+	position: absolute;
+	width: 70vw;
+	height: 380rpx;
+	margin: 0 15vw;
+
 }

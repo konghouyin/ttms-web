@@ -1,93 +1,98 @@
 // pages/orderList/orderList.js
 let pageObj;
+let model;
+let list; //保存所有订单
 Page({
 
-    /**
-     * 页面的初始数据
-     */
-    data: {
-		orderList:"",
-		show:4
-    },
+	/**
+	 * 页面的初始数据
+	 */
+	data: {
+		orderList: "",
+		show: ''
+	},
 
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function (options) {
-		pageObj=this;
+	/**
+	 * 生命周期函数--监听页面加载
+	 */
+	onLoad: function(options) {
+		pageObj = this;
 		pageObj.setData({
-			show:options.style
+			show: options.style
 		})
+		model = options.style;
+	},
+
+	/**
+	 * 生命周期函数--监听页面初次渲染完成
+	 */
+	onReady: function() {
+
+	},
+
+	/**
+	 * 生命周期函数--监听页面显示
+	 */
+	onShow: function() {
 		getMessage();
-    },
+	},
 
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
+	/**
+	 * 生命周期函数--监听页面隐藏
+	 */
+	onHide: function() {
 
-    },
+	},
 
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-		getMessage();
-    },
+	/**
+	 * 生命周期函数--监听页面卸载
+	 */
+	onUnload: function() {
 
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
+	},
 
-    },
+	/**
+	 * 页面相关事件处理函数--监听用户下拉动作
+	 */
+	onPullDownRefresh: function() {
 
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
+	},
 
-    },
+	/**
+	 * 页面上拉触底事件的处理函数
+	 */
+	onReachBottom: function() {
 
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
+	},
 
-    },
+	/**
+	 * 用户点击右上角分享
+	 */
+	onShareAppMessage: function() {
 
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
-    },
-	ordermain(e){
+	},
+	ordermain(e) {
 		wx.navigateTo({
-			url:'/pages/pay/pay?id='+e.currentTarget.dataset.id
+			url: '/pages/pay/pay?id=' + e.currentTarget.dataset.id
 		})
 	},
-	changeshow(e){
+	changeshow(e) {
+		model = e.currentTarget.dataset.id;
 		pageObj.setData({
-			show:e.currentTarget.dataset.id
+			show: model
 		})
+		findkind();
 	}
 })
 
-function getMessage(){
+
+function getMessage() {
 	try {
 		var value = wx.getStorageSync('userId')
 	} catch (e) {
 		console.log(e)
 	}
-	
+
 	wx.request({
 		url: 'https://www.konghouy.cn/ttmsSale/selectAllOrder',
 		data: {
@@ -99,17 +104,43 @@ function getMessage(){
 		success(res) {
 			console.log(res);
 			let obj = res.data.data;
-			for(let i=0;i<obj.length;i++){
-				obj[i].orderticket_time=new Date(obj[i].orderticket_time).format('yyyy-MM-dd hh:mm:ss')
+			for (let i = 0; i < obj.length; i++) {
+				obj[i].orderticket_time = new Date(obj[i].orderticket_time).format('yyyy-MM-dd hh:mm:ss')
 			}
-			pageObj.setData({
-				orderList:obj
-			})
+			list = obj;
+			findkind();
 		}
 	})
 }
 
-
+function findkind() {
+	let arr = [];
+	if (model == '1') {
+		list.forEach(function(child) {
+			if (child.orderticket_status == 1) {
+				arr.push(child);
+			}
+		})
+	}else if (model == '2'){
+		list.forEach(function(child) {
+			if (child.orderticket_status == -1) {
+				arr.push(child);
+			}
+		})
+	}else if (model == '3'){
+		list.forEach(function(child) {
+			if (child.orderticket_status == 0) {
+				arr.push(child);
+			}
+		})
+	}else{
+		arr=list;
+	}
+	
+	pageObj.setData({
+		orderList:arr
+	})
+}
 
 
 Date.prototype.format = function(fmt) {

@@ -18,6 +18,7 @@ page {
 	justify-content: center;
 	width:100vw;
 	z-index: 2;
+	border-bottom: 4rpx solid #ccc;
 }
 
 .type {
@@ -41,9 +42,9 @@ page {
 	position: absolute;
 	background-size: 100%;
 	right: 0;
-	width: 50rpx;
-	height: 50rpx;
-	border-left: 3rpx solid #aaa;
+	width: 55rpx;
+	height: 60rpx;
+	border-left: 3rpx solid #ccc;
 	padding: 15rpx 25rpx;
 }
 
