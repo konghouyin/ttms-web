@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title> 售票员界面</title>
+    <link rel="stylesheet" type="text/css" href="../css/conductor.css">
+
+
+    <!-- 弹出框 -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+    <!-- Ajax -->
+    <script src="public_Ajax.js" type="text/javascript"></script>
+
+
+</head>
+<body class="mr-content">
+    <div class="content-left">
+        <div class="left-touxiangdiv">
+            <img src="../image/头像.png" alt="头像" class="left-touxiang">
+        </div>  
+        <div class="left-shenfen"> admin </div>
+        <a href="javascript: ;">
+            <div class="left-zhuxiao">注销</div>
+        </a>
+        
+<!-- <script type="text/javascript">
+    var t = new Data();
+
+</script> -->
+        <ul class="liedaohang">
+            <li onclick="changes(0)">售票</li> 
+            <li onclick="changes(1)">退票</li>  
+            <li onclick="changes(2)">查询售票记录</li>
+        </ul>
+    </div>
+
+    <div class="content-right">
+        <div class="right-up">
+            <marquee behavior = "side">流年笑掷，未来可期。</marquee>
+        </div>
+
+        <!-- 售票界面 -->
+        <div class="right-main" id="main0" style="display: block">
+            <div class="main-search">
+                <div class="search-txt">影片名：</div>
+                <input type="search" placeholder="请输入需要查询的影片~">
+                <button class="button" type="button" value="查询" style="background-color: rgb(5, 174, 99);    color: white;">
+                    查询
+                </button>
+                <button  class="button" type="button" value="清空" style="background-color: rgb(245, 243, 243); color:#000">
+                    清空
+                </button>
+            </div>
+
+            <!-- 影片信息 -->
+            <div class="main-all">
+                <div class="all-title"><strong>正在热映</strong></div>
+                <table id="movie-item" style="margin-top: 0px; margin-left: 0px;">
+                    <tr class="tr-daohang">
+                        <td > 海报 </td>
+                        <td > 名称 </td>
+                        <td > 类型 </td>
+                        <td > 详情 </td>
+                    </tr>
+                </table> 
+          
+
+            </div>
+
+            <!-- 影片详情 -->
+            <div id="outbox1" class="movie-xiangqing">
+                <div class="outbox1-title">
+                    影片详情  <p class="guanbi" onclick="closexiangqing()" style="cursor:pointer;">×</p>
+                </div>
+                <div class="outbox1-con">
+                    <div class="outbox1-pic" id="outbox1-infor0"></div>
+                    <div class="outbox1-txt" id="outbox1-infor1"></div>
+                    <div class="outbox1-txt" id="outbox1-infor2"></div>
+                    <div class="outbox1-txt" id="outbox1-infor3"></div>
+                    <div class="outbox1-txt" id="outbox1-infor4"></div>
+                    <div class="outbox1-txt" id="outbox1-infor5"></div>
+                    <div class="outbox1-txt" id="outbox1-infor6"></div>
+                    <div class="outbox1-txt" id="outbox1-infor7"></div>
+                </div>
+            </div>
+
+            <!-- 剧目安排 -->
+            <div class="main-detail" id="main-detail">
+                <div class="jumu-name" id="jumu-name"></div>
+                <hr/>
+                <div class="riqi-daohang" id="riqi-daohang">
+                    <ul>
+                        <li onclick="change(0)" id="riqi1" style="cursor:pointer; color:rgb(5, 174, 99) " ></li>
+                        <li onclick="change(1)" id="riqi2" style="cursor:pointer;" ></li>
+                        <li onclick="change(2)" id="riqi3" style="cursor:pointer;" ></li>
+                    </ul>
+                </div>
+                <hr/>
+                <div class="jumu-all" id="box" style="display: block"> </div>
+                <div class="jumu-all" id="box1" style="display: none;"> </div>
+                <div class="jumu-all" id="box2" style="display: none;"> </div>
+            </div>
+
+            <!-- 座位详情 -->
+
+            <div  class="seat-xiangqing" id="outbox2" style="display:none">
+                <div class="outbox2-title">
+                    座位详情  <p class="guanbi" onclick="closeatxiangqing()" style="cursor:pointer;">×</p>
+                </div>
+                <div class="outbox2-con" id="lala" > </div>
+                <div class="ticket" id="ticket" ></div>
+                <div class="xia">
+                    <div class="zuo" id = "zuo"> 
+                        <div class="zongjia" id="zongjia">总价</div>
+                    </div>
+                    <div class="btn btn-large btn-success"  onclick = "tijiao()">确认购买</div>
+
+                </div>                
+            </div> 
+
+            
+
+
+        </div>
+      
+        <!-- 售票界面结束  退票界面开始-->
+        <div class="right-main" id="main1" style="display:none; background-color: #FFF">
+            <div class=" step "   id="step0" style="display: block">
+                <div class="step-txt"> 输入所退票id</div>
+                <div class="step-jindutiao">
+                    <img src="../image/1.png" class="step-img">
+                </div>
+                <div class="step-con">
+                    <div class="txt1"> 请输入需要退的票的id：</div>
+                    <input class="txt2" id="txt2" type="text"/> 
+                </div>
+                <div class="btn1 btn1-large btn1-success" onclick="changep(0);ticketinfor()" >下一步 </div>
+            </div>
+            <div class=" step "   id="step1" style="display: none">
+                <div class="step-txt"> 所退票相关信息</div>
+                <div class="step-jindutiao">
+                    <img src="../image/2.png" class="step-img2">
+                </div>
+                <div class="step-con">
+                    <div class="piaodexinxi">
+                            
+                            <div class="ticket-infor" id="ticket-playname"></div>
+                            <div class="ticket-infor" id="ticket-startime"></div>
+                            <div class="ticket-infor" id="ticket-money"></div>
+                            <div class="ticket-infor" id="ticket-roomname"></div>
+                            <div class="ticket-infor" id="ticket-seatrow"></div>
+                            <div class="ticket-infor" id="ticket-seatcol"></div>
+
+                    </div>
+                    
+                </div>
+                <div class="btn1 btn1-large btn1-success" onclick="changep(1);ticketinfor()" >下一步 </div>
+
+            </div>
+            <div class=" step "   id="step2" style="display: none">
+                <div class="step-txt"> 退票结果</div>
+                <div class="step-jindutiao">
+                    <img src="../image/3.png" class="step-img">
+                </div>
+                <div class="step-con" id="tuipiaojieguo">
+                    <div class="vic" id="vic" style="display:none;">
+                        退票成功！
+                    </div>
+                    <div class="def" id="def" style="display:none;">
+                        不符合退票条件，退票失败！
+                    </div>
+                    <div class="return">
+                        <img src="../image/返回.png" class="return-img" onclick="fanhui()">
+
+                    </div>
+
+            
+                </div>
+                <!-- <div class="btn1 btn1-large btn1-success" onclick="changep(2)" >下一步 </div> -->
+
+            </div>
+                    
+        </div>
+
+        <!-- 退票界面结束，销售单界面开始 -->
+        <div class="right-main" id="main2" style="display: none;  ">
+            <div class="timetiaojian">
+                <p>起始时间：</p><input id = "start" type="date"  style="margin-left: 30px;float: left;margin-top: 23px;"/>
+                <p>终止时间：</p><input id = "end" type="date" style="margin-left: 30px;float: left;margin-top: 23px;" />
+                <input type="submit" value="查询" onclick="chaxun()" style="margin-left: 30px; margin-top: 20px;"  onclick="financebyid(start,end,id)">
+            </div>
+            <div class="xiaoshou" >
+                <div class="xiaoshou-title" id="xiaoshou-title">
+                    <div class="title-item"  >票id</div>
+                    <div class="title-item"  >票状态</div>
+                    <div class="title-item"  >交易金额</div>
+                    <div class="title-item"  >处理时间</div>
+                    <!-- <div class="title-item"  >备注</div> -->
+                </div>
+                <div class="xiaoshou-con" id="xiaoshou-con"> 
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- 销售单界面结束 -->
+    </div>
+
+
+
+
+
+</body>
+<script src="../js/conductor.js" type="text/javascript">
+
+</script>
+
+</html>
