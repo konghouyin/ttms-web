@@ -1,6 +1,7 @@
-<view class="search-template">
-	<image class="search-icon" src='/image/search.png'></image>
-	<input class="find-movie" maxlength="30" placeholder="找电影" bindtouchend="searchbtn"></input>
+<view class="show-choose">
+	<view class="type {{type?'active':''}}" data-type="{{true}}" bindtap="changetype">正在上映</view>
+	<view class="type {{type?'':'active'}}" data-type="{{false}}" bindtap="changetype">全部影片</view>
+	<image class="search-icon" src='/image/find_out.png' bindtouchend="searchbtn"></image>
 </view>
 <swiper class="swiper-wrap" indicator-dots="true" autoplay="true" interval="3000" circular="true" indicator-color="#ccc"
  indicator-active-color="#fff">

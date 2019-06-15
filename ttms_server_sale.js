@@ -732,7 +732,7 @@ server.post('/cancelOrder', async function(req, res) {
 
 
 		for (let i = 0; i < arr.length; i++) {
-			let sqlString = sql.update('ticket', ['ticket_status'], ['0'], 'ticket_id=' + sql.escape(arr[i]));
+			let sqlString = sql.update('ticket', ['ticket_status'], ['0'], 'ticket_status=2 and ticket_id=' + sql.escape(arr[i]));
 			await sql.stepsql(connect, sqlString);
 		}
 		//恢复票状态

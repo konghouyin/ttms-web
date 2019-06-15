@@ -1,5 +1,6 @@
 // pages/search/search.js
 var Movieindex = new Map();
+let pageObj;
 
 function uniq(array) {
     var back = [];
@@ -57,16 +58,8 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-		var allMovie = JSON.parse(options.allMovie);
-        allMovie.forEach(function(item, index) {
-            query(item.name).forEach(function(child, index) {
-                Movieindex.set(child, item);
-            })
-        })
-		this.setData({
-			allMovie:allMovie
-		})
-		
+		pageObj=this;
+		refreshall();		
     },
 
     /**
@@ -130,6 +123,47 @@ Page({
 		})
 	}
 })
+
+
+function refreshall() {
+	wx.request({
+		url: 'https://www.konghouy.cn/ttmsOperation/playAll',
+		data: {},
+		header: {
+			'content-type': 'application/json' // 默认值
+		},
+		success(res) {
+			let arrAll = [];
+			let arrMain = [];
+			res.data.data.forEach(function(child) {
+				if (child.play_link != "") {
+					arrMain.push({
+						id: child.play_id,
+						image: child.play_link
+					})
+				}
+				arrAll.push({
+					id: child.play_id,
+					pic: child.play_pic,
+					name: child.play_name,
+					time: child.play_length,
+					actor: child.play_performer,
+					type: child.play_type
+				})
+			})
+			
+			arrAll.forEach(function(item, index) {
+			    query(item.name).forEach(function(child, index) {
+			        Movieindex.set(child, item);
+			    })
+			})
+			pageObj.setData({
+				allMovie:arrAll
+			})
+		}
+	})
+}
+//页码数据请求并刷新
 
 
 var strChineseFirstPY =
